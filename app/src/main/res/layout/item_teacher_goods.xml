@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_title"
+        android:text="服务标题显示"
+        android:textColor="@color/black_000000"
+        android:textSize="@dimen/textSize15"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_sub_title"
+        android:text="口语陪练-英语"
+        android:textColor="@color/textColor66"
+        android:textSize="@dimen/text_12"
+        android:layout_below="@id/tv_title"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_alignParentRight="true"
+        android:text="@string/price_at_least"
+        android:textSize="@dimen/text_10"
+        android:textColor="@color/color_red_ff4a26"
+        android:layout_marginRight="18dp"
+        android:layout_centerVertical="true"/>
+</RelativeLayout>

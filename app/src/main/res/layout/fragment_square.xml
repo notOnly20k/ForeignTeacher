@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/black_00">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/title_bar_size"
+    >
+    <TextView
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/tv_choose_city"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:drawablePadding="@dimen/drawable_padding"
+        android:drawableRight="@mipmap/icon_choose_city_yellow"
+        android:gravity="center_vertical"
+        android:paddingLeft="17dp"
+        android:paddingRight="12dp"
+        android:text="ChengDu"
+        android:textColor="@color/yellow_ffcc00"
+        android:textSize="@dimen/text_16" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/style_title_tv_yellow"
+        android:text="@string/feed"
+       android:layout_centerInParent="true"
+        />
+
+    <TextView
+        android:id="@+id/tv_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp"
+        android:background="@mipmap/icon_edit"
+        />
+
+</RelativeLayout>
+    <cn.sinata.xldutils.view.SwipeRefreshRecyclerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rec_square"
+        android:background="@color/white"
+        />
+</LinearLayout>

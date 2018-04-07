@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/android_margin"
+    android:paddingTop="@dimen/android_margin">
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="如果你无法简洁的表达你的想法，那只说明你还不够了解它阿尔伯特·爱因斯坦"
+        android:textColor="@color/black_00"
+        android:textSize="@dimen/textSize15" />
+
+    <TextView
+        android:id="@+id/tv_translation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_content"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/bg_translate"
+        android:paddingBottom="10dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingTop="10dp"
+        android:text="你自己做的决定愈多，你愈能体会你可以自由选择。"
+        android:textColor="@color/color_black_666666"
+        android:textSize="@dimen/text_12"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="13:05"
+        android:layout_below="@id/tv_translation"
+        android:layout_marginTop="10dp"
+        style="@style/style_app_tv_tip"/>
+    <com.xld.foreignteacher.views.NestedGridView
+        android:id="@+id/gv_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_time"
+        android:layout_marginTop="8dp"
+        android:horizontalSpacing="6dp"
+        android:numColumns="3"
+        android:verticalSpacing="7dp"
+        android:visibility="gone" />
+</RelativeLayout>

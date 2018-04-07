@@ -1,0 +1,42 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext.kotlin_version = '1.1.61'
+    ext.compile_sdk_version = 27
+    ext.build_tools_version = '27.0.0'
+    ext.support_library_version = '27.0.1'
+    ext.min_sdk_version = 16
+    ext.android_gradle_version = '3.0.1'
+    ext.version_code = System.getenv("VERSION_CODE")?.toInteger() ?: 1000
+    ext.version_name = System.getenv("VERSION_NAME") ?: "snapshot"
+    ext.app_server_endpoint ="http://www.whynuttalk.com/ForeignTeachers/"
+
+
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }//添加jitpack仓库地址
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:$android_gradle_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }//添加jitpack仓库地址
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

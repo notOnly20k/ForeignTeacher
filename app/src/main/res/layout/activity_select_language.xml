@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rec_languages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_select_a_to_z"/>
+
+        <TextView
+            android:id="@+id/tv_currentChar"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_char_display"
+            android:gravity="center"
+            android:lineSpacingExtra="0dp"
+            android:visibility="gone"
+            tools:text="C"
+            tools:visibility="visible"/>
+
+        <com.xld.foreignteacher.views.SideNavigationView
+            android:id="@+id/sn_sideBar"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:paddingBottom="@dimen/dp_8"
+            android:paddingTop="@dimen/dp_8"/>
+
+    </FrameLayout>
+</LinearLayout>

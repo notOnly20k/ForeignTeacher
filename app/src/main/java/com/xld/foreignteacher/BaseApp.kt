@@ -1,0 +1,56 @@
+package com.xld.foreignteacher
+
+import android.util.Log
+import cn.sinata.xldutils.BaseApplication
+import com.xld.foreignteacher.api.AppApi
+import com.xld.foreignteacher.api.NetWork
+import io.reactivex.schedulers.Schedulers
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import org.slf4j.LoggerFactory
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+
+/**
+ * Created by cz on 3/27/18.
+ */
+class BaseApp: BaseApplication(),AppComponent {
+    override lateinit var appApi: AppApi
+    override lateinit var netWork: NetWork
+
+
+    override fun setSharedPreferencesName(): String {
+        return "pref"
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        instance = this
+        val interceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Log.e("AppApi", message) })
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        val okHttpClient = OkHttpClient.Builder()
+                .readTimeout(16000, TimeUnit.MILLISECONDS)
+                .connectTimeout(16000, TimeUnit.MILLISECONDS)
+                .addInterceptor(interceptor)
+                .build()
+
+        appApi=Retrofit.Builder()
+                .client(okHttpClient)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("http://www.whynuttalk.com/")
+                .build()
+                .create(AppApi::class.java)
+        netWork=NetWork(this,appApi)
+    }
+
+
+    companion object {
+        private val logger = LoggerFactory.getLogger("BaseApp")
+
+        @JvmStatic lateinit var instance: BaseApp
+            private set
+    }
+}

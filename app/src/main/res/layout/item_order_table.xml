@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/black_00">
+
+    <TextView
+        android:id="@+id/tv_tab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:textColor="@color/grey_cccccc"
+        tools:text="@string/orders" />
+
+    <TextView
+        android:id="@+id/barge"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_toRightOf="@id/tv_tab"
+        android:background="@mipmap/brage_red"
+        android:gravity="center"
+        android:layout_marginBottom="12dp"
+        android:textSize="@dimen/text_12"
+        android:paddingBottom="@dimen/dp_4"
+        android:layout_marginLeft="8dp"
+        android:text="2"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

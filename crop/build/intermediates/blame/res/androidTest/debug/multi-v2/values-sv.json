@@ -1,0 +1,36 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/cz/StudioProjects/ForeignTeacher/crop/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-sv/values-sv.xml",
+            "map": [
+                {
+                    "source": "/home/cz/StudioProjects/ForeignTeacher/crop/build/intermediates/bundles/debug/res/values-sv/values-sv.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "100,172,216,290,344",
+                        "endColumns": "71,43,73,53,53",
+                        "endOffsets": "167,211,285,339,393"
+                    }
+                },
+                {
+                    "source": "/home/cz/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.1.aar/b810f5e8cc107fb39b3536dc539718f0/res/values-sv/values-sv.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "7",
+                        "startColumns": "4",
+                        "startOffsets": "398",
+                        "endColumns": "100",
+                        "endOffsets": "494"
+                    }
+                }
+            ]
+        }
+    ]
+}

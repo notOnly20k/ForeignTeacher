@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ArcView">
+        <attr name="arcHeight" />
+        <attr name="arcColor" format="color" />
+    </declare-styleable>
+    <declare-styleable name="InformItemView">
+        <attr name="checked" format="boolean" />
+        <attr name="text" format="string" />
+    </declare-styleable>
+    <declare-styleable name="LinePointView">
+        <attr name="pointLeft" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="AchievementView">
+        <attr name="circleColor" format="color" />
+        <attr name="mainText" format="string" />
+        <attr name="unit" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="StarBarView">
+        <attr name="space_width" format="dimension" />
+        <attr name="star_width" format="dimension" />
+        <attr name="star_height" format="dimension" />
+        <attr name="star_max" format="integer" />
+        <attr name="star_rating" format="float" />
+        <attr name="star_hollow" format="reference" />
+        <attr name="star_solid" format="reference" />
+        <attr name="star_isIndicator" format="boolean" />
+        <attr name="star_orientation" format="enum">
+            <enum name="vertical" value="1" />
+            <enum name="horizontal" value="0" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="SideNavigationView">
+        <attr name="android:textColor" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:scrollbars="none"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:background="@color/black_00"
+        android:layout_height="@dimen/title_bar_size">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            style="@style/BarTitle"
+            android:textColor="@color/yellow_ffcc00"
+            android:text="@string/person_infomation"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:textColor="@color/yellow_ffcc00"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_8"
+            />
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/l_white"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.swifty.dragsquareimage.DraggableSquareView
+                android:id="@+id/drag_square"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/android_margin"
+                android:paddingRight="@dimen/android_margin">
+
+                <TextView
+                    android:id="@+id/tv_person_info"
+                    style="@style/style_title_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/person_infomation" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="100dp"
+                    android:layout_height="3dp"
+                    android:layout_below="@id/tv_person_info"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="1dp"
+                    android:background="@drawable/left_radio_view" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/style_user_info_item"
+                    android:layout_width="106dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view"
+                    android:text="Name" />
+
+                <EditText
+                    android:id="@+id/et_name"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view"
+                    android:layout_toRightOf="@id/tv_name"
+                    android:background="@null"
+                    android:hint="@string/edit_name_hint"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_contact_number"
+                    style="@style/style_user_info_item"
+                    android:layout_width="106dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/et_name"
+                    android:text="Contact Number" />
+
+                <EditText
+                    android:id="@+id/et_ncontact_number"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/et_name"
+                    android:layout_toRightOf="@id/tv_contact_number"
+                    android:background="@null"
+                    android:hint="@string/edit_contact_number_hint"
+                    android:lines="1" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_contact_number"
+                    android:layout_marginBottom="@dimen/android_margin"
+                    android:layout_marginTop="@dimen/android_margin"
+                    android:background="@color/dividing_line_color" />
+
+                <TextView
+                    android:id="@+id/tv_birth"
+                    style="@style/style_user_info_item"
+                    android:layout_width="106dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view2"
+                    android:text="Date of birth" />
+                <TextView
+                    android:id="@+id/tv_birth_edit"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view2"
+                    android:layout_toRightOf="@id/tv_birth"
+                    android:singleLine="true"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:maxLines="1"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_gender"
+                    style="@style/style_user_info_item"
+                    android:layout_width="106dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_birth"
+                    android:text="Gender" />
+
+                <TextView
+                    android:id="@+id/tv_gender_edit"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_birth"
+                    android:layout_toRightOf="@id/tv_gender"
+                    android:singleLine="true"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:maxLines="1"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_current_city"
+                    style="@style/style_user_info_item"
+                    android:layout_width="106dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_gender"
+                    android:text="Current city" />
+
+                <TextView
+                    android:id="@+id/tv_current_city_edit"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_gender"
+                    android:layout_toRightOf="@id/tv_current_city"
+                    android:singleLine="true"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:maxLines="1"
+                    />
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_current_city"
+                    android:layout_marginBottom="@dimen/android_margin"
+                    android:layout_marginTop="@dimen/android_margin"
+                    android:background="@color/dividing_line_color" />
+
+                <TextView
+                    android:id="@+id/tv_nationality"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view3"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:text="Nationality" />
+
+                <TextView
+                    android:id="@+id/tv_nationality_edit"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view3"
+                    android:layout_toRightOf="@id/tv_nationality"
+                    android:singleLine="true"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:maxLines="1"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_language"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_nationality"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:text="Language" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rec_languages"
+                    android:layout_below="@id/tv_language"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_add_languages"
+                    >
+                </android.support.v7.widget.RecyclerView>
+
+                <com.xld.foreignteacher.views.StarBarView
+                    android:id="@+id/star_chinese_level"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:space_width="2dp"
+                    app:star_height="13dp"
+                    app:star_hollow="@mipmap/star_normal"
+                    app:star_isIndicator="true"
+                    app:star_max="5"
+                    app:star_orientation="horizontal"
+                    app:star_rating="4"
+                    app:star_solid="@mipmap/star_selected"
+                    app:star_width="13dp"
+                    android:layout_below="@+id/rec_languages"
+                   android:layout_marginLeft="106dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_chinese_level"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rec_languages"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:text="Chinese level" />
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_chinese_level"
+                    android:layout_marginBottom="@dimen/android_margin"
+                    android:layout_marginTop="@dimen/android_margin"
+                    android:background="@color/dividing_line_color" />
+
+                <TextView
+                    android:id="@+id/tv_introduction"
+                    style="@style/style_user_info_item"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view4"
+                    android:text="Introduction" />
+
+                <EditText
+                    android:id="@+id/er_introduction"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view4"
+                    android:layout_toRightOf="@id/tv_introduction"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:hint="@string/edit_introduction"
+                    />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_00"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <cn.sinata.xldutils.view.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/android_margin">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/inform_reason"
+                android:textColor="@color/color_tv_1a1a1a"
+                android:textSize="@dimen/textSize_18" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <com.xld.foreignteacher.views.InformItemView
+                    android:id="@+id/tv_violation_user_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:text="@string/violation_user_name" />
+
+                <com.xld.foreignteacher.views.InformItemView
+                    android:id="@+id/tv_lewd_or_harassing_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:text="@string/lewd_or_harassing_content" />
+
+                <com.xld.foreignteacher.views.InformItemView
+                    android:id="@+id/tv_fraud"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:text="@string/fraud" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <com.xld.foreignteacher.views.InformItemView
+                    android:id="@+id/tv_false_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:text="@string/false_info" />
+
+                <com.xld.foreignteacher.views.InformItemView
+                    android:id="@+id/tv_ads_promotion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:text="@string/ads_promotion" />
+
+                <com.xld.foreignteacher.views.InformItemView
+                    android:id="@+id/tv_harassing"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:text="@string/harassing" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_other_reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:text="@string/other_reason"
+                android:textColor="@color/color_tv_1a1a1a"
+                android:textSize="@dimen/textSize_18" />
+
+            <EditText
+                android:id="@+id/et_reason"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@drawable/bg_et_reason"
+                android:gravity="top"
+                android:padding="5dp"
+                android:textSize="@dimen/text_12" />
+
+            <TextView
+                android:id="@+id/btn_commit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/login_bg_commit"
+                android:enabled="false"
+                android:gravity="center"
+                android:paddingBottom="17dp"
+                android:paddingTop="17dp"
+                android:text="@string/commit"
+                android:textColor="@color/selector_btn_commit" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

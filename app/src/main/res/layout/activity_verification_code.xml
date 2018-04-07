@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <cn.sinata.xldutils.view.TitleBar
+        android:id="@id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/login_title_top_margin"
+        android:gravity="center">
+
+        <View
+            android:layout_width="7dp"
+            android:layout_height="27dp"
+            android:layout_marginLeft="1dp"
+            android:background="@drawable/left_radio_view" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/style_login_tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@string/log_register_heyllo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="58dp"
+        android:layout_marginRight="58dp"
+        android:orientation="vertical">
+
+        <com.xld.foreignteacher.views.PhoneNumEditText
+            android:id="@+id/et_phone"
+            style="@style/style_login_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:background="@color/white"
+            android:drawableLeft="@mipmap/icon_phone"
+            android:drawablePadding="24dp"
+            android:hint="@string/login_input_phone"
+            android:maxLength="13" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="17dp"
+            android:background="@color/color_gray_divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_verification_code"
+                style="@style/style_login_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:drawableLeft="@mipmap/icon_verification"
+                android:drawablePadding="24dp"
+                android:hint="@string/login_input_verification_code"
+                android:inputType="number"
+                android:maxLength="6" />
+
+            <TextView
+                android:id="@+id/btn_get_verification_code"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/selector_bg_get_verification"
+                android:enabled="false"
+                android:gravity="center"
+                android:text="@string/login_get_verification_code"
+                android:textColor="@color/selector_btn_commit"
+                android:textSize="@dimen/text_12" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btn_login_next"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_btn_commit_height"
+            android:layout_marginTop="41dp"
+            android:background="@drawable/login_bg_commit"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="@string/login_next"
+            android:textColor="@color/selector_btn_commit" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_agreement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="18dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_agreement_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/log_type_register"
+            android:textColor="@color/color_grey_999999"
+            android:textSize="@dimen/text_12" />
+
+        <TextView
+            android:id="@+id/tv_service_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/service_agreement"
+            android:textColor="@color/color_black_666666"
+            android:textSize="@dimen/text_12" />
+
+    </LinearLayout>
+</LinearLayout>

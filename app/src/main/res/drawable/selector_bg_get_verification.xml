@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Style for "8" -->
+    <!-- Add this snippet to layer-list xml in drawable. -->
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <corners android:radius="3dp" />
+            <solid android:color="@color/yellow_ffcc00_alpha" />
+        </shape>
+    </item>
+    <item android:state_enabled="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="3dp" />
+            <solid android:color="@color/yellow_ffcc00" />
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_chat"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/yellow_ffcc00"
+        android:gravity="center"
+        android:text="@string/chat"
+        android:textColor="@color/text_black_222222"
+        android:textSize="18sp" />
+
+    <ScrollView
+        android:layout_above="@id/tv_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="273dp" />
+
+            <LinearLayout
+                android:id="@+id/ll_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/viewpager"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/android_margin" />
+
+            <RelativeLayout
+                android:id="@+id/rl_user_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/viewpager"
+                android:layout_marginLeft="@dimen/android_margin"
+                android:layout_marginRight="@dimen/android_margin">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/iv_user_head"
+                    android:layout_width="47dp"
+                    android:layout_height="47dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/default_head"
+                    fresco:placeholderImageScaleType="fitCenter"
+                    fresco:roundAsCircle="true" />
+
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/iv_user_head"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/iv_user_head"
+                    android:text="Martha Albert"
+                    android:textColor="@color/color_tv_1a1a1a"
+                    android:textSize="@dimen/text_16" />
+
+                <TextView
+                    android:id="@+id/tv_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/tv_user_name"
+                    android:layout_below="@id/tv_user_name"
+                    android:text="22岁"
+                    android:textColor="@color/color_474747"
+                    android:textSize="@dimen/text_12" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_title_card"
+                style="@style/style_title_tv_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_user_info"
+                android:layout_marginLeft="@dimen/android_margin"
+                android:layout_marginTop="30dp"
+                android:text="@string/level" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@id/tv_title_card"
+                android:background="@color/dividing_line_color" />
+
+            <FrameLayout
+                android:id="@+id/fl_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_title_card">
+
+                <com.xld.foreignteacher.views.RadarView
+                    android:id="@+id/score_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    android:layout_marginTop="20dp" />
+
+                <!--<RelativeLayout-->
+                <!--android:id="@+id/rl_card_invisible"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="110dp"-->
+                <!--android:gravity="center_vertical">-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tv_card_invisible"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:text="@string/invisible_card"-->
+                <!--android:textColor="@color/color_grey_999999"-->
+                <!--android:textSize="@dimen/text_13"/>-->
+
+                <!--<com.xld.foreignteacher.views.LinePointView-->
+                <!--android:layout_width="36dp"-->
+                <!--android:layout_height="12px"-->
+                <!--android:layout_marginLeft="6dp"-->
+                <!--android:layout_marginTop="6dp"-->
+                <!--android:layout_toRightOf="@id/tv_card_invisible"-->
+                <!--app:pointLeft="true"/>-->
+
+                <!--<com.xld.foreignteacher.views.LinePointView-->
+                <!--android:layout_width="36dp"-->
+                <!--android:layout_height="12px"-->
+                <!--android:layout_marginRight="6dp"-->
+                <!--android:layout_marginTop="6dp"-->
+                <!--android:layout_toLeftOf="@id/tv_card_invisible"-->
+                <!--app:pointLeft="false"/>-->
+                <!--</RelativeLayout>-->
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_title_achievement"
+                style="@style/style_title_tv_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fl_card"
+                android:layout_marginLeft="@dimen/android_margin"
+                android:layout_marginTop="30dp"
+                android:text="@string/accomplishment" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@id/tv_title_achievement"
+                android:background="@color/dividing_line_color" />
+
+
+            <RelativeLayout
+                android:id="@+id/rl_achievement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_title_achievement">
+
+                <TextView
+                    android:id="@+id/tv_total_learn_time"
+                    style="@style/style_user_info_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:text="@string/total_learning_hour" />
+
+                <TextView
+                    android:id="@+id/tv_learning_time"
+                    style="@style/style_user_info_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_total_learn_time"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:text="685" />
+
+                <TextView
+                    android:id="@+id/tv_teachers"
+                    style="@style/style_user_info_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_80"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:text="@string/teachers" />
+
+                <TextView
+                    android:id="@+id/tv_teachers_count"
+                    style="@style/style_user_info_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/tv_total_learn_time"
+                    android:layout_marginRight="90dp"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:text="88" />
+
+                <TextView
+                    style="@style/style_pinpin_tab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_learning_time"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@drawable/bg_left_yellow"
+                    android:paddingLeft="12dp"
+                    android:text="@string/average_time" />
+
+                <TextView
+                    android:id="@+id/tv_average_time"
+                    style="@style/style_pinpin_tab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/tv_learning_time"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:text="@string/hour_length"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/style_pinpin_tab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_average_time"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_left_yellow"
+                    android:paddingLeft="12dp"
+                    android:text="@string/longest_session" />
+
+                <TextView
+                    android:id="@+id/tv_max_time"
+                    style="@style/style_pinpin_tab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/tv_average_time"
+                    android:layout_marginBottom="60dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/hour_length"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+            <!--<RelativeLayout-->
+            <!--android:layout_marginBottom="30dp"-->
+            <!--android:id="@+id/rl_achievement_invisible"-->
+            <!--android:layout_below="@id/tv_title_achievement"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="110dp"-->
+            <!--android:gravity="center_vertical">-->
+            <!--<TextView-->
+            <!--android:id="@+id/tv_achievement_invisible"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:text="@string/invisible_achievement"-->
+            <!--android:textColor="@color/color_grey_999999"-->
+            <!--android:textSize="@dimen/text_13"/>-->
+
+            <!--<com.xld.foreignteacher.views.LinePointView-->
+            <!--android:layout_width="36dp"-->
+            <!--android:layout_height="12px"-->
+            <!--android:layout_marginLeft="6dp"-->
+            <!--android:layout_marginTop="6dp"-->
+            <!--android:layout_toRightOf="@id/tv_achievement_invisible"-->
+            <!--app:pointLeft="true"/>-->
+
+            <!--<com.xld.foreignteacher.views.LinePointView-->
+            <!--android:layout_width="36dp"-->
+            <!--android:layout_height="12px"-->
+            <!--android:layout_marginRight="6dp"-->
+            <!--android:layout_marginTop="6dp"-->
+            <!--android:layout_toLeftOf="@id/tv_achievement_invisible"-->
+            <!--app:pointLeft="false"/>-->
+            <!--</RelativeLayout>-->
+        </RelativeLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_status_gradient" />
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/android_margin"
+        android:padding="16dp"
+        android:src="@mipmap/back_circle" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/android_margin"
+        android:padding="16dp"
+        android:src="@mipmap/icon_share" />
+
+
+</RelativeLayout>

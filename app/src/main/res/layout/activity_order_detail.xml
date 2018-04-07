@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_00">
+
+    <cn.sinata.xldutils.view.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_below="@id/title_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_60"
+        android:background="@color/white">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/divider_line" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/style_bold_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:layout_marginTop="10dp"
+            android:text="Open your heart to a new day?"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_info"
+            style="@style/style_order_info_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:text="Children English" />
+
+        <TextView
+            android:id="@+id/tv_order_num"
+            style="@style/style_order_info_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_info"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:text="order# 12341241324132412" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_info"
+            android:layout_marginRight="18dp"
+            android:text="@string/price_class"
+            android:textColor="@color/color_red_ff4a26"
+            android:textSize="@dimen/text_12" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tv_price"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/divider_line" />
+
+        <TextView
+            android:id="@+id/tv_attending_clients"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view2"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:layout_marginTop="@dimen/dp_15"
+            android:text="@string/attending_clients" />
+
+        <TextView
+            android:id="@+id/tv_client_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view2"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_toRightOf="@id/tv_attending_clients"
+            android:text="@string/client_count"
+            android:textColor="@color/color_black_666666" />
+
+        <TextView
+            android:id="@+id/tv_class_time"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_client_count"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:layout_marginTop="@dimen/dp_8"
+            android:text="@string/time" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rec_class_time"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_below="@id/tv_client_count"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_toRightOf="@id/tv_attending_clients"
+            android:text="@string/client_count"
+            android:textColor="@color/color_black_666666" />
+
+        <TextView
+            android:id="@+id/tv_location"
+            style="@style/style_order_info_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rec_class_time"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:layout_marginTop="@dimen/dp_8"
+            android:drawableLeft="@drawable/ic_location_on"
+            android:text="chengdu qingyangqu 106" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/rec_class_time"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_2"
+            android:src="@mipmap/location_order" />
+
+        <TextView
+            android:id="@+id/tv_accept"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/tv_location"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:layout_marginTop="@dimen/android_margin"
+            android:background="@drawable/bg_yellow_button"
+            android:gravity="center"
+            android:text="@string/accept"
+            android:textColor="@color/color_black" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_below="@id/tv_accept">
+
+            <TextView
+                android:id="@+id/tv_accept_time"
+                style="@style/style_order_info_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Accept Within :" />
+
+            <TextView
+                android:id="@+id/tv_accept_count"
+                style="@style/style_user_info_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="55'22" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_below="@id/title_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:orientation="vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/iv_head"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@mipmap/default_head"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:roundAsCircle="true" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_5"
+            android:text="Michelle"
+            android:textColor="@color/text_333333"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_5"
+            android:text="@string/ages"
+            android:textColor="@color/color_black_666666"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_f1f1f1"
+    android:orientation="vertical">
+
+    <cn.sinata.xldutils.view.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_teaching"
+        style="@style/style_tv_mine_item"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/title_bar"
+        android:drawableLeft="@mipmap/teachingcertificat"
+        android:drawablePadding="@dimen/android_margin"
+        android:drawableRight="@mipmap/icon_more"
+        android:text="@string/teaching_certificate" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tv_teaching"
+        android:layout_marginLeft="@dimen/android_margin"
+        android:layout_marginRight="@dimen/android_margin"
+        android:layout_marginTop="-1dp"
+        android:background="@color/grey_f1f1f1" />
+
+
+    <TextView
+        android:id="@+id/tv_chinese_level"
+        style="@style/style_tv_mine_item"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_teaching"
+        android:drawableLeft="@mipmap/icon_chinese_level"
+        android:drawablePadding="@dimen/android_margin"
+        android:drawableRight="@mipmap/icon_more"
+        android:text="@string/chinese_level" />
+
+
+    <com.xld.foreignteacher.views.StarBarView
+        android:id="@+id/sbv_starbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_teaching"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="14dp"
+        app:space_width="2dp"
+        app:star_height="13dp"
+        app:star_hollow="@mipmap/star_normal"
+        app:star_isIndicator="true"
+        app:star_max="5"
+        app:star_orientation="horizontal"
+        app:star_rating="4"
+        app:star_solid="@mipmap/star_selected"
+        app:star_width="13dp" />
+
+    <TextView
+        android:id="@+id/tv_native_speaker"
+        style="@style/style_tv_mine_item"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/tv_chinese_level"
+        android:layout_marginTop="@dimen/dp_10"
+        android:drawableLeft="@mipmap/native_speaker"
+        android:drawablePadding="@dimen/android_margin"
+        android:text="@string/native_speaker" />
+
+    <TextView
+        android:layout_below="@id/tv_chinese_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="apply"
+        android:textSize="13sp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="17dp"
+        android:padding="3dp"
+        android:background="@drawable/bg_yellow_button"
+        android:gravity="center"
+        android:textColor="@color/black_00"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tv_native_speaker"
+        android:layout_marginLeft="@dimen/android_margin"
+        android:layout_marginRight="@dimen/android_margin"
+        android:layout_marginTop="-1dp"
+        android:background="@color/grey_f1f1f1" />
+
+    <TextView
+        android:id="@+id/tv_passport"
+        style="@style/style_tv_mine_item"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/tv_native_speaker"
+        android:drawableLeft="@mipmap/passport"
+        android:drawablePadding="@dimen/android_margin"
+        android:drawableRight="@mipmap/icon_more"
+        android:text="@string/passport" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tv_passport"
+        android:layout_marginLeft="@dimen/android_margin"
+        android:layout_marginRight="@dimen/android_margin"
+        android:layout_marginTop="-1dp"
+        android:background="@color/grey_f1f1f1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_native_speaker"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/verified"
+        android:textColor="@color/yellow_ffcc00" />
+
+    <TextView
+        android:id="@+id/tv_visa"
+        style="@style/style_tv_mine_item"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/tv_passport"
+        android:drawableLeft="@mipmap/validvisa"
+        android:drawablePadding="@dimen/android_margin"
+        android:drawableRight="@mipmap/icon_more"
+        android:text="@string/valid_visa" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_passport"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/verified"
+        android:textColor="@color/yellow_ffcc00" />
+
+</RelativeLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/grey_f1f1f1"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent">
+    <cn.sinata.xldutils.view.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/white"
+        android:gravity="top"
+        android:padding="8dp"
+        android:hint="what's on your mind?"
+        android:textSize="12sp"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rec_pic"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_pic"
+        android:paddingLeft="@dimen/android_margin"
+        android:paddingBottom="@dimen/android_margin"
+        >
+    </android.support.v7.widget.RecyclerView>
+    
+    <TextView
+        android:layout_marginTop="@dimen/android_margin"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/dp_5"
+        android:drawableRight="@mipmap/right_arrow"
+        android:drawableLeft="@mipmap/icon_locate"
+        android:drawablePadding="10dp"
+        android:paddingRight="8dp"
+        android:text="Location"
+        android:textSize="15sp"
+        android:textColor="@color/black_00"
+        android:gravity="center_vertical"
+        android:layout_height="45dp" />
+
+
+</LinearLayout>

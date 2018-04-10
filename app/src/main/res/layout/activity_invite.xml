@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_background"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/android_margin"
+            android:drawableRight="@mipmap/icon_back_black"
+            android:padding="16dp" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:src="@mipmap/back"
+            android:text="@string/invite"
+            android:textColor="@color/black_00"
+            android:textSize="@dimen/textSize_20" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/bg_dialog_invite" />
+
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_height="305dp"
+            android:layout_marginLeft="64dp"
+            android:layout_marginTop="42dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="@dimen/android_margin"
+                android:text="My invitation number"
+                android:textColor="@color/black_00"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="@dimen/android_margin"
+                android:text="698954"
+                android:textColor="@color/black_00"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/android_margin"
+                android:layout_marginRight="@dimen/android_margin"
+                android:layout_marginTop="32dp"
+                android:background="@color/grey_f1f1f1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="54dp"
+                android:layout_marginTop="30dp"
+                android:text="App-Invited 32 friends"
+                android:textColor="@color/black_00"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="54dp"
+                android:layout_marginTop="@dimen/android_margin"
+                android:text="Received ￥66 cash reward"
+                android:textColor="@color/black_00"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bg_yellow_button"
+                android:textColor="@color/black_00"
+                android:gravity="center"
+                android:text="Invite friend" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="58dp">
+
+        <EditText
+            android:layout_width="170dp"
+            android:layout_height="42dp"
+            android:background="@drawable/bg_invite_edit"
+            android:gravity="center"
+            android:hint="Enter the invitation number"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_invite_text"
+            android:gravity="center"
+            android:text="@string/ok"
+            android:textColor="@color/black_00"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import cn.sinata.xldutils.fragment.BaseFragment
 import com.xld.foreignteacher.R
-import com.xld.foreignteacher.ext.e
 import com.xld.foreignteacher.ui.order.adapter.SingleOrderFragmentAdapter
 import kotlinx.android.synthetic.main.fragment_single_order.*
 import org.slf4j.LoggerFactory
@@ -61,7 +60,6 @@ class SingleOrderFragment : BaseFragment() {
             }
         })
         for (i in 0 until titles.size) {
-            logger.e { i }
             val tab = tab_order.getTabAt(i)
             tab!!.setCustomView(R.layout.item_order_table)
             tab.customView!!.findViewById<TextView>(R.id.tv_tab).text = titles[i]

@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/translucent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/translucent">
+
     <TextView
         android:id="@+id/tv_chat"
         android:layout_width="match_parent"
@@ -15,15 +16,16 @@
         android:text="@string/chat"
         android:textColor="@color/text_black_222222"
         android:textSize="18sp" />
+
     <ScrollView
-        android:layout_above="@id/tv_chat"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tv_chat">
 
         <RelativeLayout
-            android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewpager"
@@ -37,8 +39,7 @@
                 android:layout_alignBottom="@id/viewpager"
                 android:gravity="right"
                 android:orientation="horizontal"
-                android:paddingRight="@dimen/android_margin"
-              />
+                android:paddingRight="@dimen/android_margin" />
 
             <RelativeLayout
                 android:id="@+id/rl_user_info"
@@ -46,8 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/viewpager"
                 android:layout_marginLeft="@dimen/android_margin"
-                android:layout_marginRight="@dimen/android_margin"
-                >
+                android:layout_marginRight="@dimen/android_margin">
 
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/iv_user_head"
@@ -82,15 +82,15 @@
                     android:textSize="@dimen/text_12" />
 
                 <TextView
-                    android:paddingRight="@dimen/dp_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/tv_user_name"
                     android:layout_alignParentRight="true"
-                    android:text="5.0"
-                    android:gravity="right"
                     android:layout_marginRight="@dimen/android_margin"
                     android:background="@mipmap/score"
+                    android:gravity="right"
+                    android:paddingRight="@dimen/dp_2"
+                    android:text="5.0"
                     android:textColor="@color/yellow_ffcc00"
                     android:textSize="15sp" />
 
@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ll_title_goods"
                 android:layout_margin="@dimen/android_margin"
-                android:dividerHeight="1px"/>
+                android:dividerHeight="1px" />
 
             <TextView
                 android:id="@+id/tv_title_info"
@@ -165,72 +165,83 @@
                 android:layout_below="@id/lv_goods"
                 android:layout_marginLeft="@dimen/android_margin"
                 android:text="@string/info" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_below="@id/tv_title_info"
                 android:background="@color/dividing_line_color" />
+
             <TextView
                 android:id="@+id/tv_country_hint"
+                style="@style/style_tv_teacher_info"
                 android:layout_width="105dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_title_info"
+                android:layout_marginLeft="@dimen/android_margin"
                 android:layout_marginTop="20dp"
-                android:text="@string/country"
-                style="@style/style_tv_teacher_info"
-                android:layout_marginLeft="@dimen/android_margin"/>
+                android:text="@string/country" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="美国"
+                android:layout_alignBottom="@id/tv_country_hint"
                 android:layout_toRightOf="@id/tv_country_hint"
-                android:layout_alignBottom="@id/tv_country_hint"/>
+                android:text="美国" />
+
             <TextView
                 android:id="@+id/tv_identification_hint"
+                style="@style/style_tv_teacher_info"
                 android:layout_width="105dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_country_hint"
+                android:layout_marginLeft="@dimen/android_margin"
                 android:layout_marginTop="20dp"
-                android:text="@string/verification"
-                style="@style/style_tv_teacher_info"
-                android:layout_marginLeft="@dimen/android_margin"/>
+                android:text="@string/verification" />
+
             <LinearLayout
+                android:id="@+id/ll_identification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/tv_identification_hint"
-                android:id="@+id/ll_identification"
                 android:orientation="horizontal">
 
             </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_language_hint"
+                style="@style/style_tv_teacher_info"
                 android:layout_width="105dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_identification_hint"
+                android:layout_marginLeft="@dimen/android_margin"
                 android:layout_marginTop="20dp"
-                android:text="@string/languages"
-                style="@style/style_tv_teacher_info"
-                android:layout_marginLeft="@dimen/android_margin"/>
+                android:text="@string/languages" />
+
             <TextView
                 android:id="@+id/tv_my_language"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="英语、法语、阿拉伯语"
+                android:layout_alignTop="@id/tv_language_hint"
                 android:layout_toRightOf="@id/tv_country_hint"
-                android:layout_alignTop="@id/tv_language_hint"/>
+                android:text="英语、法语、阿拉伯语" />
+
             <TextView
                 android:id="@+id/tv_chinese_hint"
+                style="@style/style_tv_teacher_info"
                 android:layout_width="105dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_language_hint"
+                android:layout_marginLeft="@dimen/android_margin"
                 android:layout_marginTop="20dp"
-                android:text="@string/chinese_level"
-                style="@style/style_tv_teacher_info"
-                android:layout_marginLeft="@dimen/android_margin"/>
+                android:text="@string/chinese_level" />
+
             <com.xld.foreignteacher.views.StarBarView
                 android:id="@+id/sbv_starbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignTop="@id/tv_chinese_hint"
+                android:layout_toRightOf="@id/tv_country_hint"
                 app:space_width="2dp"
                 app:star_height="13dp"
                 app:star_hollow="@mipmap/ic_star_yellow_normal"
@@ -239,49 +250,51 @@
                 app:star_orientation="horizontal"
                 app:star_rating="4"
                 app:star_solid="@mipmap/ic_star_yellow_selected"
-                app:star_width="13dp"
-                android:layout_toRightOf="@id/tv_country_hint"
-                android:layout_alignTop="@id/tv_chinese_hint"/>
+                app:star_width="13dp" />
+
             <TextView
                 android:id="@+id/tv_introduce_hint"
+                style="@style/style_tv_teacher_info"
                 android:layout_width="105dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_chinese_hint"
+                android:layout_marginLeft="@dimen/android_margin"
                 android:layout_marginTop="20dp"
-                android:text="@string/introduction"
-                style="@style/style_tv_teacher_info"
-                android:layout_marginLeft="@dimen/android_margin"/>
+                android:text="@string/introduction" />
+
             <TextView
                 android:id="@+id/tv_self_introduce"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/android_margin"
-                android:text="Summer holiday is coming.I am going to do many things that I want to do. For exampie,first I will jion a soccer club.because I like playing soccer."
-                android:layout_toRightOf="@id/tv_country_hint"
                 android:layout_alignTop="@id/tv_introduce_hint"
-                android:background="@drawable/selector_long_click"/>
-            <TextView
                 android:layout_marginRight="@dimen/android_margin"
-                android:layout_below="@id/tv_self_introduce"
+                android:layout_toRightOf="@id/tv_country_hint"
+                android:background="@drawable/selector_long_click"
+                android:text="Summer holiday is coming.I am going to do many things that I want to do. For exampie,first I will jion a soccer club.because I like playing soccer." />
+
+            <TextView
                 android:id="@+id/tv_translation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/tv_self_introduce"
+                android:layout_marginRight="@dimen/android_margin"
+                android:layout_marginTop="4dp"
                 android:layout_toRightOf="@id/tv_country_hint"
                 android:background="@drawable/bg_translate"
-                android:layout_marginTop="4dp"
                 android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:paddingRight="@dimen/android_margin"
                 android:paddingLeft="@dimen/android_margin"
+                android:paddingRight="@dimen/android_margin"
+                android:paddingTop="10dp"
                 android:text="我喜欢对学员进行引导式教学，在学习口语时，选定话题，大家用英语参与讨论，这样不仅锻炼了他们的口语能力，还激发了他们的英语思维。"
-                android:visibility="gone"
-                />
+                android:visibility="gone" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/dividing_line_color"
+                android:layout_below="@id/tv_translation"
                 android:layout_margin="@dimen/android_margin"
-                android:layout_below="@id/tv_translation"/>
+                android:background="@color/dividing_line_color" />
+
             <LinearLayout
                 android:id="@+id/ll_title_moment"
                 android:layout_width="match_parent"
@@ -289,12 +302,14 @@
                 android:layout_below="@id/tv_translation"
                 android:layout_marginTop="32dp"
                 android:gravity="center_vertical">
+
                 <TextView
                     style="@style/style_title_tv_indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/android_margin"
                     android:text="@string/feeds" />
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1px"
@@ -306,19 +321,22 @@
                     android:layout_marginRight="@dimen/android_margin"
                     android:src="@mipmap/icon_more" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_below="@id/ll_title_moment"
                 android:background="@color/dividing_line_color" />
+
             <com.xld.foreignteacher.views.NestedListView
+                android:id="@+id/lv_moment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/lv_moment"
                 android:layout_below="@id/ll_title_moment"
                 android:layout_marginLeft="@dimen/android_margin"
                 android:layout_marginRight="@dimen/android_margin"
-                android:dividerHeight="1px"/>
+                android:dividerHeight="1px" />
+
             <LinearLayout
                 android:id="@+id/ll_title_evaluate"
                 android:layout_width="match_parent"
@@ -326,19 +344,22 @@
                 android:layout_below="@id/lv_moment"
                 android:layout_marginTop="25dp"
                 android:gravity="center_vertical">
+
                 <TextView
                     style="@style/style_title_tv_indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/android_margin"
                     android:text="@string/user_comment" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:text="@string/evaluate_count"
                     android:textColor="@color/yellow_ffcc00"
-                    android:textSize="@dimen/text_12"
-                    android:layout_marginLeft="8dp"/>
+                    android:textSize="@dimen/text_12" />
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1px"
@@ -350,41 +371,45 @@
                     android:layout_marginRight="@dimen/android_margin"
                     android:src="@mipmap/icon_more" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_below="@id/ll_title_evaluate"
                 android:background="@color/dividing_line_color" />
+
             <com.xld.foreignteacher.views.NestedListView
+                android:id="@+id/lv_evaluate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/lv_evaluate"
+                android:layout_below="@id/ll_title_evaluate"
                 android:layout_marginLeft="@dimen/android_margin"
                 android:layout_marginRight="@dimen/android_margin"
-                android:layout_below="@id/ll_title_evaluate"
-                android:dividerHeight="1px"/>
+                android:dividerHeight="1px" />
         </RelativeLayout>
     </ScrollView>
 
-    <View
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@drawable/bg_status_gradient" />
+        android:background="@drawable/bg_status_gradient"
+       >
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/android_margin"
+            android:padding="16dp"
+            android:src="@mipmap/back_circle" />
 
-    <ImageView
-        android:id="@+id/iv_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/android_margin"
-        android:padding="16dp"
-        android:src="@mipmap/back_circle" />
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/android_margin"
+            android:padding="16dp"
+            android:src="@mipmap/icon_share" />
+    </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/iv_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/android_margin"
-        android:padding="16dp"
-        android:src="@mipmap/icon_share" />
 </RelativeLayout>

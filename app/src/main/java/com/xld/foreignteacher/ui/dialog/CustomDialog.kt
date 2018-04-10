@@ -19,6 +19,7 @@ class CustomDialog : AppCompatDialogFragment() {
     private lateinit var button2: TextView
     private var titleText: String = ""
     private var isShowTitle = true
+    private var isShowButton2 = true
     private var button1Text: String = "Yes"
     private var button2Text: String = "No"
 
@@ -26,16 +27,19 @@ class CustomDialog : AppCompatDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.dialog_order, container, false)
         title = view.findViewById(R.id.tv_title)
-        if (titleText.isNotEmpty()){
-            title.text=titleText
+        if (titleText.isNotEmpty()) {
+            title.text = titleText
         }
-        if (!isShowTitle){
-            title.visibility=View.GONE
+        if (!isShowTitle) {
+            title.visibility = View.GONE
         }
         button1 = view.findViewById(R.id.tv_sure)
         button2 = view.findViewById(R.id.tv_cancel)
-        button1.text=button1Text
-        button2.text=button2Text
+        if (!isShowButton2) {
+            button2.visibility = View.GONE
+        }
+        button1.text = button1Text
+        button2.text = button2Text
         button1.setOnClickListener {
             customDialogListener?.clickButton1(this)
         }
@@ -45,9 +49,14 @@ class CustomDialog : AppCompatDialogFragment() {
 
         return view
     }
-    
+
     fun showtitle(boolean: Boolean): CustomDialog {
-        isShowTitle=boolean
+        isShowTitle = boolean
+        return this
+    }
+
+    fun showButton2(boolean: Boolean): CustomDialog {
+        isShowButton2 = boolean
         return this
     }
 
@@ -76,6 +85,7 @@ class CustomDialog : AppCompatDialogFragment() {
         button1Text = string
         return this
     }
+
     fun setButton2Text(string: String): CustomDialog {
         button2Text = string
         return this

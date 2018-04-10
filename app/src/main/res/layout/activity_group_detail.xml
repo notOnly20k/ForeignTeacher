@@ -1,6 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/img_pic"
+                android:layout_width="match_parent"
+                android:layout_height="273dp" />
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="90dp"
+                android:background="@color/yellow_ffcc00"
+                android:text="¥30/person"
+                android:padding="5dp"
+                android:gravity="center"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/black_000000"
+                android:textSize="@dimen/textSize"
+                />
+            <TextView
+                android:id="@+id/tv_person"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="90dp"
+                android:background="@color/l_white"
+                android:text="15/30"
+                android:layout_toRightOf="@id/tv_price"
+                android:drawableLeft="@mipmap/icon_user_count"
+                android:padding="5dp"
+                android:gravity="center"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textSize="@dimen/textSize"
+                />
+            <RelativeLayout
+                android:id="@+id/rl_content"
+                android:layout_below="@id/img_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/android_margin">
+                <TextView
+                    android:id="@+id/tv_datetime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Timer: 12-15 15:00~16:00"
+                    style="@style/style_course_list_datetime_location"
+                    android:drawableLeft="@mipmap/icon_datetime"
+                    android:layout_marginTop="8dp"
+                    />
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/style_course_list_datetime_location"
+                    android:text="ChengDu high-tech zone tianfu third street"
+                    android:layout_below="@id/tv_datetime"
+                    android:layout_marginTop="5dp"
+                    android:drawableLeft="@mipmap/icon_location_grey"
+                    />
+                <TextView
+                    android:id="@+id/tv_tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/yellow_ffcc00"
+                    android:text="Mark Seven and 13 others have signed up"
+                    android:layout_below="@id/tv_location"
+                    android:layout_marginTop="5dp"
+                    android:textSize="12sp"
+                    />
+                <TextView
+                    android:id="@+id/tv_delete"
+                    android:padding="@dimen/dp_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/android_margin"
+                    android:background="@color/grey_f1f1f1"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:text="Cancel request"
+                    android:textColor="@color/black_00" />
 
-</android.support.constraint.ConstraintLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/rl_content"
+                android:textSize="18sp"
+                android:paddingLeft="@dimen/android_margin"
+                android:paddingRight="@dimen/android_margin"
+                android:paddingBottom="8dp"
+                android:text="What do you think of Christmas?What do you think of Christmas?"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:background="@color/grey_f1f1f1"
+                android:layout_below="@id/rl_content"
+                />
+            <LinearLayout
+                android:layout_below="@id/rl_content"
+                android:layout_marginTop="@dimen/android_margin"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RadioGroup
+                    android:id="@+id/rg_title"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_service_details"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/android_margin"
+                        android:layout_height="30dp"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:background="@drawable/bg_radio_group_tab"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginRight="@dimen/android_margin"
+                        android:textSize="16sp"
+                        android:text="Service Details"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/rb_class_rules"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:button="@null"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bg_radio_group_tab"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginRight="@dimen/android_margin"
+                        android:layout_marginLeft="@dimen/android_margin"
+                        android:textSize="16sp"
+                        android:text="Group class rules"
+                        />
+                </RadioGroup>
+            </LinearLayout>
+            <FrameLayout
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fl_replace"
+                android:layout_below="@+id/rl_content"
+                android:layout_marginTop="50dp" />
+        </RelativeLayout>
+
+    </ScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_status_gradient" />
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/android_margin"
+        android:padding="16dp"
+        android:src="@mipmap/back_circle" />
+
+    <ImageView
+        android:id="@+id/iv_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/android_margin"
+        android:padding="16dp"
+        android:src="@mipmap/icon_share" />
+
+</RelativeLayout>

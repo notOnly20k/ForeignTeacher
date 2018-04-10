@@ -7,9 +7,9 @@
         android:id="@+id/rec_order"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="@dimen/android_margin"
-        android:paddingRight="@dimen/android_margin"
-        tools:listitem="@layout/item_single_order"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        tools:listitem="@layout/item_group_order"
         />
 
 </android.support.constraint.ConstraintLayout>

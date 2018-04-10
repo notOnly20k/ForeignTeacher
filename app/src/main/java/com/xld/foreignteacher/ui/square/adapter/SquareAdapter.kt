@@ -1,8 +1,13 @@
-package com.xld.foreignteacher.ui.square
+package com.xld.foreignteacher.ui.square.adapter
 
 import android.content.Context
+import android.graphics.Typeface
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.RecyclerView
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +21,7 @@ import cn.sinata.xldutils.adapter.LoadMoreAdapter
 import cn.sinata.xldutils.utils.ActivityUtil
 import com.facebook.drawee.view.SimpleDraweeView
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.ui.square.SquareDetailActivity
 import com.xld.foreignteacher.ui.userinfo.TeacherDetailActivity
 import com.xld.foreignteacher.views.NestedGridView
 import org.slf4j.LoggerFactory
@@ -28,7 +34,7 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
 
     private val data: MutableList<String>
     private val activityUtil: ActivityUtil
-    private val logger=LoggerFactory.getLogger("SquareAdapter")
+    private val logger = LoggerFactory.getLogger("SquareAdapter")
 
     init {
         data = ArrayList()
@@ -61,11 +67,11 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == TYPE_NORMAL) {
             val viewHolder = holder as ViewHolder
-            viewHolder.elSquareItem.setOnClickListener{
-                activityUtil.go(SquareDetailActivity::class.java).put("id","").start()
+            viewHolder.elSquareItem.setOnClickListener {
+                activityUtil.go(SquareDetailActivity::class.java).put("id", "").start()
             }
             viewHolder.ivHead.setOnClickListener {
-                activityUtil.go(TeacherDetailActivity::class.java).put("id","").start()
+                activityUtil.go(TeacherDetailActivity::class.java).put("id", "").start()
             }
             viewHolder.tvName.setOnClickListener {
                 //todo 跳用户资料
@@ -94,12 +100,30 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
             viewHolder.gvImg.adapter = SquareImgAdapter(urls, context)
             viewHolder.gvImg.visibility = View.VISIBLE
             //todo 如果有评论就加载
-            //            for ()
-            //            viewHolder.llReplay.addView();
+            viewHolder.llReplay.visibility = View.VISIBLE
+            for (i in 0..3) {
+                val tv = TextView(context)
+                val tag1 = "Mark"
+                val tag2 = "Linda"
+                val reply = SpannableString("$tag1 reply $tag2: Wahu ,nice to meet you la la la la l alal")
+                reply.setSpan(ForegroundColorSpan(context.resources.getColor(R.color.black_00)), 0, tag1.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                reply.setSpan(StyleSpan(Typeface.BOLD), 0, tag1.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                reply.setSpan(ForegroundColorSpan(context.resources.getColor(R.color.black_00)), tag1.length + 6, tag1.length + 8 + tag2.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                reply.setSpan(StyleSpan(Typeface.BOLD), tag1.length + 6, tag1.length + 8 + tag2.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                reply.setSpan(ForegroundColorSpan(context.resources.getColor(R.color.black_00)), tag1.length + 1, tag1.length + 6, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+
+                tv.text = reply
+                viewHolder.llReplay.addView(tv)
+            }
+            val tv_read_more = TextView(context).apply {
+                text = "Read more>>"
+                setTextColor(context.resources.getColor(R.color.yellow_ffcc00))
+            }
+            viewHolder.llReplay.addView(tv_read_more)
         }
     }
 
-    inner class ViewHolder  constructor(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
         @BindView(R.id.iv_head)
         lateinit var ivHead: SimpleDraweeView
         @BindView(R.id.tv_name)

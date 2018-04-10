@@ -10,7 +10,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import cn.sinata.xldutils.utils.ActivityUtil
 import com.xld.foreignteacher.R
-import com.xld.foreignteacher.ui.square.SquareImgAdapter
+import com.xld.foreignteacher.ui.square.adapter.SquareImgAdapter
 import com.xld.foreignteacher.views.NestedGridView
 import java.util.*
 

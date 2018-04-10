@@ -11,8 +11,9 @@ import butterknife.BindView
 import cn.sinata.xldutils.utils.DensityUtil
 import cn.sinata.xldutils.view.TitleBar
 import com.xld.foreignteacher.R
-import com.xld.foreignteacher.ui.report.ReportActivity
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
+import com.xld.foreignteacher.ui.report.ReportActivity
+import com.xld.foreignteacher.ui.square.adapter.SquareDetailAdapter
 
 /**
  * Created by cz on 4/1/18.
@@ -42,7 +43,7 @@ class SquareDetailActivity : BaseTranslateStatusActivity() {
         titleBar.setLeftButton(R.mipmap.back_yellow, { finish() })
         titleBar.addRightButton("report") {
             //todo 传id
-             activityUtil.go(ReportActivity::class.java).put("id", 0).start()
+             activityUtil.go(ReportActivity::class.java).put("id", 0).put("type",ReportActivity.REPORT).start()
         }
         titleBar.getRightButton(0).setTextColor(resources.getColor(R.color.yellow_ffcc00))
         val layoutManager = LinearLayoutManager(this)

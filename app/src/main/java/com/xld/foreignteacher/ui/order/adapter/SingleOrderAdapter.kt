@@ -20,6 +20,7 @@ import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ui.dialog.CustomDialog
 import com.xld.foreignteacher.ui.order.single.OrderDetailActivity
 import com.xld.foreignteacher.ui.order.single.SingleOrderFragment
+import com.xld.foreignteacher.ui.report.DeclinedActivity
 import com.xld.foreignteacher.ui.report.ReportActivity
 import org.slf4j.LoggerFactory
 import java.util.*
@@ -96,6 +97,9 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                     viewHolder.btnCancel.text = "Cancel request"
                     viewHolder.btnCancel.setOnClickListener {
                         activityUtil.go(ReportActivity::class.java).put("id", 0).put("type", ReportActivity.CANCEL_REQUEST).start()
+                    }
+                    viewHolder.btnCancel.setOnClickListener {
+                        activityUtil.go(DeclinedActivity::class.java).start()
                     }
 
                 }

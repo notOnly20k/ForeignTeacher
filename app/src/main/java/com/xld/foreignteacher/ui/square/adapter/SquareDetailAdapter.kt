@@ -1,7 +1,12 @@
-package com.xld.foreignteacher.ui.square
+package com.xld.foreignteacher.ui.square.adapter
 
 import android.content.Context
+import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,6 +63,17 @@ class SquareDetailAdapter(private val context: Context) : LoadMoreAdapter() {
             commentViewHolder.tvName.setCompoundDrawablesWithIntrinsicBounds(null,null,backDra,null)
             commentViewHolder.tvName.compoundDrawablePadding=backDra.minimumHeight/2
             commentViewHolder.ivHead.setOnClickListener { activityUtil.go(StudentDetailActivity::class.java).start() }
+
+            commentViewHolder.llReplay.visibility =View.VISIBLE
+            val tv = TextView(context)
+            val tag1 = "Mark"
+            val reply = SpannableString("$tag1 reply: Wahu ,nice to meet you la la la la l alal")
+            reply.setSpan(ForegroundColorSpan(context.resources.getColor(R.color.black_00)), 0, tag1.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+            reply.setSpan(StyleSpan(Typeface.BOLD), 0, tag1.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+            reply.setSpan(ForegroundColorSpan(context.resources.getColor(R.color.black_00)), tag1.length, tag1.length + 8, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+
+            tv.text = reply
+            commentViewHolder.llReplay.addView(tv)
         }
     }
 

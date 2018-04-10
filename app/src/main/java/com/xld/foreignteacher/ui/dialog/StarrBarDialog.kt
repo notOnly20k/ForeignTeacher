@@ -16,6 +16,7 @@ class StarrBarDialog : AppCompatDialogFragment() {
 
 
     private lateinit var selectStarListener: SelectStarListener
+    private var rating= 0F
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -23,8 +24,10 @@ class StarrBarDialog : AppCompatDialogFragment() {
         view.findViewById<TextView>(R.id.tv_cancel).setOnClickListener {
             dismiss()
         }
+        val starBar=view.findViewById<StarBarView>(R.id.sbv_starbar)
+        starBar.setStarRating(rating)
         view.findViewById<TextView>(R.id.tv_ok).setOnClickListener {
-            selectStarListener.onOkClick( view.findViewById<StarBarView>(R.id.sbv_starbar).getSartRating())
+            selectStarListener.onOkClick( starBar.getSartRating())
             dismiss()
         }
         return view
@@ -44,6 +47,11 @@ class StarrBarDialog : AppCompatDialogFragment() {
         window.attributes = wlp
 
         return dialog
+    }
+
+
+    fun setRating(rating:Float){
+        this.rating=rating
     }
 
 

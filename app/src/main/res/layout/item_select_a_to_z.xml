@@ -8,9 +8,9 @@
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:visibility="gone"
-        android:background="@color/grey_cccccc"
-        android:textColor="@color/black_00"
+
+        android:background="@color/color_gray_divider"
+        android:textColor="@color/color_grey_999999"
         android:gravity="center_vertical"
         android:textSize="@dimen/textSize_18"
         android:paddingLeft="@dimen/android_margin"
@@ -31,7 +31,7 @@
             android:gravity="center_vertical"
             android:text="English"
             android:textColor="@color/black_00"
-            android:textSize="@dimen/textSize_18" />
+            android:textSize="15sp" />
 
         <View
             android:layout_width="match_parent"

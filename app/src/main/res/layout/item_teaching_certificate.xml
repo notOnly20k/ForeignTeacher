@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="41dp">
+    <TextView
+        android:id="@+id/tv_attestation"
+        android:text="XX attestation"
+        style="@style/style_tv_mine_item"
+        android:drawableRight="@mipmap/icon_more"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/android_margin"
+        android:layout_marginRight="@dimen/android_margin"
+        android:background="@color/grey_f1f1f1"
+        />
+
+</LinearLayout>

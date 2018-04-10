@@ -2,7 +2,6 @@ package com.xld.foreignteacher.views
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.support.v4.widget.SwipeRefreshLayout
@@ -26,7 +25,7 @@ class SideNavigationView @JvmOverloads constructor(context : Context,
 
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.SideNavigationView, defStyleAttr, 0)
-        textPaint.color = typedArray.getColor(R.styleable.SideNavigationView_android_textColor, Color.YELLOW)
+        textPaint.color = typedArray.getColor(R.styleable.SideNavigationView_android_textColor, resources.getColor(R.color.yellow_ffcc00))
         typedArray.recycle()
 
         textPaint.textAlign = Paint.Align.CENTER

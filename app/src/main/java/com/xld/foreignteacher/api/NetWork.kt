@@ -2,6 +2,7 @@ package com.xld.foreignteacher.api
 
 
 import com.xld.foreignteacher.AppComponent
+import com.xld.foreignteacher.api.dto.City
 import com.xld.foreignteacher.api.dto.Language
 import com.xld.foreignteacher.api.dto.User
 import com.xld.foreignteacher.ext.e
@@ -71,7 +72,6 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .resetPwd(key!!)
                 .toNetWork()
                 .toMaybe()
-                .toNetWork()
                 .map { it.check() }
                 .logErrorAndForget(Throwable::toast)
     }
@@ -83,7 +83,6 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .addInviteCode(key!!)
                 .toNetWork()
                 .toMaybe()
-                .toNetWork()
                 .map { it.check() }
                 .logErrorAndForget(Throwable::toast)
     }
@@ -95,7 +94,6 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .checkPassWord(key!!)
                 .toNetWork()
                 .toMaybe()
-                .toNetWork()
                 .map { it.check() }
                 .logErrorAndForget(Throwable::toast)
     }
@@ -107,7 +105,6 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .checkPassWord(key!!)
                 .toNetWork()
                 .toMaybe()
-                .toNetWork()
                 .map { it.check() }
                 .logErrorAndForget(Throwable::toast)
     }
@@ -118,9 +115,30 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .getLanguage(key)
                 .toNetWork()
                 .toMaybe()
-                .toNetWork()
                 .map { it.check() }
                 .logErrorAndForget(Throwable::toast)
     }
+
+    fun getOpenedCity(): Maybe<List<City>> {
+        val key = DES.encryptDES("server=/app/userFight/getOpenCity?")
+        return appComponent.appApi
+                .getOpenCity(key)
+                .toNetWork()
+                .toMaybe()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    fun getNotOpenCity(): Maybe<List<City>> {
+        val key = DES.encryptDES("server=/app/userFight/getNotOpenCity?")
+        return appComponent.appApi
+                .getNotOpenCity(key)
+                .toNetWork()
+                .toMaybe()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+
 
 }

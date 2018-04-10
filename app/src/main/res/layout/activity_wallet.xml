@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_00">
+
+    <TextView
+        android:id="@+id/tv_transactions"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_size"
+        android:gravity="right|center_vertical"
+        android:paddingRight="@dimen/android_margin"
+        android:text="Transactions"
+        android:textColor="@color/yellow_ffcc00"
+        android:textSize="14sp" />
+    <TextView
+        android:id="@+id/tv_money"
+        android:text="100.00"
+        android:textStyle="bold"
+        android:textColor="@color/yellow_ffcc00"
+        android:textSize="35sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv_transactions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_balance"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_centerHorizontal="true"
+        android:text="Balance"
+        android:textSize="12sp"
+        android:layout_below="@id/tv_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/yellow_ffcc00"
+        />
+
+    <TextView
+        android:id="@+id/tv_withdraw_details"
+        android:layout_centerHorizontal="true"
+        android:text="Withdraw Details"
+        android:textSize="12sp"
+        android:layout_marginTop="@dimen/android_margin"
+        android:layout_below="@id/tv_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey_cccccc"
+        />
+
+    <FrameLayout
+        android:id="@+id/ll_backgroud"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:background="@drawable/bg_layout_mine"
+        android:orientation="vertical"></FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_count"
+        android:layout_marginTop="-30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_backgroud"
+        android:paddingLeft="@dimen/android_margin"
+        android:paddingRight="@dimen/android_margin"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="12dp">
+
+            <TextView
+                android:id="@+id/tv_monthly_income_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="382.00"
+                android:textColor="@color/black_00"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Monthly income"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="12dp">
+
+            <TextView
+                android:id="@+id/tv_total_income_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="6832.00"
+                android:textColor="@color/black_00"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Total income"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="12dp">
+
+            <TextView
+                android:id="@+id/tv_weekly_average_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="182.00"
+                android:textColor="@color/black_00"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Weekly average"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_with_draw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_count"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:layout_marginRight="@dimen/android_margin"
+            android:background="@color/grey_f1f1f1" />
+
+        <TextView
+            android:id="@+id/tv_with_draw"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="Withdraw"
+            android:textColor="@color/yellow_ffcc00"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ll_with_draw"
+        android:background="@color/grey_f1f1f1">
+
+        <TextView
+            android:id="@+id/tv_minmum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/android_margin"
+            android:text="@string/minmum"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/tv_minmum"
+            android:layout_centerHorizontal="true"
+            android:text="Every Friday 9:00am-11:59pm"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

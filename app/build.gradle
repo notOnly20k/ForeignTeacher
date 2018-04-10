@@ -88,6 +88,7 @@ dependencies {
     compile 'com.github.chaychan:BottomBarLayout:1.1.1'
     compile 'com.youth.banner:banner:1.4.10'
     compile 'com.github.Hitomis:CrazyShadow:v1.0.1'
+    compile 'com.hyman:flowlayout-lib:1.1.2'
 
 
     implementation 'sk.baka.slf4j:slf4j-handroid:1.7.26'

@@ -95,7 +95,7 @@ class LoginActivity : BaseTranslateStatusActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onResume() {
         super.onResume()
-        // requestPermissions()
+        requestPermissions()
     }
 
     fun requestPermissions() {
@@ -154,7 +154,7 @@ class LoginActivity : BaseTranslateStatusActivity() {
                         }
             }
             R.id.tv_login_forget_pwd -> {
-                activityUtil.go(EditTeacherInfoActivity::class.java).start()
+                activityUtil.go(EditTeacherInfoActivity::class.java).put("type",EditTeacherInfoActivity.SAVE).start()
 //                activityUtil.go(VerificationCodeActivity::class.java)
 //                        .put(VerificationCodeActivity.FUNC_TYPE, VerificationCodeActivity.TYPE_FORGET)
 //                        .start()

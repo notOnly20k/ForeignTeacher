@@ -58,7 +58,17 @@
         <activity android:name=".ui.userinfo.StudentDetailActivity"/>
         <activity android:name=".ui.userinfo.TeacherDetailActivity"/>
         <activity android:name=".ui.order.single.OrderDetailActivity"/>
-        <activity android:name=".ui.userinfo.SelectLanguageActivity"/>
+        <activity android:name=".ui.userinfo.SelectLanguageActivity" android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".ui.order.group.GroupDetailActivity"/>
+        <activity android:name=".ui.report.DeclinedActivity"/>
+        <activity android:name=".ui.square.SquareCityActivity"/>
+        <activity android:name=".ui.square.MomentActivity"/>
+        <activity android:name=".ui.mine.verification.VerificationActivity"/>
+        <activity android:name=".ui.mine.verification.TeachingCertificateActivity"/>
+        <activity android:name=".ui.mine.verification.UpLoadIdActivity"/>
+        <activity android:name=".ui.mine.wallet.WalletActivity"/>
+        <activity android:name=".ui.mine.wallet.WithDrawActivity"/>
+        <activity android:name=".ui.mine.invite.InviteActivity"/>
     </application>
 
 </manifest>

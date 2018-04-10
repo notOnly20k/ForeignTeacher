@@ -1,6 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="16dp"
+    android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_pinpin_img"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/course_height"
+        android:layout_marginTop="16dp"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImage="@color/color_place_holder"
+        fresco:roundedCornerRadius="10dp" />
+
+    <TextView
+        android:id="@+id/tv_pinpin_price"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_alignTop="@id/iv_pinpin_img"
+        android:background="@mipmap/bg_yellow"
+        android:gravity="center"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="¥30/person"
+        android:textColor="@color/black_000000"
+        android:textSize="@dimen/text_10"/>
+
+    <TextView
+        android:id="@+id/tv_pinpin_person_count"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:layout_alignTop="@id/iv_pinpin_img"
+        android:layout_toRightOf="@id/tv_pinpin_price"
+        android:background="@color/white"
+        android:drawableLeft="@mipmap/icon_user_count"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="13dp"
+        android:textSize="@dimen/text_10"
+        android:textColor="@color/color_black_666666"
+        android:text="13/15" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/iv_pinpin_img"
+        android:layout_alignParentRight="true"
+        android:text="For sale after: 01:23:44"
+        android:layout_margin="6dp"
+        android:textSize="@dimen/text_12"
+        android:gravity="center"
+        android:textColor="@color/yellow_ffcc00_alpha"
+        android:id="@+id/tv_timer"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv_pinpin_img"
+        android:layout_marginBottom="10dp"
+        android:text="1111111111111111111111111111111111111111111111111"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:id="@+id/tv_pinpin_tile"/>
+
+    <TextView
+        android:id="@+id/tv_datetime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Timer: 12-15 15:00~16:00"
+        android:layout_below="@id/tv_pinpin_tile"
+        style="@style/style_course_list_datetime_location"
+        android:drawableLeft="@mipmap/icon_datetime"
+        android:layout_marginTop="8dp"
+        />
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/style_course_list_datetime_location"
+        android:text="ChengDu high-tech zone tianfu third street"
+        android:layout_below="@id/tv_datetime"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@mipmap/icon_location_grey"
+      />
+    <TextView
+        android:id="@+id/tv_delete"
+        android:padding="@dimen/dp_4"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/android_margin"
+        android:background="@color/grey_f1f1f1"
+        android:layout_below="@+id/tv_pinpin_tile"
+        android:gravity="center"
+        android:text="@string/delete"
+        android:textColor="@color/black_00" />
+
+</RelativeLayout>

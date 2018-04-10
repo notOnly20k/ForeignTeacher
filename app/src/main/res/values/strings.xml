@@ -81,5 +81,19 @@
     <string name="time">Time</string>
     <string name="accept">Accept</string>
     <string name="comfire_and_accept_order">Comfire and accept order</string>
+    <string name="error_pic_type">Error picture</string>
+    <string name="wallet">Wallet</string>
+    <string name="invite">Invite</string>
+    <string name="comment">Comment</string>
+    <string name="share_to_friends">Share to friends</string>
+    <string name="about_us">About us</string>
+    <string name="settings">Settings</string>
+    <string name="teaching_certificate">Teaching certificate</string>
+    <string name="native_speaker">Native Speaker</string>
+    <string name="passport">Passport</string>
+    <string name="valid_visa">Valid visa</string>
+    <string name="verified">verified</string>
+    <string name="minmum">Minmum ￥%1$f</string>
+    <string name="with_draw">Withdraw</string>
 
 </resources>

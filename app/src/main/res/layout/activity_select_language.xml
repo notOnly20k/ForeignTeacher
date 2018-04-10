@@ -1,11 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_size"
+        android:background="@color/black_00">
+
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/android_margin"
+            android:text="@string/cancel"
+            android:textColor="@color/yellow_ffcc00"
+            android:textSize="@dimen/textSize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:singleLine="true"
+            android:text="@string/languages"
+            android:textColor="@color/yellow_ffcc00"
+            android:textSize="@dimen/textSize_20" />
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/android_margin"
+            android:background="@mipmap/icon_search_yellow"
+            android:gravity="center" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_search_bar"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="@dimen/title_bar_size"
+        android:background="@color/black_00">
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/icon_search"
+            android:hint="Search for languages"
+            android:background="@drawable/bg_search_edittext"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:textColor="@color/black_00"
+            android:textSize="@dimen/textSize" />
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@string/cancel"
+            android:textColor="@color/yellow_ffcc00"
+            android:textSize="@dimen/textSize" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_city_bar"
+        android:background="@color/black_00"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="@dimen/title_bar_size">
+
+        <TextView
+            android:id="@+id/tv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:background="@mipmap/icon_close_yellow"/>
+        <TextView
+            android:id="@+id/tv_search_city"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="Current city"
+            android:gravity="center_vertical"
+            android:layout_marginRight="@dimen/android_margin"
+            android:drawableLeft="@mipmap/icon_search"
+            android:paddingLeft="@dimen/android_margin"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bg_search_edittext"
+            android:layout_marginLeft="35dp"
+            />
+    </LinearLayout>
+
     <FrameLayout
+        android:id="@+id/fl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -13,7 +118,7 @@
             android:id="@+id/rec_languages"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_select_a_to_z"/>
+            tools:listitem="@layout/item_select_a_to_z" />
 
         <TextView
             android:id="@+id/tv_currentChar"
@@ -25,15 +130,23 @@
             android:lineSpacingExtra="0dp"
             android:visibility="gone"
             tools:text="C"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
 
         <com.xld.foreignteacher.views.SideNavigationView
             android:id="@+id/sn_sideBar"
             android:layout_width="24dp"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:paddingBottom="@dimen/dp_8"
-            android:paddingTop="@dimen/dp_8"/>
+            android:paddingBottom="24dp"
+            android:paddingTop="24dp" />
+        <FrameLayout
+            android:id="@+id/fl_translucent"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:background="@color/half_translucent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
 
     </FrameLayout>
 </LinearLayout>

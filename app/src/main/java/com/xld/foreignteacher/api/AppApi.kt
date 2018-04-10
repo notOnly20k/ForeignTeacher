@@ -1,5 +1,6 @@
 package com.xld.foreignteacher.api
 
+import com.xld.foreignteacher.api.dto.City
 import com.xld.foreignteacher.api.dto.Dto
 import com.xld.foreignteacher.api.dto.Language
 import com.xld.foreignteacher.api.dto.User
@@ -45,4 +46,10 @@ interface AppApi {
 
     @POST("ForeignTeachers/app/server")
     fun getLanguage(@Query("key") key: String): Single<Dto<List<Language>>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getOpenCity(@Query("key") key: String): Single<Dto<List<City>>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getNotOpenCity(@Query("key") key: String): Single<Dto<List<City>>>
 }

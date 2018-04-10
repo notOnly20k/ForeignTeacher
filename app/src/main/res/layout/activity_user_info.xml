@@ -14,6 +14,7 @@
         android:background="@color/black_00"
         android:layout_height="@dimen/title_bar_size">
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -22,6 +23,7 @@
             android:text="@string/person_infomation"
             />
         <TextView
+            android:id="@+id/tv_title_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/save"
@@ -45,7 +47,22 @@
             <com.swifty.dragsquareimage.DraggableSquareView
                 android:id="@+id/drag_square"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                />
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="273dp" />
+
+            <LinearLayout
+                android:id="@+id/ll_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/viewpager"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/android_margin" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

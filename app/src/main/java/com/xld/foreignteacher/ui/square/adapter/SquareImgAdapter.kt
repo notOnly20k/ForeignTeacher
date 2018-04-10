@@ -1,4 +1,4 @@
-package com.xld.foreignteacher.ui.square
+package com.xld.foreignteacher.ui.square.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

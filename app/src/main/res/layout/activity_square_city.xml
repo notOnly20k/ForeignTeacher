@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_city_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_size"
+        android:background="@color/black_00"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:background="@mipmap/icon_close_yellow" />
+
+        <TextView
+            android:id="@+id/tv_search_city"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="@dimen/android_margin"
+            android:layout_weight="1"
+            android:background="@drawable/bg_search_edittext"
+            android:drawableLeft="@mipmap/icon_search"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/android_margin"
+            android:text="Current city" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_size"
+        android:background="@color/black_00"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:layout_weight="1"
+            android:background="@drawable/bg_search_edittext"
+            android:drawableLeft="@mipmap/icon_search"
+            android:hint="Please enter current city"
+            android:textColor="@color/black_00"
+            android:textSize="@dimen/textSize" />
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:singleLine="true"
+            android:text="@string/cancel"
+            android:textColor="@color/yellow_ffcc00"
+            android:textSize="@dimen/textSize" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_locate_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/dp_20"
+                android:drawableLeft="@mipmap/icon_location"
+                android:drawablePadding="12dp"
+                android:text="ChengDu"
+                android:textColor="@color/color_tv_1a1a1a"
+                android:textSize="@dimen/textSize_18"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_title_open"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/color_tv_1a1a1a"
+                android:textSize="@dimen/text_16"
+                android:textStyle="bold"
+                android:text="Opened city" />
+
+            <com.zhy.view.flowlayout.FlowLayout
+                android:id="@+id/fl_opended_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></com.zhy.view.flowlayout.FlowLayout>
+
+            <TextView
+                android:id="@+id/tv_title_not_open"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/color_tv_1a1a1a"
+                android:textSize="@dimen/text_16"
+                android:textStyle="bold"
+                android:text="Open city" />
+
+            <com.zhy.view.flowlayout.FlowLayout
+                android:id="@+id/fl_not_open_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.zhy.view.flowlayout.FlowLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

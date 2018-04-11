@@ -90,9 +90,9 @@ class VerificationCodeActivity : BaseTranslateStatusActivity(), EditEmptyWatcher
     override fun initData() {
         type = null
         when (register_type) {
-            TYPE_REGISTER -> type = "4"
+            TYPE_REGISTER -> type = "5"
             TYPE_FORGET -> type = "6"
-            TYPE_CHANGE_PHONE -> type = "5"
+            TYPE_CHANGE_PHONE -> type = "4"
         }
     }
 
@@ -103,7 +103,9 @@ class VerificationCodeActivity : BaseTranslateStatusActivity(), EditEmptyWatcher
             R.id.btn_get_verification_code -> {
                 appComponent.netWork.sendMsg(etPhone.text.toString().replace("-", ""), type!!)
                         .doOnSubscribe { mCompositeDisposable.add(it) }
-                        .subscribe { _ -> showToast(getString(R.string.msg_sended)) }
+                        .subscribe { code -> showToast(getString(R.string.msg_sended))
+                            etVerificationCode.setText(code)
+                        }
 
                 btnGetVerificationCode.isEnabled = false
                 canSendMsg = false

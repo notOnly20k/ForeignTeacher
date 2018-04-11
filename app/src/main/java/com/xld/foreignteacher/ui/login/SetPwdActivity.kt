@@ -8,13 +8,16 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.OnClick
+import cn.sinata.xldutils.utils.SPUtils
 import cn.sinata.xldutils.utils.Toast
 import cn.sinata.xldutils.view.TitleBar
+import com.google.gson.Gson
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ext.toMD5
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
+import com.xld.foreignteacher.ui.userinfo.EditTeacherInfoActivity
 import com.xld.foreignteacher.views.EditEmptyWatcher
 
 /**
@@ -75,9 +78,11 @@ class SetPwdActivity : BaseTranslateStatusActivity(), EditEmptyWatcher.Checkable
                     appComponent.netWork.register(phone!!,etPwd.text.toString().toMD5())
                             .doOnSubscribe { mCompositeDisposable.add(it) }
                             .doOnLoading{showProgress(it)}
-                            .subscribe { _ ->
+                            .subscribe { user ->
                                 showToast(getString(R.string.register_ok))
-                                activityUtil.go(LoginActivity::class.java).start()
+                                SPUtils.save("user", Gson().toJson(user))
+                                SPUtils.save("id",user.id)
+                                activityUtil.go(EditTeacherInfoActivity::class.java).put("type",EditTeacherInfoActivity.SAVE).start()
                                 finish()
                             }
                 }

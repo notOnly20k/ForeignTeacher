@@ -3,11 +3,18 @@ package com.xld.foreignteacher.ui.userinfo
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import cn.sinata.xldutils.utils.SPUtils
 import com.example.liangmutian.mypicker.DatePickerDialog
 import com.example.liangmutian.mypicker.DateUtil
+import com.google.gson.Gson
 import com.swifty.dragsquareimage.DraggablePresenterImpl
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.api.dto.Language
+import com.xld.foreignteacher.api.dto.User
+import com.xld.foreignteacher.data.AlbumImgUrl
+import com.xld.foreignteacher.ext.appComponent
+import com.xld.foreignteacher.ext.doOnLoading
+import com.xld.foreignteacher.ext.e
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.dialog.CustomDialog
 import com.xld.foreignteacher.ui.dialog.MyActionDialog
@@ -36,9 +43,14 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
     private var languageList = mutableListOf<Language>()
     private lateinit var adapter: StudentPageAdapter
 
+    private var sex: String? = null
+    private var albumList = mutableListOf<AlbumImgUrl>()
+
 
     override fun initView() {
-
+        val user:User=Gson().fromJson(SPUtils.getString("user"),User::class.java)
+        et_contact_number.setText(user.phone)
+        et_name.setText(user.nickName)
         if (intent.getStringExtra("type") == EDIT) {
             val urls = ArrayList<String>()
             urls.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521814228383&di=7f62d8349c5414d66d647e1563fa0631&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F472309f790529822fb05a7e7ddca7bcb0a46d4e4.jpg")
@@ -51,14 +63,21 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
             tv_title_right.setOnClickListener {
                 activityUtil.go(EditTeacherInfoActivity::class.java).put("type", SAVE).start()
             }
+            et_name.isEnabled = false
+            et_contact_number.isEnabled = false
+            languageAdapter = LanguageAdapter(this, emptyList())
+            languageAdapter.isShowFoot(false)
+            rec_languages.adapter = languageAdapter
+            rec_languages.layoutManager = LinearLayoutManager(this).apply { orientation = LinearLayoutManager.VERTICAL }
+
 
         } else {
+            drag_square.visibility = View.VISIBLE
+            viewpager.visibility = View.GONE
+            ll_indicator.visibility = View.GONE
             draggablePresenter = DraggablePresenterImpl(this, drag_square)
             draggablePresenter.setCustomActionDialog(MyActionDialog(this))
 
-            tv_title_right.setOnClickListener {
-                activityUtil.go(EditTeacherInfoActivity::class.java).put("type", EDIT).start()
-            }
 
             tv_gender_edit.setOnClickListener({
                 CustomDialog.Builder()
@@ -68,11 +87,13 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
                         .setDialogListene(object : CustomDialog.CustomDialogListener {
                             override fun clickButton1(customDialog: CustomDialog) {
                                 tv_gender_edit.text = "Male"
+                                sex = "1"
                                 customDialog.dismiss()
                             }
 
                             override fun clickButton2(customDialog: CustomDialog) {
                                 tv_gender_edit.text = "Female"
+                                sex = "2"
                                 customDialog.dismiss()
                             }
 
@@ -115,8 +136,34 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
                     })
                 }.show(supportFragmentManager, "star_dialog")
             }
+
+            tv_title_right.setOnClickListener { SaveTeacher() }
         }
 
+    }
+
+    private fun SaveTeacher() {
+        if (draggablePresenter.imageUrls == null || draggablePresenter.imageUrls.size() == 0 || tv_gender_edit.text.isEmpty()
+                || tv_birth_edit.text.isEmpty() || et_contact_number.text.isEmpty() || et_name.text.isEmpty()) {
+           showToast("error empty")
+            return
+        }
+        var sort = 1
+        for (i in 0 until draggablePresenter.imageUrls.size()) {
+            if (draggablePresenter.imageUrls[i] != null) {
+                sort++
+                albumList.add(AlbumImgUrl(draggablePresenter.imageUrls[i], 1))
+            }
+        }
+
+        val albumImgUrl = albumList.toString()
+        logger.e { Gson().toJson(albumList.toString()) }
+        appComponent.netWork.editTeacher(SPUtils.getInt("id"), et_name.text.toString(), draggablePresenter.imageUrls[0],
+                sex!!, tv_birth_edit.text.toString(), et_contact_number.text.toString(), star_chinese_level.getSartRating().toInt(),
+                personalProfile = er_introduction.text.toString(), albumImgUrl = albumImgUrl
+        ).doOnSubscribe { mCompositeDisposable.add(it) }
+                .doOnLoading { showProgress(it) }
+                .subscribe { }
     }
 
     override fun initData() {
@@ -138,7 +185,6 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
         val builder = DatePickerDialog.Builder(this)
         builder.setOnDateSelectedListener(object : DatePickerDialog.OnDateSelectedListener {
             override fun onDateSelected(dates: IntArray) {
-
                 tv_birth_edit.text = (dates[0].toString() + "-" + (if (dates[1] > 9) dates[1] else "0" + dates[1]) + "-"
                         + if (dates[2] > 9) dates[2] else "0" + dates[2])
 
@@ -148,7 +194,6 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
 
             }
         })
-
                 .setSelectYear(date[0] - 1)
                 .setSelectMonth(date[1] - 1)
                 .setSelectDay(date[2] - 1)

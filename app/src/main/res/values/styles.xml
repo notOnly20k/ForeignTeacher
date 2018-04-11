@@ -6,8 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/black_00</item>
-        <item name="android:windowLightStatusBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
     </style>
@@ -17,7 +15,8 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="Theme_user_info" parent="AppTheme">
+    <style name="Theme_user_info" parent="Theme.AppCompat">
+
     </style>
     <!--避免第一次进来白屏或黑屏-->
     <style name="AppTheme.Splash">
@@ -166,12 +165,12 @@
         <item name="android:textSize">18sp</item>
         <item name="android:layout_marginBottom">6dp</item>
     </style>
+
     <style name="style_title_tv_yellow">
         <item name="android:textColor">@color/yellow_ffcc00</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginBottom">4dp</item>
     </style>
-
 
 
     <style name="style_radio_btn">
@@ -182,7 +181,6 @@
         <item name="android:paddingTop">13dp</item>
         <item name="android:paddingBottom">13dp</item>
     </style>
-
 
 
     <style name="style_teacher_filter">
@@ -221,19 +219,22 @@
         <item name="android:textSize">15sp</item>
         <item name="android:paddingBottom">6dp</item>
     </style>
+
     <style name="style_user_info_label">
         <item name="android:textColor">@color/black_00</item>
         <item name="android:textSize">22sp</item>
         <item name="android:paddingBottom">6dp</item>
     </style>
-    <style name="radio_order_selected" >
+
+    <style name="radio_order_selected">
         <item name="android:gravity">center</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/yellow_ffcc00</item>
         <item name="android:drawableBottom">@mipmap/sport_yellow</item>
         <item name="android:button">@null</item>
     </style>
-    <style name="radio_order_normal" >
+
+    <style name="radio_order_normal">
         <item name="android:gravity">center</item>
         <item name="android:textSize">15dp</item>
         <item name="android:textColor">@color/yellow_ffcc00</item>
@@ -241,8 +242,7 @@
     </style>
 
 
-    <style name="style_order_tablayout">
-    </style>
+    <style name="style_order_tablayout"></style>
 
     <style name="style_course_list_datetime_location">
         <item name="android:textColor">@color/color_black_666666</item>
@@ -261,7 +261,16 @@
         <item name="android:background">@color/white</item>
     </style>
 
+    <style name="navigation_normal_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/navigation_bar_view_height</item>
+        <item name="android:background">#000</item>
+        <item name="android:clipToPadding">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
 
     <dimen name="text_13">13sp</dimen>
+    <dimen name="navigation_bar_view_height">0dp</dimen>
 
 </resources>

@@ -22,7 +22,6 @@ import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.toMD5
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.main.MainActivity
-import com.xld.foreignteacher.ui.userinfo.EditTeacherInfoActivity
 import com.xld.foreignteacher.views.PhoneNumEditText
 
 
@@ -84,11 +83,11 @@ class LoginActivity : BaseTranslateStatusActivity() {
 
     override fun initData() {
         //activityUtil.go(EditTeacherInfoActivity::class.java).start()
-        val id = SPUtils.getInt("id")
-        if (id != -1) {
-            activityUtil.go(MainActivity::class.java).start()
-            finish()
-        }
+//        val id = SPUtils.getInt("id")
+//        if (id != -1) {
+//            activityUtil.go(MainActivity::class.java).start()
+//            finish()
+//        }
 
     }
 
@@ -154,10 +153,10 @@ class LoginActivity : BaseTranslateStatusActivity() {
                         }
             }
             R.id.tv_login_forget_pwd -> {
-                activityUtil.go(EditTeacherInfoActivity::class.java).put("type",EditTeacherInfoActivity.SAVE).start()
-//                activityUtil.go(VerificationCodeActivity::class.java)
-//                        .put(VerificationCodeActivity.FUNC_TYPE, VerificationCodeActivity.TYPE_FORGET)
-//                        .start()
+                //activityUtil.go(EditTeacherInfoActivity::class.java).put("type",EditTeacherInfoActivity.SAVE).start()
+                activityUtil.go(VerificationCodeActivity::class.java)
+                        .put(VerificationCodeActivity.FUNC_TYPE, VerificationCodeActivity.TYPE_FORGET)
+                        .start()
             }
         }
     }

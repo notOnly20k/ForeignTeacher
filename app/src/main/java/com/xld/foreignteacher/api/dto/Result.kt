@@ -52,3 +52,4 @@ data class Language(var eName: String?, var cName: String?, var id: Int, var abN
 }
 
 data class City( var code: String, var name: String, var id: Int = 0)
+

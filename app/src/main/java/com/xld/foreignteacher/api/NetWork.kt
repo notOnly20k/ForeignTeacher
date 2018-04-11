@@ -109,6 +109,56 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .logErrorAndForget(Throwable::toast)
     }
 
+    fun editTeacher(id: Int, nickName: String, imgUrl: String? = null, sex: String, birthDay: String,
+                    contactInformation: String, chineseLevel: Int? = null, nationality: String? = null, languagesId: Int? = null,
+                    openCityId: Int? = null, personalProfile: String? = null, albumImgUrl: String? = null): Maybe<Any> {
+        val imgUrl = if (imgUrl != null) {
+            "imgUrl=$imgUrl"
+        } else {
+            ""
+        }
+        val chineseLevel = if (chineseLevel != null) {
+            "&chineseLevel=$chineseLevel"
+        } else {
+            ""
+        }
+        val nationality = if (nationality != null) {
+            "&nationality=$nationality"
+        } else {
+            ""
+        }
+        val languagesId = if (languagesId != null) {
+            "&languagesId=$languagesId"
+        } else {
+            ""
+        }
+        val openCityId = if (openCityId != null) {
+            "&openCityId=$openCityId"
+        } else {
+            ""
+        }
+        val personalProfile = if (personalProfile != null) {
+            "&personalProfile=$personalProfile"
+        } else {
+            ""
+        }
+        val albumImgUrl = if (albumImgUrl != null) {
+            "&albumImgUrl=$albumImgUrl"
+        } else {
+            ""
+        }
+        val keyCode = "id=$id&nickName=$nickName$imgUrl&sex=$sex&birthDay=$birthDay&contactInformation=$contactInformation" +
+                "$chineseLevel$nationality$languagesId$openCityId$personalProfile$albumImgUrl"
+        logger.e { "updateTeacherInfo==========$keyCode" }
+        val key = DES.encryptDES("server=/app/teacher/updateTeacherInfo?$keyCode")
+        return appComponent.appApi
+                .editTeacherInfo(key!!)
+                .toNetWork()
+                .toMaybe()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
     fun getLanguage(): Maybe<List<Language>> {
         val key = DES.encryptDES("server=/app/userFight/getLanguagesList?")
         return appComponent.appApi
@@ -138,7 +188,6 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .map { it.check() }
                 .logErrorAndForget(Throwable::toast)
     }
-
 
 
 }

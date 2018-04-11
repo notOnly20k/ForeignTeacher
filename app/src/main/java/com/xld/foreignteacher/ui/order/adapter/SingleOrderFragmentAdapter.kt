@@ -8,7 +8,7 @@ import cn.sinata.xldutils.fragment.BaseFragment
 /**
  * Created by cz on 4/3/18.
  */
-class SingleOrderFragmentAdapter(val fm: FragmentManager, val list: List<BaseFragment>,val titles:List<String>) : FragmentPagerAdapter(fm) {
+class SingleOrderFragmentAdapter(val fm: FragmentManager, val list: List<BaseFragment>) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         return list[position]
     }

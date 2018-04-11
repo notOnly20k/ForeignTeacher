@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
+    android:background="@color/black_00"
     xmlns:app="http://schemas.android.com/apk/res-auto">
    <LinearLayout
        android:id="@+id/ll_tab"
@@ -16,8 +17,15 @@
         android:orientation="vertical"
         android:layout_below="@id/ll_tab"
         android:layout_marginTop="-10dp"
+        android:background="@drawable/bg_layout_mine"
         android:layout_width="match_parent"
-        android:background="@drawable/bg_layout_order"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_below="@id/ll_content"
+        android:layout_marginTop="-10dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
     </LinearLayout>
 

@@ -37,7 +37,7 @@ class SingleOrderFragment : BaseFragment() {
         fragmentList.add(SingleOrderListFragment.createInstance(DECLINED))
 
 
-        vp_order.adapter = SingleOrderFragmentAdapter(childFragmentManager, fragmentList, titles)
+        vp_order.adapter = SingleOrderFragmentAdapter(childFragmentManager, fragmentList)
         tab_order.setupWithViewPager(vp_order)
         tab_order.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {

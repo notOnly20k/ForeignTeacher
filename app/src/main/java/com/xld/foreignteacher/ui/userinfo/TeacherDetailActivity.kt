@@ -14,6 +14,8 @@ import com.xld.foreignteacher.util.StatusBarUtil
 import com.xld.foreignteacher.views.ViewPagerIndicator
 import kotlinx.android.synthetic.main.activity_teacher_detail.*
 
+
+
 /**
  * Created by cz on 4/2/18.
  */
@@ -27,6 +29,7 @@ class TeacherDetailActivity: BaseActivity() {
         setContentView(R.layout.activity_teacher_detail)
         ButterKnife.bind(this)
         StatusBarUtil.initStatus2(window)
+        StatusBarUtil.initBarHeight(this,null,fake_status_bar)
         initView()
         initData()
     }

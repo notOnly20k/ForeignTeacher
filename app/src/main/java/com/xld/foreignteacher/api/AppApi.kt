@@ -52,4 +52,7 @@ interface AppApi {
 
     @POST("ForeignTeachers/app/server")
     fun getNotOpenCity(@Query("key") key: String): Single<Dto<List<City>>>
+
+    @POST("ForeignTeachers/app/server")
+    fun editTeacherInfo(@Query("key") key: String): Single<Dto<Any>>
 }

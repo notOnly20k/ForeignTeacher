@@ -61,7 +61,7 @@ public class SwipeRefreshRecyclerLayout extends SwipeRefreshLayout implements Sw
                 if (adapter instanceof LoadMoreAdapter) {
 
                     if (loadMoreView != null) {
-                        loadMoreView.setText("载入更多...");
+                        loadMoreView.setText("Load more...");
                         loadMoreView.setVisibility(View.VISIBLE);
                     }
                     isLoadMore = true;
@@ -110,10 +110,10 @@ public class SwipeRefreshRecyclerLayout extends SwipeRefreshLayout implements Sw
     public void isNoMoreData(boolean noMoreData) {
         if (noMoreData) {
             mRecyclerView.removeOnScrollListener(onScrollListener);
-            setLoadMoreText("暂无更多数据");
+            setLoadMoreText("No more Data");
         }else {
             mRecyclerView.addOnScrollListener(onScrollListener);
-            setLoadMoreText("载入更多...");
+            setLoadMoreText("Load more...");
         }
     }
 
@@ -126,7 +126,7 @@ public class SwipeRefreshRecyclerLayout extends SwipeRefreshLayout implements Sw
             loadMoreView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 //                loadMoreView.setHeight(DensityUtil.dip2px(this,48));
             loadMoreView.setBackgroundColor(Color.WHITE);
-            loadMoreView.setText("载入更多...");
+            loadMoreView.setText("Load more...");
             loadMoreView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
             loadMoreView.setTextColor(getResources().getColor(R.color.textColor));
             loadMoreView.setGravity(Gravity.CENTER);

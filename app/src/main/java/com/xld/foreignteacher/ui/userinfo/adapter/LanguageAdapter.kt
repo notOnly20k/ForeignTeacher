@@ -16,19 +16,24 @@ import com.xld.foreignteacher.api.dto.Language
  */
 class LanguageAdapter(val context: Context, var list: List<Language>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var mOnItemClickListener: OnItemClickListener? = null
+    private var showFoot = true
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         if (holder is LanguageViewHolder) {
             holder.tvLanguage.text = "Language-${CHARS[position+1]}"
             holder.tvLanguageEdit.text = list[position].eName
         } else if (holder is AddLanguageViewHolder) {
-            holder.tvAddLanguage.setOnClickListener {
-                mOnItemClickListener?.onAddItemClick()
-            }
+                holder.tvAddLanguage.setOnClickListener {
+                    mOnItemClickListener?.onAddItemClick()
+                }
         }
     }
 
     override fun getItemCount(): Int {
-        return list.size + 1
+        if (showFoot) {
+            return list.size + 1
+        }else{
+            return list.size
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
@@ -48,6 +53,10 @@ class LanguageAdapter(val context: Context, var list: List<Language>) : Recycler
         } else {
             TYPE_NORMAL
         }
+    }
+
+    fun isShowFoot(boolean: Boolean){
+        showFoot = boolean
     }
 
     class LanguageViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {

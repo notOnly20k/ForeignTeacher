@@ -72,15 +72,15 @@ class SquareDetailActivity : BaseTranslateStatusActivity() {
         when (footerType) {
             TYPE_NODATA -> {
                 loadMoreView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(this, 48f))
-                loadMoreView.text = "暂无评论"
+                loadMoreView.text = "No more comment"
             }
             TYPE_LOADING -> {
                 loadMoreView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                loadMoreView.text = "加载中..."
+                loadMoreView.text = "Loading..."
             }
             TYPE_NOMORE -> {
                 loadMoreView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                loadMoreView.text = "没有更多评论了"
+                loadMoreView.text = "No more comment"
             }
         }
         adapter.setFooterView(loadMoreView)

@@ -1,9 +1,11 @@
 package com.xld.foreignteacher.ui.order.group
 
+import android.os.Bundle
 import android.widget.RadioButton
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ui.H5Fragment
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
+import com.xld.foreignteacher.util.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_group_detail.*
 
 
@@ -18,7 +20,13 @@ class GroupDetailActivity : BaseTranslateStatusActivity() {
     override val contentViewResId: Int
         get() = R.layout.activity_group_detail
     override val changeTitleBar: Boolean
-        get() = true
+        get() = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        StatusBarUtil.initStatus2(window)
+        StatusBarUtil.initBarHeight(this,null,fake_status_bar)
+    }
 
     override fun initView() {
         serviceDetailsFragment = H5Fragment.createInstance("http://weixin.qq.com")

@@ -4,4 +4,8 @@
     <style name="dark_status_bar" parent="AppTheme">
         <item name="android:windowTranslucentStatus">true</item>
     </style>
+
+    <style name="Theme_user_info" parent="AppTheme">
+      <!--//  <item name="android:windowTranslucentStatus">true</item>-->
+    </style>
 </resources>

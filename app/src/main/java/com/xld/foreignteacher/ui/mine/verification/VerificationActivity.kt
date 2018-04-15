@@ -19,7 +19,7 @@ class VerificationActivity: BaseTranslateStatusActivity() {
 
     override fun initView() {
         title_bar.setTitle((R.string.verification).toFormattedString(this))
-        title_bar.titlelayout.setBackgroundResource(R.color.black_00)
+        title_bar.titlelayout.setBackgroundResource(R.color.color_black_1d1e24)
         title_bar.titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
         title_bar.setLeftButton(R.mipmap.back_yellow, { finish() })
 

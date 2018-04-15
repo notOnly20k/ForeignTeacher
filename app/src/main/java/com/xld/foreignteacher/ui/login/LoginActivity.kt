@@ -77,7 +77,7 @@ class LoginActivity : BaseTranslateStatusActivity() {
 
     private fun checkAllEditContext() {
         val pwd = etPwd.text.toString().trim { it <= ' ' }
-        val phone = etPhone.getText().toString().trim()
+        val phone = etPhone.text.toString().trim()
         btnLoginCommit.isEnabled = TextUtils.getTrimmedLength(phone) == 13 && TextUtils.getTrimmedLength(pwd) >= 6
     }
 
@@ -93,8 +93,8 @@ class LoginActivity : BaseTranslateStatusActivity() {
 
     @SuppressLint("MissingSuperCall")
     override fun onResume() {
-        super.onResume()
         requestPermissions()
+        super.onResume()
     }
 
     fun requestPermissions() {
@@ -118,7 +118,8 @@ class LoginActivity : BaseTranslateStatusActivity() {
                         Manifest.permission.CALL_PHONE,
                         Manifest.permission.WAKE_LOCK,
                         Manifest.permission.RECEIVE_BOOT_COMPLETED,
-                        Manifest.permission.CAMERA)
+                        Manifest.permission.CAMERA
+                )
                 .subscribe { permission ->
                     when {
                         permission.granted -> {

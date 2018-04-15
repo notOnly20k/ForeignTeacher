@@ -8,6 +8,8 @@
     <color name="yellow_ffcc00">#ffcc00</color>
     <color name="yellow_ffcc00_alpha">#80ffcc00</color>
     <color name="color_black_666666">#666666</color>
+    <color name="color_black_22242d">#22242d</color>
+    <color name="color_black_1d1e24">#1d1e24</color>
     <color name="color_grey_999999">#999999</color>
     <color name="white_fffae6">#fffae6</color>
     <color name="text_333333">#333333</color>
@@ -24,7 +26,9 @@
     <color name="color_474747">#474747</color>
     <color name="color_place_holder">#ebebeb</color>
     <color name="color_red_ff4a26">#ff4a26</color>
+    <color name="color_red_ff8a00">#ff8a00</color>
     <color name="black_00">#000000</color>
+    <color name="black_2b2b">#2b2b2b</color>
     <color name="color_hint">#cccccc</color>
     <color name="grey_cccccc">#cccccc</color>
     <color name="grey_f1f1f1">#f1f1f1</color>

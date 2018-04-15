@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
+    android:backgroundTint="@color/color_black_22242d"
     android:layout_height="wrap_content"
     android:background="@color/black_00">
 
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_centerInParent="true"
-        android:textColor="@color/grey_cccccc"
+        android:textColor="@drawable/bg_tab_item"
         tools:text="@string/orders" />
 
     <TextView
@@ -20,10 +21,9 @@
         android:layout_height="20dp"
         android:layout_toRightOf="@id/tv_tab"
         android:background="@mipmap/brage_red"
-        android:gravity="center"
+        android:gravity="center|top"
         android:layout_marginBottom="12dp"
         android:textSize="@dimen/text_12"
-        android:paddingBottom="@dimen/dp_4"
         android:layout_marginLeft="8dp"
         android:text="2"
         android:textColor="@color/white" />

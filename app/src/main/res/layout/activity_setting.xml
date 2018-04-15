@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_f1f1f1"
+    android:orientation="vertical">
+
+    <cn.sinata.xldutils.view.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_tel"
+        style="@style/style_tv_mine_item"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/title_bar"
+        android:text="Mobile number" />
+
+    <TextView
+        android:id="@+id/tv_tel_num"
+        style="@style/style_tv_mine_item"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/title_bar"
+        android:layout_marginRight="@dimen/android_margin"
+        android:text="135-8765-4321"
+        android:textColor="@color/yellow_ffcc00" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tv_tel"
+        android:layout_marginLeft="@dimen/android_margin"
+        android:layout_marginRight="@dimen/android_margin"
+        android:layout_marginTop="-1dp"
+        android:background="@color/grey_f1f1f1" />
+
+    <TextView
+        android:id="@+id/tv_change_password"
+        style="@style/style_tv_mine_item"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/tv_tel"
+        android:drawableRight="@mipmap/icon_more"
+        android:text="Change password" />
+
+
+    <TextView
+        android:id="@+id/tv_blocked_list"
+        style="@style/style_tv_mine_item"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/tv_change_password"
+        android:layout_marginTop="@dimen/dp_10"
+        android:drawableRight="@mipmap/icon_more"
+        android:text="Blocked list" />
+
+
+    <TextView
+        android:id="@+id/tv_clear_data"
+        style="@style/style_tv_mine_item"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/tv_blocked_list"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="Clear data" />
+
+    <TextView
+        android:id="@+id/tv_data"
+        style="@style/style_tv_mine_item"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_blocked_list"
+        android:layout_marginRight="@dimen/android_margin"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="66.34Mb" />
+
+
+    <TextView
+        android:id="@+id/tv_logout"
+        style="@style/style_tv_mine_item"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textColor="@color/yellow_ffcc00"
+        android:text="Log out" />
+</RelativeLayout>

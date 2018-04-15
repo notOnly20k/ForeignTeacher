@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.xilada.xldutils.view.SwipeRefreshRecyclerLayout
+    <cn.sinata.xldutils.view.SwipeRefreshRecyclerLayout
         android:id="@+id/mSwipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

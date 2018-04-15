@@ -5,41 +5,44 @@
     android:background="#ffffff"
     android:orientation="vertical">
 
-    <Button
+    <TextView
         android:id="@+id/take_photo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="?android:attr/selectableItemBackground"
-        android:gravity="center"
         android:text="@string/take_photo"
-        android:textColor="@android:color/black"/>
+        android:textColor="@color/text_black_222222"
+        android:gravity="center"
+        android:textSize="15sp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#dddddd"/>
 
-    <Button
+    <TextView
         android:id="@+id/pick_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="?android:attr/selectableItemBackground"
-        android:gravity="center"
         android:text="@string/select_image"
-        android:textColor="@android:color/black"/>
+        android:textColor="@color/text_black_222222"
+        android:gravity="center"
+        android:textSize="15sp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#dddddd"/>
 
-    <Button
+    <TextView
         android:id="@+id/delete"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="?android:attr/selectableItemBackground"
-        android:gravity="center"
         android:text="@string/delete"
-        android:textColor="@android:color/black"/>
+        android:textColor="@color/text_black_222222"
+        android:gravity="center"
+        android:textSize="15sp"/>
 
 </LinearLayout>

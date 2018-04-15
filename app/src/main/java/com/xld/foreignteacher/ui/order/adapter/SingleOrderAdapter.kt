@@ -19,6 +19,8 @@ import com.facebook.drawee.view.SimpleDraweeView
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ui.dialog.CustomDialog
 import com.xld.foreignteacher.ui.order.single.OrderDetailActivity
+import com.xld.foreignteacher.ui.order.single.PendingDetailActivity
+import com.xld.foreignteacher.ui.order.single.RateActivity
 import com.xld.foreignteacher.ui.order.single.SingleOrderFragment
 import com.xld.foreignteacher.ui.report.DeclinedActivity
 import com.xld.foreignteacher.ui.report.ReportActivity
@@ -64,10 +66,18 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == TYPE_NORMAL) {
             val viewHolder = holder as ViewHolder
+            val backDra=context.resources.getDrawable(R.mipmap.icon_woman)
+            backDra.setBounds( backDra.minimumWidth, 0,0 ,backDra.minimumHeight)
+            viewHolder.tvName.setCompoundDrawablesWithIntrinsicBounds(null,null,backDra,null)
+            viewHolder.tvName.compoundDrawablePadding=backDra.minimumHeight/2
             when (type) {
                 SingleOrderFragment.NEW_ORDERS -> {
+                    viewHolder.tvPromotion.visibility = View.VISIBLE
                     viewHolder.cvItem.setOnClickListener {
                         activityUtil.go(OrderDetailActivity::class.java).start()
+                    }
+                    viewHolder.btnCancel.setOnClickListener {
+                        activityUtil.go(DeclinedActivity::class.java).start()
                     }
 
                     viewHolder.btnAccept.setOnClickListener {
@@ -88,6 +98,9 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                     }
                 }
                 SingleOrderFragment.PENDING -> {
+                    viewHolder.cvItem.setOnClickListener {
+                        activityUtil.go(PendingDetailActivity::class.java).start()
+                    }
                     viewHolder.tvAccept.visibility = View.GONE
                     viewHolder.tvAcceptCount.visibility = View.GONE
                     viewHolder.imgCall.visibility = View.VISIBLE
@@ -98,9 +111,6 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                     viewHolder.btnCancel.setOnClickListener {
                         activityUtil.go(ReportActivity::class.java).put("id", 0).put("type", ReportActivity.CANCEL_REQUEST).start()
                     }
-                    viewHolder.btnCancel.setOnClickListener {
-                        activityUtil.go(DeclinedActivity::class.java).start()
-                    }
 
                 }
                 SingleOrderFragment.FINISHED -> {
@@ -108,18 +118,72 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                     viewHolder.tvAcceptCount.visibility = View.GONE
                     viewHolder.btnCancel.text = "Delete"
                     viewHolder.btnAccept.text = "Rate"
+                    viewHolder.btnAccept.setOnClickListener {
+                        activityUtil.go(RateActivity::class.java).start()
+                    }
+                    viewHolder.btnCancel.setOnClickListener {
+                        CustomDialog.Builder()
+                                .create()
+                                .setTitle(context.getString(R.string.delete_record))
+                                .setDialogListene(object : CustomDialog.CustomDialogListener {
+                                    override fun clickButton1(customDialog: CustomDialog) {
+                                        customDialog.dismiss()
+                                    }
+
+                                    override fun clickButton2(customDialog: CustomDialog) {
+                                        customDialog.dismiss()
+                                    }
+
+                                })
+                                .show(fragmentManager, "delete")
+                    }
                 }
                 SingleOrderFragment.CANCELED -> {
                     viewHolder.tvAttendingClient.text = "Me-Cancellation Reasons"
                     viewHolder.tvAcceptCount.visibility = View.GONE
                     viewHolder.tvCancelReason.visibility = View.VISIBLE
                     viewHolder.btnCancel.text = "Delete"
+                    viewHolder.btnAccept.visibility=View.GONE
+                    viewHolder.btnCancel.setOnClickListener {
+                        CustomDialog.Builder()
+                                .create()
+                                .setTitle(context.getString(R.string.delete_record))
+                                .setDialogListene(object : CustomDialog.CustomDialogListener {
+                                    override fun clickButton1(customDialog: CustomDialog) {
+                                        customDialog.dismiss()
+                                    }
+
+                                    override fun clickButton2(customDialog: CustomDialog) {
+                                        customDialog.dismiss()
+                                    }
+
+                                })
+                                .show(fragmentManager, "delete")
+                    }
+
                 }
                 SingleOrderFragment.DECLINED -> {
                     viewHolder.tvAccept.text = "Refusal cause"
                     viewHolder.tvAcceptCount.visibility = View.GONE
                     viewHolder.tvCancelReason.visibility = View.VISIBLE
+                    viewHolder.btnAccept.visibility=View.GONE
                     viewHolder.btnCancel.text = "Delete"
+                    viewHolder.btnCancel.setOnClickListener {
+                        CustomDialog.Builder()
+                                .create()
+                                .setTitle(context.getString(R.string.delete_record))
+                                .setDialogListene(object : CustomDialog.CustomDialogListener {
+                                    override fun clickButton1(customDialog: CustomDialog) {
+                                        customDialog.dismiss()
+                                    }
+
+                                    override fun clickButton2(customDialog: CustomDialog) {
+                                        customDialog.dismiss()
+                                    }
+
+                                })
+                                .show(fragmentManager, "delete")
+                    }
                 }
 
             }
@@ -169,6 +233,8 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
         lateinit var rlTitle: LinearLayout
         @BindView(R.id.cv_item)
         lateinit var cvItem: CardView
+        @BindView(R.id.tv_promotion)
+        lateinit var tvPromotion: TextView
 
 
         init {

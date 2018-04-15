@@ -35,7 +35,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="167dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,13 +55,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="40dip"
-                    android:text="@string/timepicker_year"
-                    android:textColor="#B3B3B3" />
             </FrameLayout>
 
             <FrameLayout
@@ -75,13 +68,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="40dip"
-                    android:text="@string/timepicker_month"
-                    android:textColor="#B3B3B3" />
             </FrameLayout>
 
             <FrameLayout
@@ -94,13 +80,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|right"
-                    android:layout_marginRight="15dip"
-                    android:text="@string/timepicker_day"
-                    android:textColor="#B3B3B3" />
             </FrameLayout>
         </LinearLayout>
 

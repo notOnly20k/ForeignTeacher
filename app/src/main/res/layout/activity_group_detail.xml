@@ -3,12 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <View
-        style="@style/navigation_normal_style"
-        android:id="@+id/fake_status_bar"
-        android:layout_alignParentBottom="true"/>
+
     <ScrollView
-        android:layout_above="@id/fake_status_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
@@ -174,6 +170,10 @@
         </RelativeLayout>
 
     </ScrollView>
+    <View
+        style="@style/navigation_normal_style"
+        android:id="@+id/fake_status_bar"
+        android:layout_alignParentBottom="true"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="80dp"

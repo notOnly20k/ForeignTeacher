@@ -1,5 +1,6 @@
 package com.xld.foreignteacher
 
+import com.xld.foreignteacher.Service.OssHandler
 import com.xld.foreignteacher.api.AppApi
 import com.xld.foreignteacher.api.NetWork
 
@@ -9,4 +10,5 @@ import com.xld.foreignteacher.api.NetWork
 interface  AppComponent{
     val appApi: AppApi
     val netWork:NetWork
+    val ossHandler:OssHandler
 }

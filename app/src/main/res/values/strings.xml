@@ -38,7 +38,7 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="cancel">Cancel</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="person_information">Person Information</string>
     <string name="save">Save</string>
     <string name="user_agreement">User agreement</string>
@@ -95,5 +95,11 @@
     <string name="verified">verified</string>
     <string name="minmum">Minmum ￥%1$f</string>
     <string name="with_draw">Withdraw</string>
+
+
+    <string name="facebook_app_id">487692214752558</string>
+    <string name="delete_record">Are you sure you want to delete this record?</string>
+    <string name="cancel_confirm">Cancel Confirm</string>
+    <string name="cancel_reason">Me-Cancellation Reason</string>
 
 </resources>

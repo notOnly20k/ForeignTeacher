@@ -43,8 +43,7 @@ class SingleOrderFragment : BaseFragment() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val tvTab = tab.customView!!.findViewById<TextView>(R.id.tv_tab)
                 tvTab.isSelected = true
-                tvTab.textSize = 18F
-                tvTab.setTextColor(resources.getColor(R.color.yellow_ffcc00))
+                tvTab.textSize = 14F
                 vp_order.currentItem = tab.position
             }
 
@@ -52,7 +51,6 @@ class SingleOrderFragment : BaseFragment() {
                 val tvTab = tab.customView!!.findViewById<TextView>(R.id.tv_tab)
                 tvTab.isSelected = false
                 tvTab.textSize = 12F
-                tvTab.setTextColor(resources.getColor(R.color.grey_cccccc))
             }
 
             override fun onTabReselected(tab: TabLayout.Tab) {

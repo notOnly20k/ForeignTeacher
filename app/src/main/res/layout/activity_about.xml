@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_f1f1f1"
+    android:orientation="vertical">
+
+    <cn.sinata.xldutils.view.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_below="@id/title_bar"
+        android:id="@+id/tv_about_app"
+        style="@style/style_tv_mine_item"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:drawableRight="@mipmap/icon_more"
+        android:text="About our App" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tv_about_app"
+        android:layout_marginLeft="@dimen/android_margin"
+        android:layout_marginRight="@dimen/android_margin"
+        android:layout_marginTop="-1dp"
+        android:background="@color/grey_f1f1f1" />
+
+    <TextView
+        android:id="@+id/tv_agreement"
+        style="@style/style_tv_mine_item"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/tv_about_app"
+        android:drawableRight="@mipmap/icon_more"
+        android:text="@string/user_agreement" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tv_agreement"
+        android:layout_marginLeft="@dimen/android_margin"
+        android:layout_marginRight="@dimen/android_margin"
+        android:layout_marginTop="-1dp"
+        android:background="@color/grey_f1f1f1" />
+
+    <TextView
+        android:id="@+id/tv_feedback"
+        style="@style/style_tv_mine_item"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/tv_agreement"
+        android:drawableRight="@mipmap/icon_more"
+        android:text="Feedback" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tv_feedback"
+        android:layout_marginLeft="@dimen/android_margin"
+        android:layout_marginRight="@dimen/android_margin"
+        android:layout_marginTop="-1dp"
+        android:background="@color/grey_f1f1f1" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        style="@style/style_tv_mine_item"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/tv_feedback"
+        android:text="Contact us" />
+
+    <TextView
+        android:id="@+id/tv_tel"
+        style="@style/style_tv_mine_item"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:textColor="@color/yellow_ffcc00"
+        android:text="400-888-8888"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_feedback"
+        android:layout_marginRight="@dimen/android_margin"
+        />
+
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/black_00"
+        android:textSize="12sp"
+        android:layout_margin="@dimen/android_margin"
+        android:text="Service email: xxxxxxx@xx.com"
+        />
+</RelativeLayout>

@@ -2,9 +2,7 @@ package com.xld.foreignteacher.api
 
 
 import com.xld.foreignteacher.AppComponent
-import com.xld.foreignteacher.api.dto.City
-import com.xld.foreignteacher.api.dto.Language
-import com.xld.foreignteacher.api.dto.User
+import com.xld.foreignteacher.api.dto.*
 import com.xld.foreignteacher.ext.e
 import com.xld.foreignteacher.ext.logErrorAndForget
 import com.xld.foreignteacher.ext.toNetWork
@@ -183,11 +181,59 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
         val key = DES.encryptDES("server=/app/userFight/getNotOpenCity?")
         return appComponent.appApi
                 .getNotOpenCity(key)
-                .toNetWork()
                 .toMaybe()
+                .toNetWork()
                 .map { it.check() }
                 .logErrorAndForget(Throwable::toast)
     }
 
+    fun getBills(id: Int, type: Int, page: Int, rows: Int): Maybe<List<Bill>> {
+        val key = DES.encryptDES("server=/app/public/getTransactionRecord?id=$id&type=$type&page=$page&rows=$rows")
+        return appComponent.appApi
+                .getBills(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
 
+    fun getOrderMessage(id: Int, type: Int, page: Int, rows: Int): Maybe<List<OrderMessage>> {
+        val key = DES.encryptDES("server=/app/notice/getMessageList?id=$id&type=$type&page=$page&rows=$rows")
+        return appComponent.appApi
+                .getOrderMessage(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    fun getSystemMessage(id: Int, type: Int, page: Int, rows: Int): Maybe<List<SystemMessage>> {
+        val key = DES.encryptDES("server=/app/notice/getNoticeList?id=$id&type=$type&page=$page&rows=$rows")
+        return appComponent.appApi
+                .getSystemMessage(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    fun getUnReadMessageCount(id: Int, type: Int): Maybe<UnReadMessageCount> {
+        val key = DES.encryptDES("server=/app/notice/getUserMess?id=$id&type=$type")
+        return appComponent.appApi
+                .getUnReadMessageCount(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    fun addFeedBack(content: String, id: Int): Maybe<Any> {
+        val key = DES.encryptDES("server=/app/public/addFeedBack?id=$id&content=$content&type=2")
+        return appComponent.appApi
+                .addFeedBack(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
 }

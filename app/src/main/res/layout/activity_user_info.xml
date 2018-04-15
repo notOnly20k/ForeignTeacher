@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    android:scrollbars="none"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:scrollbars="none">
 
     <RelativeLayout
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:background="@color/black_00"
-        android:layout_height="@dimen/title_bar_size">
+        android:layout_height="@dimen/title_bar_size"
+        android:background="@color/black_00">
+
         <TextView
             android:id="@+id/tv_title"
+            style="@style/BarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            style="@style/BarTitle"
-            android:textColor="@color/yellow_ffcc00"
             android:text="@string/person_infomation"
-            />
+            android:textColor="@color/yellow_ffcc00" />
+
         <TextView
             android:id="@+id/tv_title_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/save"
-            android:textColor="@color/yellow_ffcc00"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_8"
-            />
+            android:text="@string/save"
+            android:textColor="@color/yellow_ffcc00" />
     </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/l_white"
-        >
+        android:background="@color/l_white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,8 +48,8 @@
                 android:id="@+id/drag_square"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                />
+                android:visibility="gone" />
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
@@ -89,7 +89,7 @@
                 <TextView
                     android:id="@+id/tv_name"
                     style="@style/style_user_info_item"
-                    android:layout_width="106dp"
+                    android:layout_width="111dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/view"
                     android:text="Name" />
@@ -100,17 +100,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/view"
+                    android:layout_marginLeft="22dp"
                     android:layout_toRightOf="@id/tv_name"
                     android:background="@null"
                     android:hint="@string/edit_name_hint"
-                    android:singleLine="true"
                     android:maxLines="1"
-                    />
+                    android:singleLine="true" />
 
                 <TextView
                     android:id="@+id/tv_contact_number"
                     style="@style/style_user_info_item"
-                    android:layout_width="106dp"
+                    android:layout_width="111dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/et_name"
                     android:text="Contact Number" />
@@ -121,10 +121,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/et_name"
+                    android:layout_marginLeft="22dp"
                     android:layout_toRightOf="@id/tv_contact_number"
                     android:background="@null"
                     android:hint="@string/edit_contact_number_hint"
-                    android:lines="1" />
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLength="13" />
 
                 <View
                     android:id="@+id/view2"
@@ -138,26 +141,27 @@
                 <TextView
                     android:id="@+id/tv_birth"
                     style="@style/style_user_info_item"
-                    android:layout_width="106dp"
+                    android:layout_width="111dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/view2"
                     android:text="Date of birth" />
+
                 <TextView
                     android:id="@+id/tv_birth_edit"
                     style="@style/style_user_info_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/view2"
+                    android:layout_marginLeft="22dp"
                     android:layout_toRightOf="@id/tv_birth"
-                    android:singleLine="true"
                     android:drawableRight="@mipmap/right_arrow"
                     android:maxLines="1"
-                    />
+                    android:singleLine="true" />
 
                 <TextView
                     android:id="@+id/tv_gender"
                     style="@style/style_user_info_item"
-                    android:layout_width="106dp"
+                    android:layout_width="111dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_birth"
                     android:text="Gender" />
@@ -168,16 +172,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_birth"
+                    android:layout_marginLeft="22dp"
                     android:layout_toRightOf="@id/tv_gender"
-                    android:singleLine="true"
                     android:drawableRight="@mipmap/right_arrow"
                     android:maxLines="1"
-                    />
+                    android:singleLine="true" />
 
                 <TextView
                     android:id="@+id/tv_current_city"
                     style="@style/style_user_info_item"
-                    android:layout_width="106dp"
+                    android:layout_width="111dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_gender"
                     android:text="Current city" />
@@ -188,11 +192,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_gender"
+                    android:layout_marginLeft="22dp"
                     android:layout_toRightOf="@id/tv_current_city"
-                    android:singleLine="true"
                     android:drawableRight="@mipmap/right_arrow"
                     android:maxLines="1"
-                    />
+                    android:singleLine="true" />
 
                 <View
                     android:id="@+id/view3"
@@ -218,11 +222,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/view3"
+                    android:layout_marginLeft="22dp"
                     android:layout_toRightOf="@id/tv_nationality"
-                    android:singleLine="true"
                     android:drawableRight="@mipmap/right_arrow"
                     android:maxLines="1"
-                    />
+                    android:singleLine="true"
+                    android:text="111" />
 
                 <TextView
                     android:id="@+id/tv_language"
@@ -235,17 +240,18 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rec_languages"
-                    android:layout_below="@id/tv_language"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_add_languages"
-                    >
-                </android.support.v7.widget.RecyclerView>
+                    android:layout_below="@id/tv_language"
+                    tools:listitem="@layout/item_add_languages"></android.support.v7.widget.RecyclerView>
 
                 <com.xld.foreignteacher.views.StarBarView
                     android:id="@+id/star_chinese_level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/rec_languages"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="133dp"
                     app:space_width="2dp"
                     app:star_height="13dp"
                     app:star_hollow="@mipmap/star_normal"
@@ -254,10 +260,7 @@
                     app:star_orientation="horizontal"
                     app:star_rating="4"
                     app:star_solid="@mipmap/star_selected"
-                    app:star_width="13dp"
-                    android:layout_below="@+id/rec_languages"
-                   android:layout_marginLeft="106dp"
-                    />
+                    app:star_width="13dp" />
 
                 <TextView
                     android:id="@+id/tv_chinese_level"
@@ -291,12 +294,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/view4"
+                    android:layout_marginLeft="22dp"
                     android:layout_toRightOf="@id/tv_introduction"
                     android:background="@null"
                     android:gravity="top"
-                    android:inputType="textMultiLine"
                     android:hint="@string/edit_introduction"
-                    />
+                    android:inputType="textMultiLine" />
             </RelativeLayout>
 
         </LinearLayout>

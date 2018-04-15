@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/black_00">
+    android:background="@color/color_black_1d1e24">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="@dimen/title_bar_size"

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import cn.sinata.xldutils.fragment.BaseFragment
 import com.xld.foreignteacher.R
-import com.xld.foreignteacher.ext.e
 import com.xld.foreignteacher.ui.order.adapter.SingleOrderFragmentAdapter
 import com.xld.foreignteacher.ui.order.single.SingleOrderFragment
 import kotlinx.android.synthetic.main.fragment_single_order.*
@@ -44,7 +43,7 @@ class GroupOrdersFragment: BaseFragment() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val tvTab = tab.customView!!.findViewById<TextView>(R.id.tv_tab)
                 tvTab.isSelected = true
-                tvTab.textSize = 18F
+                tvTab.textSize = 14F
                 tvTab.setTextColor(resources.getColor(R.color.yellow_ffcc00))
                 vp_order.currentItem = tab.position
             }
@@ -61,7 +60,6 @@ class GroupOrdersFragment: BaseFragment() {
             }
         })
         for (i in 0 until titles.size) {
-            logger.e { i }
             val tab = tab_order.getTabAt(i)
             tab!!.setCustomView(R.layout.item_order_table)
             tab.customView!!.findViewById<TextView>(R.id.tv_tab).text = titles[i]

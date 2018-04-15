@@ -1,9 +1,11 @@
 package com.xld.foreignteacher.ui.order
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.RadioButton
 import cn.sinata.xldutils.fragment.BaseFragment
 import com.xld.foreignteacher.R
@@ -20,6 +22,7 @@ class OrderFragment : BaseFragment() {
     private val mFragmentList = ArrayList<BaseFragment>()
     private var previousPosition = 1
     private var currentPosition = 0
+    private lateinit var backDra: Drawable
     val logger = LoggerFactory.getLogger("OrderFragment")
     override fun getContentViewLayoutID(): Int {
         return R.layout.fragment_order
@@ -30,33 +33,24 @@ class OrderFragment : BaseFragment() {
         mFragmentList.add(GroupOrdersFragment())
         val transaction = childFragmentManager.beginTransaction()
         transaction.replace(R.id.fl_content, mFragmentList[0]).commit()
-        val backDra = resources.getDrawable(R.mipmap.sport_yellow)
+        backDra = resources.getDrawable(R.mipmap.sport_yellow)
         backDra.setBounds(0, 0, backDra.minimumHeight, backDra.minimumHeight)
 
         (rb_orders as RadioButton).setOnCheckedChangeListener { buttonView, isChecked ->
+            changeRadioStyle(isChecked, buttonView)
             if (isChecked) {
                 previousPosition = 0
                 currentPosition = 1
-                buttonView.setTextAppearance(context, R.style.radio_order_selected)
-                buttonView.setCompoundDrawables(null, null, null, backDra)
                 changeFragment(previousPosition, currentPosition)
-            } else {
-                buttonView.setTextAppearance(context, R.style.radio_order_normal)
-                buttonView.setCompoundDrawables(null, null, null, null)
             }
         }
 
         (rb_group_orders as RadioButton).setOnCheckedChangeListener { buttonView, isChecked ->
+            changeRadioStyle(isChecked, buttonView)
             if (isChecked) {
                 previousPosition = 1
                 currentPosition = 0
-                buttonView.setTextAppearance(context, R.style.radio_order_selected)
-                buttonView.setCompoundDrawables(null, null, null, backDra)
                 changeFragment(previousPosition, currentPosition)
-
-            } else {
-                buttonView.setTextAppearance(context, R.style.radio_order_normal)
-                buttonView.setCompoundDrawables(null, null, null, null)
             }
         }
 
@@ -70,6 +64,17 @@ class OrderFragment : BaseFragment() {
 
     override fun onInvisibleToUser() {
 
+    }
+
+
+    fun changeRadioStyle(isChecked: Boolean, buttonView: CompoundButton) {
+        if (isChecked) {
+            buttonView.setTextAppearance(context, R.style.radio_order_selected)
+            buttonView.setCompoundDrawables(null, null, null, backDra)
+        } else {
+            buttonView.setTextAppearance(context, R.style.radio_order_normal)
+            buttonView.setCompoundDrawables(null, null, null, null)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

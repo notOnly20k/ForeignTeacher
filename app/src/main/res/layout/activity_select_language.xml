@@ -49,13 +49,16 @@
         android:layout_width="match_parent"
         android:visibility="gone"
         android:layout_height="@dimen/title_bar_size"
-        android:background="@color/black_00">
+        android:background="@color/black_00"
+        tools:visibility="visible"
+        >
 
         <EditText
             android:id="@+id/et_search"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
+            android:paddingLeft="17dp"
             android:drawableLeft="@mipmap/icon_search"
             android:hint="Search for languages"
             android:background="@drawable/bg_search_edittext"
@@ -84,6 +87,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:visibility="gone"
+        tools:visibility="visible"
         android:layout_height="@dimen/title_bar_size">
 
         <TextView
@@ -102,7 +106,7 @@
             android:gravity="center_vertical"
             android:layout_marginRight="@dimen/android_margin"
             android:drawableLeft="@mipmap/icon_search"
-            android:paddingLeft="@dimen/android_margin"
+            android:paddingLeft="17dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/bg_search_edittext"
             android:layout_marginLeft="35dp"
@@ -134,11 +138,10 @@
 
         <com.xld.foreignteacher.views.SideNavigationView
             android:id="@+id/sn_sideBar"
-            android:layout_width="24dp"
-            android:layout_height="match_parent"
+            android:layout_width="10dp"
+            android:layout_height="432dp"
             android:layout_gravity="right"
-            android:paddingBottom="24dp"
-            android:paddingTop="24dp" />
+            android:paddingTop="56dp" />
         <FrameLayout
             android:id="@+id/fl_translucent"
             android:visibility="gone"

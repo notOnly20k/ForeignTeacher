@@ -8,7 +8,7 @@
         android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_size"
-        android:background="@color/black_00"
+        android:background="@color/color_black_1d1e24"
         android:orientation="vertical">
 
         <RadioGroup

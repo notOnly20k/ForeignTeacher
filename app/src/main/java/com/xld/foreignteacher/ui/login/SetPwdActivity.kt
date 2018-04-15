@@ -16,6 +16,7 @@ import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ext.toMD5
+import com.xld.foreignteacher.ui.H5Activity
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.userinfo.EditTeacherInfoActivity
 import com.xld.foreignteacher.views.EditEmptyWatcher
@@ -48,14 +49,15 @@ class SetPwdActivity : BaseTranslateStatusActivity(), EditEmptyWatcher.Checkable
     override fun initView() {
         val intent = intent
         type = intent.getIntExtra(SET_PWD_TYPE, 0)
+        titleBar.leftView.setOnClickListener { finish() }
         when (type) {
             TYPE_REGISTER -> {
-                titleBar.addRightButton(resources.getString(R.string.login_to_login), View.OnClickListener { activityUtil.go(LoginActivity::class.java).start() })
+                titleBar.addRightButton(resources.getString(R.string.login_to_login), { activityUtil.go(LoginActivity::class.java).start() })
                 llAgreement.visibility = View.VISIBLE
                 btnLoginCommit.setText(R.string.login_register)
             }
             TYPE_FORGET -> {
-                titleBar.addRightButton(resources.getString(R.string.back_to_login), View.OnClickListener { activityUtil.go(LoginActivity::class.java).start() })
+                titleBar.addRightButton(resources.getString(R.string.back_to_login), { activityUtil.go(LoginActivity::class.java).start() })
                 tvTitle.setText(R.string.find_pwd)
             }
         }
@@ -111,7 +113,7 @@ class SetPwdActivity : BaseTranslateStatusActivity(), EditEmptyWatcher.Checkable
         val pwd = etPwd.text.toString().trim { it <= ' ' }
         val pwdRepeat = etPwdRepeat.text.toString().trim { it <= ' ' }
         if (pwd != pwdRepeat) {
-            Toast.create(this).show("请输入两次相同的密码")
+            Toast.create(this).show("Please enter the same password two times ")
             return false
         }
         return super.commitCheck()

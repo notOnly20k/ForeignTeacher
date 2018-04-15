@@ -12,6 +12,7 @@ import cn.sinata.xldutils.xldUtils
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ext.toFormattedString
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
+import com.xld.foreignteacher.ui.locate.LocationActivity
 import com.xld.foreignteacher.ui.square.adapter.MomentAdapter
 import kotlinx.android.synthetic.main.activity_moment.*
 import java.io.File
@@ -32,7 +33,7 @@ class MomentActivity : BaseTranslateStatusActivity(), MomentAdapter.OnItemClickL
     private lateinit var adpter: MomentAdapter
 
     override fun initView() {
-        title_bar.titlelayout.setBackgroundResource(R.color.black_00)
+        title_bar.titlelayout.setBackgroundResource(R.color.color_black_1d1e24)
         title_bar.titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
         title_bar.setLeftButton(R.mipmap.back_yellow, { finish() })
         title_bar.addRightButton("Send") { finish() }
@@ -42,6 +43,9 @@ class MomentActivity : BaseTranslateStatusActivity(), MomentAdapter.OnItemClickL
         adpter.setOnItemClickListener(this)
         rec_pic.adapter = adpter
         rec_pic.layoutManager = GridLayoutManager(this, 3)
+        tv_location.setOnClickListener {
+            activityUtil.go(LocationActivity::class.java).start()
+        }
 
     }
 

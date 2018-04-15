@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/black_00">
+        <ImageView
+            android:id="@+id/img_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="8dp"
+            android:src="@mipmap/icon_close_yellow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Share to"
+            android:textColor="@color/yellow_ffcc00"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.GridLayout
+        android:id="@+id/bottom_selection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_title"
+        app:columnCount="3"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/tv_weibo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/android_margin"
+            android:drawableTop="@mipmap/icon_weibo"
+            android:gravity="center"
+            android:text="Weibo"
+            android:textColor="@color/black_00"
+            app:layout_columnWeight="1" />
+
+        <TextView
+            android:id="@+id/tv_wx"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/android_margin"
+            android:drawableTop="@mipmap/icon_wx"
+            android:gravity="center"
+            android:text="Wechat"
+            android:textColor="@color/black_00"
+            app:layout_columnWeight="1" />
+
+        <TextView
+            android:id="@+id/tv_qq"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/android_margin"
+            android:drawableTop="@mipmap/icon_qq"
+            android:gravity="center"
+            android:text="QQ"
+            android:textColor="@color/black_00"
+            app:layout_columnWeight="1" />
+
+        <TextView
+            android:id="@+id/tv_wx_moment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/android_margin"
+            android:drawableTop="@mipmap/icon_wx_moment"
+            android:gravity="center"
+            android:text="Moment"
+            android:textColor="@color/black_00"
+            app:layout_columnWeight="1" />
+
+        <TextView
+            android:id="@+id/tv_facebook"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/android_margin"
+            android:drawableTop="@mipmap/icon_facebook"
+            android:gravity="center"
+            android:text="Facebook"
+            android:textColor="@color/black_00"
+            app:layout_columnWeight="1" />
+
+
+        <TextView
+            android:id="@+id/tv_qzone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/android_margin"
+            android:drawableTop="@mipmap/icon_qzone"
+            android:gravity="center"
+            android:text="Qzone"
+            android:textColor="@color/black_00"
+            app:layout_columnWeight="1" />
+
+        <TextView
+            android:id="@+id/tv_ins"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/android_margin"
+            android:drawableTop="@mipmap/icon_instangram"
+            android:gravity="center"
+            android:text="Instangram"
+            android:textColor="@color/black_00"
+            app:layout_columnWeight="1" />
+
+
+    </android.support.v7.widget.GridLayout>
+</RelativeLayout>

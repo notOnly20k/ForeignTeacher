@@ -14,6 +14,7 @@ import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ext.toFormattedString
+import com.xld.foreignteacher.ui.H5Activity
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.views.EditEmptyWatcher
 import com.xld.foreignteacher.views.PhoneNumEditText
@@ -66,7 +67,7 @@ class VerificationCodeActivity : BaseTranslateStatusActivity(), EditEmptyWatcher
     override fun initView() {
         val intent = intent
         register_type = intent.getIntExtra(FUNC_TYPE, 0)
-
+        titleBar.leftView.setOnClickListener { finish() }
         when (register_type) {
             TYPE_REGISTER -> {
                 tvTitle.setText(R.string.log_register_heyllo)

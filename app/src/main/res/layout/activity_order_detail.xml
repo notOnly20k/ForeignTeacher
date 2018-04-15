@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_00">
+    android:background="@color/color_black_1d1e24">
 
     <cn.sinata.xldutils.view.TitleBar
         android:id="@+id/title_bar"
@@ -12,11 +12,13 @@
         android:layout_height="wrap_content" />
 
     <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="400dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/android_margin"
+        android:layout_marginRight="@dimen/android_margin"
+        android:layout_height="wrap_content"
         android:layout_below="@id/title_bar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_60"
+        android:layout_marginTop="56dp"
         android:background="@color/white">
 
         <View
@@ -63,7 +65,7 @@
             android:layout_below="@id/tv_info"
             android:layout_marginRight="18dp"
             android:text="@string/price_class"
-            android:textColor="@color/color_red_ff4a26"
+            android:textColor="@color/color_red_ff8a00"
             android:textSize="@dimen/text_12" />
 
         <View
@@ -106,13 +108,13 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rec_class_time"
             android:layout_width="wrap_content"
-            android:layout_height="55dp"
+            android:layout_height="80dp"
             android:layout_below="@id/tv_client_count"
             android:layout_marginLeft="@dimen/android_margin"
             android:layout_marginTop="@dimen/dp_8"
             android:layout_toRightOf="@id/tv_attending_clients"
-            android:text="@string/client_count"
-            android:textColor="@color/color_black_666666" />
+            tools:listitem="@layout/item_order_detail"
+             />
 
         <TextView
             android:id="@+id/tv_location"
@@ -122,7 +124,7 @@
             android:layout_below="@id/rec_class_time"
             android:layout_marginLeft="@dimen/android_margin"
             android:layout_marginTop="@dimen/dp_8"
-            android:drawableLeft="@drawable/ic_location_on"
+            android:drawableLeft="@mipmap/location"
             android:text="chengdu qingyangqu 106" />
 
         <ImageView
@@ -141,7 +143,7 @@
             android:layout_below="@id/tv_location"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/android_margin"
-            android:layout_marginTop="@dimen/android_margin"
+            android:layout_marginTop="43dp"
             android:background="@drawable/bg_yellow_button"
             android:gravity="center"
             android:text="@string/accept"
@@ -174,16 +176,16 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="110dp"
         android:layout_below="@id/title_bar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
         android:orientation="vertical">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/iv_head"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             fresco:actualImageScaleType="centerCrop"
             fresco:placeholderImage="@mipmap/default_head"

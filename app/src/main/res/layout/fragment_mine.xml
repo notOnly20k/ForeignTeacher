@@ -3,7 +3,7 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_00">
+    android:background="@color/color_black_1d1e24">
 
     <TextView
         android:layout_width="match_parent"
@@ -18,16 +18,16 @@
         android:id="@+id/ll_backgroud"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="110dp"
         android:background="@drawable/bg_layout_mine"
         android:orientation="vertical"></FrameLayout>
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/iv_head"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:layout_width="93dp"
+        android:layout_height="93dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="53dp"
+        android:layout_marginTop="43dp"
         fresco:actualImageScaleType="centerCrop"
         fresco:placeholderImage="@mipmap/default_head"
         fresco:placeholderImageScaleType="centerCrop"
@@ -40,7 +40,7 @@
         android:layout_below="@id/iv_head"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="4dp"
+
         android:text="@string/app_name"
         android:textColor="@color/black_00"
         android:textSize="15sp" />
@@ -48,7 +48,7 @@
     <LinearLayout
         android:id="@+id/ll_count"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@id/ll_backgroud"
         android:background="@color/white"
         android:orientation="horizontal">
@@ -58,8 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingTop="12dp">
+            >
 
             <TextView
                 android:id="@+id/tv_income_count"
@@ -68,7 +67,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="666"
                 android:textColor="@color/black_00"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -83,8 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingTop="12dp">
+           >
 
             <TextView
                 android:id="@+id/tv_rating_count"
@@ -93,7 +91,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="4.8"
                 android:textColor="@color/black_00"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -108,8 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingTop="12dp">
+           >
 
             <TextView
                 android:id="@+id/tv_order_count"
@@ -118,7 +115,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="22/44"
                 android:textColor="@color/black_00"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -133,8 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingTop="12dp">
+           >
 
             <TextView
                 android:id="@+id/tv_cancel_count"
@@ -143,7 +139,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="3"
                 android:textColor="@color/black_00"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -156,15 +152,16 @@
 
     </LinearLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/ll_count"
-        android:background="@color/grey_f1f1f1">
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@id/ll_count"-->
+        <!--android:background="@color/grey_f1f1f1">-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/ll_count"
             android:background="@color/grey_f1f1f1"
             android:orientation="vertical">
 
@@ -280,7 +277,7 @@
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
+    <!--</ScrollView>-->
 
 
 </RelativeLayout>

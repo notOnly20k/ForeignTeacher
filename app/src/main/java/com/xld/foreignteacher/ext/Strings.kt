@@ -2,7 +2,6 @@ package com.xld.foreignteacher.ext
 
 import android.text.TextUtils
 import java.util.regex.Pattern
-import java.util.regex.PatternSyntaxException
 
 /**
  * Created by cz on 3/29/18.
@@ -51,5 +50,7 @@ fun String.isPhoneNumberValid(): Boolean {
     }
     return isValid
 }
+
+
 
 

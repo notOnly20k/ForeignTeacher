@@ -12,6 +12,7 @@ import com.xld.foreignteacher.R
 import com.xld.foreignteacher.api.dto.City
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
+import com.xld.foreignteacher.ext.e
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import kotlinx.android.synthetic.main.activity_square_city.*
 
@@ -132,18 +133,19 @@ class SquareCityActivity : BaseTranslateStatusActivity() {
                 view.background = this@SquareCityActivity.resources.getDrawable(R.drawable.bg_city_item_select)
             }
             view.setOnClickListener { it ->
-                setResult(SELECTCITY, intent.putExtra("city", (it as TextView).text))
+                logger.e { (it as TextView).text }
+                setResult(SELECTCITY, intent.putExtra("city", "sssss"))
                 finish()
             }
             fl_opended_city.addView(view)
+
         } else if (type == "not_open") {
             val view = inflater.inflate(R.layout.item_flow, fl_not_open_city, false) as TextView
             view.text = city.name
-            view.setOnClickListener { it ->
-                //setResult(EditTeacherInfoActivity.SELECT_LANGUAGE, fromIntent.putExtra("language", (it as TextView).text))
-                finish()
-            }
             fl_not_open_city.addView(view)
+            view.setOnClickListener { it ->
+                showToast("This city not open")
+            }
         }
 
     }

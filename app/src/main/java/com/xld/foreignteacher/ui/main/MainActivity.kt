@@ -1,5 +1,6 @@
 package com.xld.foreignteacher.ui.main
 
+import android.content.Intent
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.view.View
@@ -14,6 +15,7 @@ import cn.sinata.xldutils.utils.SPUtils
 import cn.sinata.xldutils.utils.Utils
 import com.chaychan.library.BottomBarLayout
 import com.timmy.tdialog.TDialog
+import com.umeng.socialize.UMShareAPI
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.mine.MineFragment
@@ -23,6 +25,7 @@ import com.xld.foreignteacher.ui.schedule.ScheduleFragment
 import com.xld.foreignteacher.ui.square.SquareFragment
 import com.xld.foreignteacher.views.ViewPagerIndicator
 import java.util.*
+
 
 class MainActivity : BaseTranslateStatusActivity() {
     override val changeTitleBar: Boolean
@@ -66,6 +69,11 @@ class MainActivity : BaseTranslateStatusActivity() {
             }
             transaction.show(mFragmentList[currentPosition]).commit()
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data)
     }
 
     /**

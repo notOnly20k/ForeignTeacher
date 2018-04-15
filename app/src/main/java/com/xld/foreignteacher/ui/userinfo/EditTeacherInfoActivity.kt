@@ -15,10 +15,12 @@ import com.xld.foreignteacher.data.AlbumImgUrl
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ext.e
+import com.xld.foreignteacher.ext.isPhoneNumberValid
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.dialog.CustomDialog
 import com.xld.foreignteacher.ui.dialog.MyActionDialog
 import com.xld.foreignteacher.ui.dialog.StarrBarDialog
+import com.xld.foreignteacher.ui.main.MainActivity
 import com.xld.foreignteacher.ui.userinfo.adapter.LanguageAdapter
 import com.xld.foreignteacher.ui.userinfo.adapter.StudentPageAdapter
 import com.xld.foreignteacher.views.StarBarView
@@ -48,9 +50,14 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
 
 
     override fun initView() {
-        val user:User=Gson().fromJson(SPUtils.getString("user"),User::class.java)
-        et_contact_number.setText(user.phone)
-        et_name.setText(user.nickName)
+        try {
+            val user: User = Gson().fromJson(SPUtils.getString("user"), User::class.java)
+            et_contact_number.setText(user.phone)
+            et_name.setText(user.nickName)
+        } catch (e: Exception) {
+            showToast(e.message)
+        }
+
         if (intent.getStringExtra("type") == EDIT) {
             val urls = ArrayList<String>()
             urls.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521814228383&di=7f62d8349c5414d66d647e1563fa0631&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F472309f790529822fb05a7e7ddca7bcb0a46d4e4.jpg")
@@ -143,11 +150,7 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
     }
 
     private fun SaveTeacher() {
-        if (draggablePresenter.imageUrls == null || draggablePresenter.imageUrls.size() == 0 || tv_gender_edit.text.isEmpty()
-                || tv_birth_edit.text.isEmpty() || et_contact_number.text.isEmpty() || et_name.text.isEmpty()) {
-           showToast("error empty")
-            return
-        }
+
         var sort = 1
         for (i in 0 until draggablePresenter.imageUrls.size()) {
             if (draggablePresenter.imageUrls[i] != null) {
@@ -160,10 +163,12 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
         logger.e { Gson().toJson(albumList.toString()) }
         appComponent.netWork.editTeacher(SPUtils.getInt("id"), et_name.text.toString(), draggablePresenter.imageUrls[0],
                 sex!!, tv_birth_edit.text.toString(), et_contact_number.text.toString(), star_chinese_level.getSartRating().toInt(),
-                personalProfile = er_introduction.text.toString(), albumImgUrl = albumImgUrl
-        ).doOnSubscribe { mCompositeDisposable.add(it) }
+                personalProfile = er_introduction.text.toString())
+                .doOnSubscribe { mCompositeDisposable.add(it) }
                 .doOnLoading { showProgress(it) }
-                .subscribe { }
+                .subscribe {
+                    activityUtil.go(MainActivity::class.java).start()
+                }
     }
 
     override fun initData() {
@@ -179,6 +184,22 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
             languageList.add(language)
             languageAdapter.updateList(languageList)
         }
+    }
+
+    override fun commitCheck(): Boolean {
+        if (!et_contact_number.text.toString().isPhoneNumberValid()) {
+            showToast("The phone is not in the correct format")
+            return false
+        }
+        if (draggablePresenter.imageUrls == null || draggablePresenter.imageUrls.size() == 0) {
+            showToast("Select at least one picture ")
+            return false
+        }
+        if (tv_gender_edit.text.isEmpty() || tv_birth_edit.text.isEmpty() || et_name.text.isEmpty()) {
+            showToast("Submit incomplete information ")
+            return false
+        }
+        return super.commitCheck()
     }
 
     private fun showDateDialog(date: List<Int>) {

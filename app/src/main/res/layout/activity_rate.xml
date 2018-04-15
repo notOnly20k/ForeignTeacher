@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_00">
+
+    <cn.sinata.xldutils.view.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_bar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/android_margin"
+                android:layout_marginRight="@dimen/android_margin"
+                android:layout_marginBottom="@dimen/android_margin"
+                android:layout_marginTop="55dp"
+                android:background="@color/white">
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="80dp"
+                    android:background="@drawable/divider_line" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view"
+                    android:layout_marginBottom="@dimen/dp_4"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:layout_marginTop="10dp"
+                    android:text="Open your heart to a new day?"
+                    android:textColor="@color/black_00"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_title"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:text="Kid's speaking class-EN"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tv_person_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_info"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:drawableLeft="@mipmap/icon_person_grey"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:text="No.Of attendant:2"
+                    android:textColor="@color/color_black_666666"
+                    android:textSize="@dimen/smallTextSize" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    style="@style/style_order_info_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_person_count"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:drawableLeft="@mipmap/icon_time"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:text="12-20 17:00-18:00" />
+
+                <TextView
+                    android:id="@+id/tv_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/tv_title"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:text="Finished"
+                    android:textColor="@color/color_red_ff4a26"
+                    android:textSize="@dimen/text_12" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_time"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/divider_line" />
+
+                <TextView
+                    android:id="@+id/tv_session"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view2"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:text="Rate for the session:"
+                    android:textColor="@color/black_00"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tv_listening"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_session"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp"
+                    android:text="Listening"
+                    android:textColor="@color/black_00" />
+
+                <com.xld.foreignteacher.views.StarBarView
+                    android:id="@+id/sbv_starbar_listen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_listening"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp"
+                    app:space_width="10dp"
+                    app:star_height="24dp"
+                    app:star_hollow="@mipmap/star_normal"
+                    app:star_isIndicator="true"
+                    app:star_max="5"
+                    app:star_orientation="horizontal"
+                    app:star_rating="0"
+                    app:star_solid="@mipmap/star_selected"
+                    app:star_width="24dp" />
+
+                <TextView
+                    android:id="@+id/tv_grammmar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/sbv_starbar_listen"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp"
+                    android:text="Grammar"
+                    android:textColor="@color/black_00" />
+
+                <com.xld.foreignteacher.views.StarBarView
+                    android:id="@+id/sbv_starbar_grammar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_grammmar"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp"
+                    app:space_width="10dp"
+                    app:star_height="24dp"
+                    app:star_hollow="@mipmap/star_normal"
+                    app:star_isIndicator="true"
+                    app:star_max="5"
+                    app:star_orientation="horizontal"
+                    app:star_rating="0"
+                    app:star_solid="@mipmap/star_selected"
+                    app:star_width="24dp" />
+
+                <TextView
+                    android:id="@+id/tv_vocabulary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/sbv_starbar_grammar"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp"
+                    android:text="Vocabulary"
+                    android:textColor="@color/black_00" />
+
+                <com.xld.foreignteacher.views.StarBarView
+                    android:id="@+id/sbv_starbar_vocabulary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_vocabulary"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp"
+                    app:space_width="10dp"
+                    app:star_height="24dp"
+                    app:star_hollow="@mipmap/star_normal"
+                    app:star_isIndicator="true"
+                    app:star_max="5"
+                    app:star_orientation="horizontal"
+                    app:star_rating="0"
+                    app:star_solid="@mipmap/star_selected"
+                    app:star_width="24dp" />
+
+                <TextView
+                    android:id="@+id/tv_pronunciation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/sbv_starbar_vocabulary"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp"
+                    android:text="Pronunciation"
+                    android:textColor="@color/black_00" />
+
+                <com.xld.foreignteacher.views.StarBarView
+                    android:id="@+id/sbv_starbar_pronunciation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_pronunciation"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp"
+                    app:space_width="10dp"
+                    app:star_height="24dp"
+                    app:star_hollow="@mipmap/star_normal"
+                    app:star_isIndicator="true"
+                    app:star_max="5"
+                    app:star_orientation="horizontal"
+                    app:star_rating="0"
+                    app:star_solid="@mipmap/star_selected"
+                    app:star_width="24dp" />
+
+                <TextView
+                    android:id="@+id/tv_fluency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/sbv_starbar_pronunciation"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp"
+                    android:text="Fluency"
+                    android:textColor="@color/black_00" />
+
+                <com.xld.foreignteacher.views.StarBarView
+                    android:id="@+id/sbv_starbar_fluency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_fluency"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp"
+                    app:space_width="10dp"
+                    app:star_height="24dp"
+                    app:star_hollow="@mipmap/star_normal"
+                    app:star_isIndicator="true"
+                    app:star_max="5"
+                    app:star_orientation="horizontal"
+                    app:star_rating="0"
+                    app:star_solid="@mipmap/star_selected"
+                    app:star_width="24dp" />
+
+
+                <TextView
+                    android:id="@+id/tv_accept"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/sbv_starbar_fluency"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="@dimen/android_margin"
+                    android:background="@drawable/bg_yellow_button"
+                    android:gravity="center"
+                    android:text="@string/accept"
+                    android:textColor="@color/color_black" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/iv_head"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_horizontal"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/default_head"
+                    fresco:placeholderImageScaleType="centerCrop"
+                    fresco:roundAsCircle="true" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:text="Michelle"
+                    android:textColor="@color/color_black_666666"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:text="@string/ages"
+                    android:textColor="@color/color_black_666666"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

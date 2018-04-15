@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="210dp"
     android:background="#ffffff"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:background="@color/black_00">
 
         <TextView
@@ -16,7 +16,7 @@
             style="@style/text_bottom_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="14dp"
+            android:layout_marginLeft="13dp"
             android:layout_centerVertical="true"
             android:text="@string/cancel" />
 
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="14dp"
+            android:layout_marginRight="13dp"
             android:text="@string/ok" />
     </RelativeLayout>
 
@@ -37,8 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/android_margin"
-        app:space_width="2dp"
+        android:layout_marginTop="@dimen/dp_50"
+        app:space_width="18dp"
         app:star_height="32dp"
         app:star_hollow="@mipmap/ic_star_yellow_normal"
         app:star_isIndicator="false"
@@ -46,12 +46,15 @@
         app:star_orientation="horizontal"
         app:star_rating="0"
         app:star_solid="@mipmap/ic_star_yellow_selected"
-        app:star_width="32dp"
+        app:star_width="34dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:textSize="12sp"
+        android:layout_marginTop="28dp"
+        android:textColor="@color/color_black_666666"
         android:text="Secondary,fluent Chinese with little writing skill"
         android:layout_marginBottom="@dimen/android_margin"
         />

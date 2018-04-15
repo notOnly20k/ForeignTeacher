@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_00">
+    android:background="@color/color_black_1d1e24">
 
     <RelativeLayout
         android:id="@+id/rl_title"
@@ -20,7 +20,7 @@
             android:text="@string/schedule" />
 
         <TextView
-            android:id="@+id/tv_edit"
+            android:id="@+id/tv_title_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -34,11 +34,11 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_below="@id/rl_title"
-        android:background="@color/black_000000"
+        android:background="@color/color_black_22242d"
         android:orientation="horizontal"></LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_content"
+        android:id="@+id/ll_shape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_tab"
@@ -49,24 +49,100 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/ll_content"
+        android:layout_below="@id/ll_shape"
         android:layout_marginTop="-10dp"
         android:background="@color/white"
         android:orientation="vertical"></LinearLayout>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_order"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/rl_title"
-        app:tabIndicatorHeight="0dp"
-        app:tabMode="scrollable" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_order"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tab_order"></android.support.v4.view.ViewPager>
+        android:fillViewport="true"
+        android:layout_below="@id/rl_title">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_black_22242d"
+                app:tabIndicatorHeight="0dp"
+                app:tabMinWidth="55dp"
+                app:tabMode="scrollable" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rec_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@id/tab_date">
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:id="@+id/ll_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rec_schedule"
+                android:layout_marginTop="@dimen/android_margin"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/rg_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_my_offer"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginLeft="@dimen/android_margin"
+                        android:layout_marginRight="@dimen/android_margin"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_radio_group_tab"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="My Offers"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/rb_my_group_offer"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginLeft="@dimen/android_margin"
+                        android:layout_marginRight="@dimen/android_margin"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_radio_group_tab"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="My Group Offers"
+                        android:textSize="16sp" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_replace"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ll_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="10dp" />
+        </RelativeLayout>
+
+    </ScrollView>
+    <View
+        style="@style/navigation_normal_style"
+        android:id="@+id/fake_status_bar"
+        android:layout_alignParentBottom="true"/>
 
 
 </RelativeLayout>

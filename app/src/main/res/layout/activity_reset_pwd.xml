@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+
+    <cn.sinata.xldutils.view.TitleBar
+        android:id="@id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/et_pwd"
+        android:layout_marginTop="@dimen/android_margin"
+        android:layout_marginLeft="@dimen/android_margin"
+        android:layout_marginRight="@dimen/android_margin"
+        style="@style/style_login_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:hint="@string/log_pwd"
+        android:inputType="textPassword" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/android_margin"
+        android:layout_marginRight="@dimen/android_margin"
+        android:layout_marginTop="17dp"
+        android:background="@color/color_gray_divider" />
+
+    <EditText
+        android:id="@+id/et_pwd_repeat"
+        style="@style/style_login_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:layout_marginLeft="@dimen/android_margin"
+        android:layout_marginRight="@dimen/android_margin"
+        android:background="@color/white"
+        android:hint="@string/log_repeat_pwd"
+        android:inputType="textPassword" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/android_margin"
+        android:layout_marginRight="@dimen/android_margin"
+        android:layout_marginTop="17dp"
+        android:background="@color/color_gray_divider" />
+
+    <TextView
+        android:id="@+id/btn_login_commit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_btn_commit_height"
+        android:layout_marginTop="41dp"
+        android:layout_marginLeft="@dimen/android_margin"
+        android:layout_marginRight="@dimen/android_margin"
+        android:background="@drawable/login_bg_commit"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="@string/ok"
+        android:textColor="@color/selector_btn_commit" />
+</LinearLayout>

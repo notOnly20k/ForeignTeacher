@@ -10,7 +10,6 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:textColor="@color/color_tv_1a1a1a"
         android:textSize="@dimen/text_16"
-        android:textStyle="bold"
         android:layout_marginTop="@dimen/android_margin"
         />
 

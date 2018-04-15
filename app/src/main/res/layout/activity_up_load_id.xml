@@ -17,7 +17,20 @@
         android:paddingLeft="@dimen/android_margin"
         android:layout_width="match_parent"
         android:background="@color/white"
-        android:layout_height="40dp" />
+        android:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/tv_choose_type"
+        android:visibility="gone"
+        android:gravity="center_vertical"
+        android:textColor="@color/text_333333"
+        android:textSize="16sp"
+        android:text="Choose certificate type"
+        android:drawableRight="@mipmap/right_arrow"
+        android:paddingLeft="@dimen/android_margin"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="50dp" />
 
     <LinearLayout
         android:layout_marginTop="@dimen/dp_10"
@@ -28,7 +41,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textColor="@color/black_00"
             android:layout_marginLeft="@dimen/android_margin"
             android:text="Upload valid and clear Chinese visa page"
@@ -43,8 +56,8 @@
             />
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_width="83dp"
+            android:layout_height="83dp"
             android:layout_marginTop="30dp"
             app:placeholderImage="@drawable/up_load_pic"
             fresco:placeholderImageScaleType="centerCrop"

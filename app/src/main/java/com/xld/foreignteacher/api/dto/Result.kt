@@ -22,26 +22,27 @@ data class Dto<out T>(val sys: Long, val code: Int = 0, val msg: String, val dat
 
 
 data class User(var imgUrl: String? = null, var id: Int = 0, var phone: String? = null, var sex: Int = 0,
-           var identCode: String? = null, var nickName: String? = null, var inviteCode: String? = null)
+                var identCode: String? = null, var nickName: String? = null, var inviteCode: String? = null)
 
 data class Teacher(var id: Int = 0, var phone: String? = null, var sex: Int = 0, var contactInformation: String? = null, var nickName: String? = null,
-              var birthDay: String? = null, var isPassWord: Boolean = false, var albumList: List<AlbumListBean>? = null)
+                   var birthDay: String? = null, var isPassWord: Boolean = false, var albumList: List<AlbumListBean>? = null)
 
 data class AlbumListBean(var imgUrl: String? = null, var sort: Int = 0)
 
-interface SelectData:Serializable{
-    abstract var Name:String
-    abstract fun firstLetter():String
+interface SelectData : Serializable {
+    abstract var Name: String
+    abstract fun firstLetter(): String
 }
 
-data class Language(var eName: String?, var cName: String?, var id: Int, var abName: String?):SelectData,Serializable {
+data class Language(var eName: String?, var cName: String?, var id: Int, var abName: String?) : SelectData, Serializable {
     override var Name: String
         get() = eName!!
-        set(value) {Name=value}
+        set(value) {
+            Name = value
+        }
 
-
-    override fun firstLetter():String{
-                    val letter = eName!!.substring(0, 1).toUpperCase()
+    override fun firstLetter(): String {
+        val letter = eName!!.substring(0, 1).toUpperCase()
         return if (letter.matches("[A-Z]".toRegex())) {
             letter
         } else {
@@ -51,5 +52,16 @@ data class Language(var eName: String?, var cName: String?, var id: Int, var abN
 
 }
 
-data class City( var code: String, var name: String, var id: Int = 0)
+data class City(var code: String, var name: String, var id: Int = 0)
 
+data class Bill(var id: Int = 0, var userId: Int = 0, var money: Int = 0, var remark: String? = null,
+                var createTime: Long = 0, var status: Int = 0, var teacherId: Int = 0)
+
+data class OrderMessage(var id: Int = 0, var title: String? = null, var content: String? = null,
+                        var addtime: Long = 0, var userId: Int = 0, var type: Int = 0)
+
+data class UnReadMessageCount(var messNum: Int = 0, var noticeNum: Int = 0,
+                         var messTitle: String? = null, var noticeTitle: String? = null)
+
+data class SystemMessage( var id: Int = 0, var title: String? = null, var img: String? = null,
+                          var url: Any? = null, var addtime: Long = 0)

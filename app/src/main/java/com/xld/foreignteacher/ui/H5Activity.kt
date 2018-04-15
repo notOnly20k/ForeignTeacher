@@ -1,4 +1,4 @@
-package com.xld.foreignteacher.ui.login
+package com.xld.foreignteacher.ui
 
 import android.os.Bundle
 import cn.sinata.xldutils.activitys.WebViewActivity

@@ -16,7 +16,7 @@ class ReportActivity : BaseTranslateStatusActivity() {
 
     override fun initView() {
         val type = intent.getStringExtra("type")
-        title_bar.titlelayout.setBackgroundResource(R.color.black_00)
+        title_bar.titlelayout.setBackgroundResource(R.color.color_black_1d1e24)
         title_bar.titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
         title_bar.setLeftButton(R.mipmap.back_yellow, { finish() })
         when (type) {

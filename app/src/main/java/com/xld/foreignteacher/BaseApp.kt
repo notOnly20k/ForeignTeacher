@@ -2,6 +2,8 @@ package com.xld.foreignteacher
 
 import android.util.Log
 import cn.sinata.xldutils.BaseApplication
+import com.umeng.commonsdk.UMConfigure
+import com.xld.foreignteacher.Service.OssHandler
 import com.xld.foreignteacher.api.AppApi
 import com.xld.foreignteacher.api.NetWork
 import io.reactivex.schedulers.Schedulers
@@ -16,7 +18,8 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by cz on 3/27/18.
  */
-class BaseApp: BaseApplication(),AppComponent {
+class BaseApp : BaseApplication(), AppComponent {
+    override lateinit var ossHandler: OssHandler
     override lateinit var appApi: AppApi
     override lateinit var netWork: NetWork
 
@@ -36,14 +39,18 @@ class BaseApp: BaseApplication(),AppComponent {
                 .addInterceptor(interceptor)
                 .build()
 
-        appApi=Retrofit.Builder()
+        appApi = Retrofit.Builder()
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("http://www.whynuttalk.com/")
                 .build()
                 .create(AppApi::class.java)
-        netWork=NetWork(this,appApi)
+        netWork = NetWork(this, appApi)
+
+
+        ossHandler = OssHandler(applicationContext)
+        UMConfigure.init(this,"5acec5e6b27b0a7ab900001d","umeng",UMConfigure.DEVICE_TYPE_PHONE,"")
     }
 
 

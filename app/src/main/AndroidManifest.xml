@@ -22,6 +22,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
 
     <application
         android:name=".BaseApp"
@@ -43,7 +46,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.login.H5Activity" />
+        <activity android:name=".ui.H5Activity" />
         <activity
             android:name=".ui.login.VerificationCodeActivity"
             android:windowSoftInputMode="stateAlwaysVisible|adjustPan" />
@@ -56,7 +59,7 @@
         <activity android:name=".ui.square.SquareDetailActivity" />
         <activity android:name=".ui.report.ReportActivity"></activity>
         <activity android:name=".ui.userinfo.StudentDetailActivity" />
-        <activity android:name=".ui.userinfo.TeacherDetailActivity"  />
+        <activity android:name=".ui.userinfo.TeacherDetailActivity" />
         <activity android:name=".ui.order.single.OrderDetailActivity" />
         <activity
             android:name=".ui.userinfo.SelectLanguageActivity"
@@ -71,6 +74,79 @@
         <activity android:name=".ui.mine.wallet.WalletActivity" />
         <activity android:name=".ui.mine.wallet.WithDrawActivity" />
         <activity android:name=".ui.mine.invite.InviteActivity" />
+        <activity android:name=".ui.locate.LocationActivity" />
+        <activity android:name=".ui.order.single.RateActivity" />
+        <activity android:name=".ui.ListActivity" />
+        <activity android:name=".ui.mine.about.AboutActivity" />
+        <activity android:name=".ui.mine.about.FeedBackActivity" />
+        <activity android:name=".ui.mine.setting.SettingActivity" />
+        <activity android:name=".ui.mine.setting.ChangPwdActivity" />
+        <activity android:name=".ui.order.single.PendingDetailActivity" />
+
+
+        <activity
+            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+        <activity
+            android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name="com.umeng.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <service android:name="com.amap.api.location.APSService"></service>
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="67e2e2b7f0387d0a17eb566450383f33"></meta-data>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
     </application>
 
 </manifest>

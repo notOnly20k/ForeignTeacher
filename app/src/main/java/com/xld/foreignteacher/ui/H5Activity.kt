@@ -18,7 +18,7 @@ class H5Activity : WebViewActivity() {
         backView.setCompoundDrawables(backDra,null,null,null)
         titleColor = R.color.yellow_ffcc00
         titlelayout.setBackgroundResource(R.color.black_00)
-        val title = intent.getStringExtra("title")
-        setTitle(title)
+//        val title = intent.getStringExtra("title")
+//        setTitle(title)
     }
 }

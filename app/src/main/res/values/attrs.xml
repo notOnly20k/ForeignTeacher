@@ -35,4 +35,11 @@
     <declare-styleable name="SideNavigationView">
         <attr name="android:textColor" />
     </declare-styleable>
+    <declare-styleable name="ScheduleDateTextView">
+        <attr name="editable" format="boolean" />
+        <attr name="fill" format="boolean" />
+        <attr name="date_text" format="string" />
+        <attr name="discount" format="string" />
+        <attr name="show_discount" format="boolean" />
+    </declare-styleable>
 </resources>

@@ -68,4 +68,12 @@
 
     </RelativeLayout>
 
+    <com.xld.foreignteacher.views.SwipeCardRecyclerView
+        android:id="@+id/rec_swipe"
+        android:layout_margin="@dimen/android_margin"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+    </com.xld.foreignteacher.views.SwipeCardRecyclerView>
+
 </LinearLayout>

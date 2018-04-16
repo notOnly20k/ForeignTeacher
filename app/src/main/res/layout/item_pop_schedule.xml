@@ -11,18 +11,20 @@
         >
         <TextView
             android:id="@+id/tv_offer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1,this is tip1"
-            android:layout_margin="5dp"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Offer"
+            android:gravity="center"
+            android:padding="5dp"
             android:textColor="@color/black_00"
             />
         <TextView
             android:id="@+id/tv_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2,this is tip2"
-            android:layout_margin="5dp"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Group offer"
+            android:gravity="center"
+            android:padding="5dp"
             android:textColor="@color/black_00"
             />
     </LinearLayout>

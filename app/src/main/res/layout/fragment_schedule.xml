@@ -54,11 +54,11 @@
         android:background="@color/white"
         android:orientation="vertical"></LinearLayout>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:layout_below="@id/rl_title">
+        android:layout_below="@id/rl_title"
+        android:fillViewport="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -77,32 +77,73 @@
                 android:id="@+id/rec_schedule"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:layout_marginTop="10dp"
                 android:layout_below="@id/tab_date">
             </android.support.v7.widget.RecyclerView>
+
+
+            <LinearLayout
+                android:id="@+id/ll_set"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rec_schedule"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_set_unavailable_time"
+                    style="@style/style_tv_mine_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:text="Set unavailable time " />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:layout_marginRight="@dimen/android_margin"
+                    android:background="@color/grey_f1f1f1" />
+
+                <TextView
+                    android:id="@+id/tv_set_discount"
+                    style="@style/style_tv_mine_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:text="Set discount " />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_below="@id/ll_set"
+                android:background="@color/grey_f1f1f1" />
 
             <LinearLayout
                 android:id="@+id/ll_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rec_schedule"
+                android:layout_below="@id/ll_set"
                 android:layout_marginTop="@dimen/android_margin"
                 android:orientation="vertical">
 
                 <RadioGroup
                     android:id="@+id/rg_title"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="45dp"
                     android:layout_gravity="center"
+                    android:background="@color/white"
                     android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/rb_my_offer"
                         android:layout_width="0dp"
                         android:layout_height="30dp"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginBottom="6dp"
                         android:layout_marginLeft="@dimen/android_margin"
                         android:layout_marginRight="@dimen/android_margin"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="6dp"
                         android:layout_weight="1"
                         android:background="@drawable/bg_radio_group_tab"
                         android:button="@null"
@@ -114,10 +155,10 @@
                         android:id="@+id/rb_my_group_offer"
                         android:layout_width="0dp"
                         android:layout_height="30dp"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginBottom="6dp"
                         android:layout_marginLeft="@dimen/android_margin"
                         android:layout_marginRight="@dimen/android_margin"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="6dp"
                         android:layout_weight="1"
                         android:background="@drawable/bg_radio_group_tab"
                         android:button="@null"
@@ -127,22 +168,52 @@
                 </RadioGroup>
             </LinearLayout>
 
-            <FrameLayout
-                android:id="@+id/fl_replace"
+            <ImageView
+                android:id="@+id/img_line_left"
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:layout_below="@id/ll_content"
+                android:layout_marginLeft="76dp"
+                android:layout_marginTop="-10dp"
+                android:scaleType="matrix"
+                android:src="@mipmap/icon_line" />
+
+            <ImageView
+                android:id="@+id/img_line_right"
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/ll_content"
+                android:layout_marginRight="76dp"
+                android:layout_marginTop="-10dp"
+                android:scaleType="matrix"
+                android:src="@mipmap/icon_line" />
+
+            <com.xld.foreignteacher.views.ScollerRecyclerView
+                android:id="@+id/rec_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/ll_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="10dp" />
+                android:background="@color/grey_f1f1f1"
+                android:paddingBottom="@dimen/android_margin"
+                tools:listitem="@layout/item_my_offer"></com.xld.foreignteacher.views.ScollerRecyclerView>
+            <!--<FrameLayout-->
+            <!--android:id="@+id/fl_replace"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_below="@+id/ll_content"-->
+            <!--android:layout_marginBottom="20dp"-->
+            <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
+            <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
+            <!--android:layout_marginTop="10dp"/>-->
         </RelativeLayout>
 
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
+
     <View
-        style="@style/navigation_normal_style"
         android:id="@+id/fake_status_bar"
-        android:layout_alignParentBottom="true"/>
+        style="@style/navigation_normal_style"
+        android:layout_alignParentBottom="true" />
 
 
 </RelativeLayout>

@@ -6,6 +6,7 @@ import com.umeng.commonsdk.UMConfigure
 import com.xld.foreignteacher.Service.OssHandler
 import com.xld.foreignteacher.api.AppApi
 import com.xld.foreignteacher.api.NetWork
+import com.xld.foreignteacher.api.NetWork.Companion.BaseUrl
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -43,7 +44,7 @@ class BaseApp : BaseApplication(), AppComponent {
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://www.whynuttalk.com/")
+                .baseUrl(BaseUrl)
                 .build()
                 .create(AppApi::class.java)
         netWork = NetWork(this, appApi)

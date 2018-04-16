@@ -2,6 +2,9 @@ package com.xld.foreignteacher.ui.mine.about
 
 import cn.sinata.xldutils.utils.Utils
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.NetWork
+import com.xld.foreignteacher.ext.appComponent
+import com.xld.foreignteacher.ui.H5Activity
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import kotlinx.android.synthetic.main.activity_about.*
 
@@ -22,6 +25,14 @@ class AboutActivity : BaseTranslateStatusActivity() {
 
         tv_feedback.setOnClickListener {
             activityUtil.go(FeedBackActivity::class.java).start()
+        }
+
+        tv_about_app.setOnClickListener {
+            activityUtil.go(H5Activity::class.java).put("url",appComponent.netWork.getH5Url(NetWork.TYPE_ABOUT_US)).start()
+        }
+
+        tv_agreement.setOnClickListener {
+            activityUtil.go(H5Activity::class.java).put("url",appComponent.netWork.getH5Url(NetWork.TYPE_AGREEMENT)).start()
         }
 
         tv_tel.setOnClickListener {

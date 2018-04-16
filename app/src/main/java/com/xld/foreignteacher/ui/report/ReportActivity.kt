@@ -1,8 +1,10 @@
 package com.xld.foreignteacher.ui.report
 
 import android.view.Gravity
+import android.widget.TextView
 import com.timmy.tdialog.TDialog
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.ext.toFormattedString
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.views.InformItemView
 import kotlinx.android.synthetic.main.activity_report.*
@@ -50,11 +52,42 @@ class ReportActivity : BaseTranslateStatusActivity() {
                 tv_harassing.setOnClickListener { infoViewClicked(it as InformItemView) }
                 tv_lewd_or_harassing_content.setOnClickListener { infoViewClicked(it as InformItemView) }
                 tv_violation_user_name.setOnClickListener { infoViewClicked(it as InformItemView) }
+                btn_commit.setOnClickListener {
+                    val reason = et_reason.text.toString()
+                    showDeclinDialog()
+                }
             }
         }
     }
 
-
+    fun showDeclinDialog(){
+        TDialog.Builder(supportFragmentManager)
+                .setLayoutRes(R.layout.dialog_cancel_confirm)    //设置弹窗展示的xml布局
+                .setOnBindViewListener {viewHolder->
+                    viewHolder.getView<TextView>(R.id.tv_no)
+                    viewHolder.getView<TextView>(R.id.tv_yes)
+                    viewHolder.getView<TextView>(R.id.tv_info).text=R.string.cancel_confirm_info.toFormattedString(this)
+                }
+                .addOnClickListener(R.id.tv_no,R.id.tv_yes)
+                .setOnViewClickListener { viewHolder, view, tDialog ->
+                   when(view.id){
+                       R.id.tv_no->{
+                           tDialog.dismiss()
+                       }
+                       R.id.tv_yes->{
+                           tDialog.dismiss()
+                       }
+                   }
+                }
+                .setScreenWidthAspect(this, 1f)   //设置弹窗宽度(参数aspect为屏幕宽度比例 0 - 1f)
+                .setScreenHeightAspect(this, 1f)  //设置弹窗高度(参数aspect为屏幕宽度比例 0 - 1f)
+                .setTag("DeclinDialog")   //设置Tag
+                .setDimAmount(0.6f)     //设置弹窗背景透明度(0-1f)
+                .setCancelableOutside(true)     //弹窗在界面外是否可以点击取消
+                .setCancelable(true)    //弹窗是否可以取消
+                .create()   //创建TDialog
+                .show()    //展示
+    }
     fun showTDialog() {
         TDialog.Builder(supportFragmentManager)
                 .setLayoutRes(R.layout.dialog_inform_ok)    //设置弹窗展示的xml布局

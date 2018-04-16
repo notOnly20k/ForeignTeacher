@@ -236,4 +236,24 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .map { it.check() }
                 .logErrorAndForget(Throwable::toast)
     }
+
+
+    fun getH5Url(type: Int): String {
+        return "${BaseUrl}ForeignTeachers/app/public/getAppText?type=$type"
+    }
+
+
+    companion object {
+        val BaseUrl = "http://www.whynuttalk.com/"
+
+        val TYPE_CHARGE_RULES = 1
+        val TYPE_AGREEMENT = 2
+        val TYPE_PLANT_RULES = 3
+        val TYPE_ABOUT_US = 4
+        val TYPE_INVITE_RULES = 5
+        val TYPE_ORDER_DECLINE_RULES = 6
+        val TYPE_PINPIN_RULES = 7
+        val TYPE_FOREIGN = 9
+
+    }
 }

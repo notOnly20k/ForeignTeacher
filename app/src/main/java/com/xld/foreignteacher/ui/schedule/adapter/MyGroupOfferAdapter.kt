@@ -11,9 +11,9 @@ import com.xld.foreignteacher.R
 import org.slf4j.LoggerFactory
 
 /**
- * Created by cz on 4/11/18.
+ * Created by cz on 4/16/18.
  */
-class MyOfferAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MyGroupOfferAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val data: MutableList<String>
     private val activityUtil: ActivityUtil
     private val logger = LoggerFactory.getLogger("MyOfferAdapter")
@@ -31,7 +31,7 @@ class MyOfferAdapter(private val context: Context) : RecyclerView.Adapter<Recycl
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
 
-        val view = LayoutInflater.from(context).inflate(R.layout.item_my_offer, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_my_group_order, parent, false)
         return ViewHolder(view)
     }
 

@@ -101,5 +101,9 @@
     <string name="delete_record">Are you sure you want to delete this record?</string>
     <string name="cancel_confirm">Cancel Confirm</string>
     <string name="cancel_reason">Me-Cancellation Reason</string>
+    <string name="cancel_confirm_info">Canceling accepted orders will add
+        \n up on your cancel rate,this might \n affect client‘s choice.
+        \n Are you sure you have to cancel \n this confirmed order?</string>
+    <string name="charging_rules">Charging rules</string>
 
 </resources>

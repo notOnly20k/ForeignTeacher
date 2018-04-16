@@ -10,6 +10,7 @@ import retrofit2.http.Query
  */
 interface AppApi {
 
+
     @POST("ForeignTeachers/app/server")
     fun login(@Query("key") key: String): Single<Dto<User>>
 

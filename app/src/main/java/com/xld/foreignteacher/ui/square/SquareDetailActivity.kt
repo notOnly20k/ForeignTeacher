@@ -38,7 +38,7 @@ class SquareDetailActivity : BaseTranslateStatusActivity() {
 
     override fun initView() {
         titleBar.setTitle("Details")
-        titleBar.titlelayout.setBackgroundResource(R.color.black_00)
+        titleBar.titlelayout.setBackgroundResource(R.color.color_black_1d1e24)
         titleBar.titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
         titleBar.setLeftButton(R.mipmap.back_yellow, { finish() })
         titleBar.addRightButton("report") {

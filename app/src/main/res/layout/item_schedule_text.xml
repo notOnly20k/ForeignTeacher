@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/rb_date"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_schedule_text_edit"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="09:00-10:00"
+            android:textColor="@color/text_333333" />
+        <!--android:background="@drawable/bg_schedule_text_fill"-->
+        <!--android:background="@drawable/bg_schedule_text_half"-->
+        <TextView
+            android:id="@+id/tv_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/icon_discount"
+            android:gravity="center"
+            android:text="30%"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+</FrameLayout>

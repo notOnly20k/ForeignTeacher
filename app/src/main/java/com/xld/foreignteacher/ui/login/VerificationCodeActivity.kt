@@ -11,6 +11,7 @@ import butterknife.BindView
 import butterknife.OnClick
 import cn.sinata.xldutils.view.TitleBar
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.NetWork
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ext.toFormattedString
@@ -104,7 +105,8 @@ class VerificationCodeActivity : BaseTranslateStatusActivity(), EditEmptyWatcher
             R.id.btn_get_verification_code -> {
                 appComponent.netWork.sendMsg(etPhone.text.toString().replace("-", ""), type!!)
                         .doOnSubscribe { mCompositeDisposable.add(it) }
-                        .subscribe { code -> showToast(getString(R.string.msg_sended))
+                        .subscribe { code ->
+                            showToast(getString(R.string.msg_sended))
                             etVerificationCode.setText(code)
                         }
 
@@ -113,12 +115,12 @@ class VerificationCodeActivity : BaseTranslateStatusActivity(), EditEmptyWatcher
                 timer!!.start()
             }
             R.id.btn_login_next -> {
-                appComponent.netWork.checkMsg(etPhone.text.toString().replace("-", ""), etVerificationCode.text.toString(),type!!)
+                appComponent.netWork.checkMsg(etPhone.text.toString().replace("-", ""), etVerificationCode.text.toString(), type!!)
                         .doOnLoading { showProgress(it) }
                         .doOnSubscribe { mCompositeDisposable.add(it) }
-                        .subscribe { _ ->   checkSuccess() }
+                        .subscribe { _ -> checkSuccess() }
             }
-            R.id.tv_service_agreement -> activityUtil.go(H5Activity::class.java).put("url", "http://www.qq.com/").put("title", "用户协议").start()
+            R.id.tv_service_agreement -> activityUtil.go(H5Activity::class.java).put("url", appComponent.netWork.getH5Url(NetWork.TYPE_AGREEMENT)).start()
         }
     }
 

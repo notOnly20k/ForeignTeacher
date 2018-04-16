@@ -13,6 +13,7 @@ import cn.sinata.xldutils.utils.Toast
 import cn.sinata.xldutils.view.TitleBar
 import com.google.gson.Gson
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.NetWork
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ext.toMD5
@@ -77,21 +78,21 @@ class SetPwdActivity : BaseTranslateStatusActivity(), EditEmptyWatcher.Checkable
         when (view.id) {
             R.id.btn_login_commit -> when (type) {
                 TYPE_REGISTER -> if (commitCheck()) {
-                    appComponent.netWork.register(phone!!,etPwd.text.toString().toMD5())
+                    appComponent.netWork.register(phone!!, etPwd.text.toString().toMD5())
                             .doOnSubscribe { mCompositeDisposable.add(it) }
-                            .doOnLoading{showProgress(it)}
+                            .doOnLoading { showProgress(it) }
                             .subscribe { user ->
                                 showToast(getString(R.string.register_ok))
                                 SPUtils.save("user", Gson().toJson(user))
-                                SPUtils.save("id",user.id)
-                                activityUtil.go(EditTeacherInfoActivity::class.java).put("type",EditTeacherInfoActivity.SAVE).start()
+                                SPUtils.save("id", user.id)
+                                activityUtil.go(EditTeacherInfoActivity::class.java).put("type", EditTeacherInfoActivity.SAVE).start()
                                 finish()
                             }
                 }
                 TYPE_FORGET -> if (commitCheck()) {
-                    appComponent.netWork.resetPwd(phone!!,etPwd.text.toString().toMD5())
+                    appComponent.netWork.resetPwd(phone!!, etPwd.text.toString().toMD5())
                             .doOnSubscribe { mCompositeDisposable.add(it) }
-                            .doOnLoading{showProgress(it)}
+                            .doOnLoading { showProgress(it) }
                             .subscribe { _ ->
                                 showToast(getString(R.string.reset_pwd_success))
                                 activityUtil.go(LoginActivity::class.java).start()
@@ -99,8 +100,9 @@ class SetPwdActivity : BaseTranslateStatusActivity(), EditEmptyWatcher.Checkable
                             }
                 }
             }
-            R.id.tv_service_agreement -> activityUtil.go(H5Activity::class.java).put("url", "http://pvp.qq.com/web201605/herolist.shtml").start()
-           }
+            R.id.tv_service_agreement -> activityUtil.go(H5Activity::class.java)
+                    .put("url", appComponent.netWork.getH5Url(NetWork.TYPE_AGREEMENT)).start()
+        }
     }
 
     override fun checkAllEditContent() {
@@ -109,7 +111,7 @@ class SetPwdActivity : BaseTranslateStatusActivity(), EditEmptyWatcher.Checkable
         btnLoginCommit.isEnabled = TextUtils.getTrimmedLength(pwd) >= 6 && TextUtils.getTrimmedLength(pwdRepeat) >= 6
     }
 
-     override fun commitCheck(): Boolean {
+    override fun commitCheck(): Boolean {
         val pwd = etPwd.text.toString().trim { it <= ' ' }
         val pwdRepeat = etPwdRepeat.text.toString().trim { it <= ' ' }
         if (pwd != pwdRepeat) {

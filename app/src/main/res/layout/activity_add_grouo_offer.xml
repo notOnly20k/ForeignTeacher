@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grey_f1f1f1">
+
+    <cn.sinata.xldutils.view.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_below="@id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/rl_name"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                android:paddingBottom="10dp"
+                android:paddingRight="@dimen/android_margin"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/style_tv_mine_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name/topic" />
+
+                <EditText
+                    android:id="@+id/et_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/tv_name"
+                    android:background="@color/white"
+                    android:hint="Enter course title"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:text="Limit 40 characters"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tv_language"
+                style="@style/style_tv_mine_item"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/rl_name"
+                android:text="Language" />
+
+            <EditText
+                android:id="@+id/et_language"
+                style="@style/style_tv_mine_item"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/rl_name"
+                android:layout_toRightOf="@id/tv_language"
+                android:drawableRight="@mipmap/icon_more"
+                android:enabled="false"
+                android:hint="Choose language" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_language"
+                android:layout_marginLeft="@dimen/android_margin"
+                android:layout_marginRight="@dimen/android_margin"
+                android:layout_marginTop="-1dp"
+                android:background="@color/grey_f1f1f1" />
+
+
+            <TextView
+                android:id="@+id/tv_rate"
+                style="@style/style_tv_mine_item"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/tv_language"
+                android:text="Rate" />
+
+            <EditText
+                android:id="@+id/et_rate"
+                style="@style/style_tv_mine_item"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/tv_language"
+                android:layout_toRightOf="@id/tv_rate"
+                android:hint="Rate per person" />
+
+            <TextView
+                android:id="@+id/tv_rate_label"
+                style="@style/style_tv_mine_item"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="right|center_vertical"
+                android:layout_below="@id/tv_language"
+                android:layout_toRightOf="@id/et_rate"
+                android:text="/hour" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_rate"
+                android:layout_marginLeft="@dimen/android_margin"
+                android:layout_marginRight="@dimen/android_margin"
+                android:layout_marginTop="-1dp"
+                android:background="@color/grey_f1f1f1" />
+
+            <TextView
+                android:id="@+id/tv_actual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_rate"
+                android:background="@color/white"
+                android:gravity="right"
+                android:paddingBottom="@dimen/dp_4"
+                android:paddingRight="@dimen/android_margin"
+                android:paddingTop="@dimen/dp_4"
+                android:text="Actual income:￥88/h"
+                android:textSize="@dimen/text_12" />
+
+            <TextView
+                android:id="@+id/tv_charging"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/tv_actual"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/android_margin"
+                android:text="Charging rules"
+                android:textColor="@color/color_red_ff4a26"
+                android:textSize="@dimen/text_12" />
+
+            <TextView
+                android:id="@+id/tv_max"
+                style="@style/style_tv_mine_item"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/tv_charging"
+                android:text="Max.Participants" />
+
+            <TextView
+                android:id="@+id/tv_min"
+                style="@style/style_tv_mine_item"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/tv_max"
+                android:text="Min.Participants"
+                android:layout_marginBottom="10dp"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_contact"
+                style="@style/style_tv_mine_item"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/tv_min"
+                android:text="Contact" />
+
+            <EditText
+                android:id="@+id/et_contact"
+                style="@style/style_tv_mine_item"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/tv_min"
+                android:layout_toRightOf="@id/tv_contact"
+                android:enabled="false"
+                android:hint="Mobile Number" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_contact"
+                android:layout_marginLeft="@dimen/android_margin"
+                android:layout_marginRight="@dimen/android_margin"
+                android:layout_marginTop="-1dp"
+                android:background="@color/grey_f1f1f1" />
+            <TextView
+                android:id="@+id/tv_deadline"
+                style="@style/style_tv_mine_item"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/tv_contact"
+                android:text="Deadline" />
+
+            <EditText
+                android:id="@+id/et_deadline"
+                style="@style/style_tv_mine_item"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableRight="@mipmap/right_arrow"
+                android:layout_below="@id/tv_contact"
+                android:layout_toRightOf="@id/tv_contact"
+                android:enabled="false"
+                android:hint="Set the deadline" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_deadline"
+                android:layout_marginLeft="@dimen/android_margin"
+                android:layout_marginRight="@dimen/android_margin"
+                android:layout_marginTop="-1dp"
+                android:background="@color/grey_f1f1f1" />
+            <TextView
+                android:id="@+id/tv_start_time"
+                style="@style/style_tv_mine_item"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/tv_deadline"
+                android:text="Start Time" />
+
+            <EditText
+                android:id="@+id/et_start_time"
+                style="@style/style_tv_mine_item"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableRight="@mipmap/right_arrow"
+                android:layout_below="@id/tv_deadline"
+                android:layout_toRightOf="@id/tv_contact"
+                android:enabled="false"
+                android:hint="Set the starting time" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_start_time"
+                android:layout_marginLeft="@dimen/android_margin"
+                android:layout_marginRight="@dimen/android_margin"
+                android:layout_marginTop="-1dp"
+                android:background="@color/grey_f1f1f1" />
+            <TextView
+                android:id="@+id/tv_end_time"
+                style="@style/style_tv_mine_item"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/tv_start_time"
+                android:text="End Time" />
+
+            <EditText
+                android:id="@+id/et_end_time"
+                style="@style/style_tv_mine_item"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableRight="@mipmap/right_arrow"
+                android:layout_below="@id/tv_start_time"
+                android:layout_toRightOf="@id/tv_contact"
+                android:enabled="false"
+                android:hint="Set the estimate finish time" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_end_time"
+                android:layout_marginLeft="@dimen/android_margin"
+                android:layout_marginRight="@dimen/android_margin"
+                android:layout_marginTop="-1dp"
+                android:background="@color/grey_f1f1f1" />
+            <TextView
+                android:id="@+id/tv_location"
+                style="@style/style_tv_mine_item"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_below="@id/tv_end_time"
+                android:text="Add location"
+                android:layout_marginBottom="10dp"
+                />
+
+            <EditText
+                android:id="@+id/et_location"
+                style="@style/style_tv_mine_item"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableRight="@mipmap/icon_locate"
+                android:layout_below="@id/tv_end_time"
+                android:layout_toRightOf="@id/tv_contact"
+                android:enabled="false"
+                android:hint="Set address" />
+
+            <LinearLayout
+                android:id="@+id/ll_uo_load"
+                android:orientation="vertical"
+                android:layout_below="@id/tv_location"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/style_tv_mine_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Promote photos of offer"
+                    />
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/img_up_load"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="10dp"
+                    app:placeholderImage="@mipmap/icon_up_load"
+                    fresco:placeholderImageScaleType="centerCrop"
+                    fresco:actualImageScaleType="centerCrop"
+                    app:roundedCornerRadius="@dimen/dp_10"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:layout_marginRight="@dimen/android_margin"
+                    android:layout_marginBottom="@dimen/android_margin"
+                    android:layout_gravity="center_horizontal"
+                    />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_offer_detail"
+                style="@style/style_tv_mine_item"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_below="@id/ll_uo_load"
+                android:text="Offer detail/Introduction" />
+
+            <EditText
+                android:id="@+id/et_offer_detail"
+                style="@style/style_tv_mine_item"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableRight="@mipmap/right_arrow"
+                android:layout_below="@id/ll_uo_load"
+                android:drawablePadding="@dimen/android_margin"
+                android:layout_toRightOf="@id/tv_offer_detail"
+                android:gravity="right|center_vertical"
+                android:enabled="false"
+                android:hint="Unedited" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textSize="16sp"
+                android:textColor="@color/black_000000"
+                android:background="@drawable/bg_yellow_button"
+                android:layout_below="@id/tv_offer_detail"
+                android:gravity="center"
+                android:text="Submit"
+                android:layout_margin="@dimen/android_margin"
+                />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

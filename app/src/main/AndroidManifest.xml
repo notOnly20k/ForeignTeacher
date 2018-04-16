@@ -82,6 +82,8 @@
         <activity android:name=".ui.mine.setting.SettingActivity" />
         <activity android:name=".ui.mine.setting.ChangPwdActivity" />
         <activity android:name=".ui.order.single.PendingDetailActivity" />
+        <activity android:name=".ui.schedule.AddOfferActivity" />
+        <activity android:name=".ui.schedule.AddGroupOfferActivity" />
 
 
         <activity

@@ -69,3 +69,18 @@ data class SystemMessage(var id: Int = 0, var title: String? = null, var img: St
 data class TeacherSchedule(var sortField: Any? = null, var id: Int = 0, var teacherId: Int = 0,
                            var day: Long = 0, var startTime: Int = 0, var endTime: Int = 0, var discount: Double = 1.0,
                            var reservable: Int = 0, var addtime: Long = 0)
+
+data class TeacherRecord(private var id: Int = 0, var userId: Int = 0, var money: Int = 0, var remark: String? = null,
+                         var createTime: Long = 0, var status: Int = 0, var teacherId: Int = 0)
+
+data class SquareDate(var commentNum: Int = 0, var content: String? = null, var id: Int = 0, var createTime: Long = 0,
+                 var isGiveThum: Boolean = false, var nickName: String? = null, var giveThumNum: Int = 0, var contents: String? = null,
+                 var address: String? = null, var teacherImgUrl: String? = null, var teacherId: Int = 0, var squareCommentList: List<SquareCommentListBean>? = null,
+                 var imgUrl: List<ImgUrlBean>? = null) {
+
+    class SquareCommentListBean(var content: String? = null, var id: Int = 0, var createTime: Long = 0,
+                                var nickName1: String? = null, var nickName: String? = null, var type1: Int = 0,
+                                var userId: Int = 0, var userId1: Int = 0, var type: Int = 0, var commentId: Int = 0)
+
+    class ImgUrlBean(var imgUrl: String? = null)
+}

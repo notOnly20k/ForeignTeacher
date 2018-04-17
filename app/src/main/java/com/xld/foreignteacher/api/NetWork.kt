@@ -238,6 +238,7 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
     }
 
     fun getTeacherSchedule(id: Int, day: String): Maybe<List<TeacherSchedule>> {
+        logger.e { "day==$day" }
         val key = DES.encryptDES("server=/app/public/getTeacherBooking?id=$id&day=$day")
         return appComponent.appApi
                 .getTeacherSchedule(key)
@@ -267,6 +268,39 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .map { it.check() }
                 .logErrorAndForget(Throwable::toast)
     }
+
+    fun getTeacherRecord(id: Int,page: Int,rows: Int,type: Int=2): Maybe<List<TeacherRecord>> {
+
+        val key = DES.encryptDES("server=/app/public/getTransactionRecord?id=$id&id=$id&page=$page&type=$type&rows=$rows")
+        return appComponent.appApi
+                .getTeacherRecord(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    fun getSquareList(id: Int,page: Int,rows: Int,type: Int=2): Maybe<List<SquareDate>> {
+
+        val key = DES.encryptDES("server=/app/userSquare/getSquareList?userId=$id&id=$id&page=$page&type=$type&rows=$rows")
+        return appComponent.appApi
+                .getSquareList(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    fun addGiveThum(squareId:Int,userId:Int,type: Int=2):Maybe<Any>{
+        val key = DES.encryptDES("server=/app/userSquare/addGiveThum?userId=$userId&id=$squareId&type=$type")
+        return appComponent.appApi
+                .addGiveThum(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
 
 
     fun getH5Url(type: Int): String {

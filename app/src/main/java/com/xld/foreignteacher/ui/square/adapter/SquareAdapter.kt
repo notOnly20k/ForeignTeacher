@@ -19,8 +19,15 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import cn.sinata.xldutils.adapter.LoadMoreAdapter
 import cn.sinata.xldutils.utils.ActivityUtil
+import cn.sinata.xldutils.utils.SPUtils
+import cn.sinata.xldutils.utils.TimeUtils
 import com.facebook.drawee.view.SimpleDraweeView
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.dto.SquareDate
+import com.xld.foreignteacher.ext.appComponent
+import com.xld.foreignteacher.ext.doOnLoading
+import com.xld.foreignteacher.ext.e
+import com.xld.foreignteacher.ui.locate.LocationActivity
 import com.xld.foreignteacher.ui.square.SquareDetailActivity
 import com.xld.foreignteacher.ui.userinfo.TeacherDetailActivity
 import com.xld.foreignteacher.views.NestedGridView
@@ -32,18 +39,9 @@ import java.util.*
  */
 class SquareAdapter(private val context: Context, private val fragmentManager: FragmentManager) : LoadMoreAdapter() {
 
-    private val data: MutableList<String>
-    private val activityUtil: ActivityUtil
+    private val data: MutableList<SquareDate> = mutableListOf()
+    private val activityUtil: ActivityUtil = ActivityUtil.create(context)
     private val logger = LoggerFactory.getLogger("SquareAdapter")
-
-    init {
-        data = ArrayList()
-        activityUtil = ActivityUtil.create(context)
-        data.add("")
-        data.add("")
-        data.add("")
-        data.add("")
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         if (viewType == TYPE_NORMAL) {
@@ -66,7 +64,25 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == TYPE_NORMAL) {
+            val iconLike = context.resources.getDrawable(R.mipmap.icon_like)
+            iconLike.setBounds(0, 0, iconLike.minimumHeight, iconLike.minimumHeight)
+            val iconEmptyLike = context.resources.getDrawable(R.mipmap.empty_like)
+            iconEmptyLike.setBounds(0, 0, iconEmptyLike.minimumHeight, iconEmptyLike.minimumHeight)
+
+
             val viewHolder = holder as ViewHolder
+            val squareDate = data[position]
+            viewHolder.tvName.text = squareDate.nickName
+            viewHolder.tvTime.text = "${TimeUtils.getTimeHour(squareDate.createTime)}-${TimeUtils.getTimeMinute(squareDate.createTime)}"
+            viewHolder.tvContent.text = squareDate.content
+            viewHolder.tvLocation.text = squareDate.address
+            viewHolder.btnLike.text = squareDate.giveThumNum.toString()
+            if (squareDate.isGiveThum) {
+                viewHolder.btnLike.setCompoundDrawables(iconLike,null,null,null)
+            }else{
+                viewHolder.btnLike.setCompoundDrawables(iconEmptyLike,null,null,null)
+            }
+
             viewHolder.elSquareItem.setOnClickListener {
                 activityUtil.go(SquareDetailActivity::class.java).put("id", "").start()
             }
@@ -74,7 +90,7 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
                 activityUtil.go(TeacherDetailActivity::class.java).put("id", "").start()
             }
             viewHolder.tvName.setOnClickListener {
-                //todo 跳用户资料
+                activityUtil.go(TeacherDetailActivity::class.java).start()
             }
             viewHolder.tvContent.setOnLongClickListener {
                 //todo 翻译成功后显示
@@ -82,45 +98,76 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
                 true
             }
             viewHolder.tvLocation.setOnClickListener {
-                //todo 跳地图
+                activityUtil.go(LocationActivity::class.java).start()
             }
             viewHolder.btnLike.setOnClickListener {
-                //todo 点赞
+                if (squareDate.isGiveThum.not())
+                context.appComponent.netWork
+                       .addGiveThum(squareDate.id, SPUtils.getInt("id"))
+                       .doOnLoading {  }
+                       .subscribe {
+                           viewHolder.btnLike.text = (squareDate.giveThumNum+1).toString()
+                           viewHolder.btnLike.setCompoundDrawables(iconLike,null,null,null)
+                       }
             }
-            viewHolder.btnLike.setOnClickListener {
+            viewHolder.btnComment.setOnClickListener {
                 //todo 评论
             }
             //todo 如果有图片就加载
-            val urls = ArrayList<String>()
-            urls.add("")
-            urls.add("")
-            urls.add("")
-            urls.add("")
-            urls.add("")
-            viewHolder.gvImg.adapter = SquareImgAdapter(urls, context)
-            viewHolder.gvImg.visibility = View.VISIBLE
+            viewHolder.gvImg.visibility = View.GONE
+            if (squareDate.imgUrl != null && squareDate.imgUrl!!.isNotEmpty()) {
+                val urls = ArrayList<String>()
+                squareDate.imgUrl!!.map {
+                    urls.add(it.imgUrl!!)
+                }
+                viewHolder.gvImg.adapter = SquareImgAdapter(urls, context)
+                viewHolder.gvImg.visibility = View.VISIBLE
+            }
             //todo 如果有评论就加载
-            viewHolder.llReplay.visibility = View.VISIBLE
-            for (i in 0..3) {
-                val tv = TextView(context)
-                val tag1 = "Mark"
-                val tag2 = "Linda"
-                val reply = SpannableString("$tag1 reply $tag2: Wahu ,nice to meet you la la la la l alal")
-                reply.setSpan(ForegroundColorSpan(context.resources.getColor(R.color.black_00)), 0, tag1.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
-                reply.setSpan(StyleSpan(Typeface.BOLD), 0, tag1.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
-                reply.setSpan(ForegroundColorSpan(context.resources.getColor(R.color.black_00)), tag1.length + 6, tag1.length + 8 + tag2.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
-                reply.setSpan(StyleSpan(Typeface.BOLD), tag1.length + 6, tag1.length + 8 + tag2.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
-                reply.setSpan(ForegroundColorSpan(context.resources.getColor(R.color.black_00)), tag1.length + 1, tag1.length + 6, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+            viewHolder.llReplay.removeAllViews()
+            viewHolder.llReplay.visibility = View.GONE
+            if (squareDate.squareCommentList != null) {
+                viewHolder.llReplay.visibility = View.VISIBLE
+                for (i in 0..squareDate.squareCommentList!!.size) {
+                    if (i < 3) {
+                        val comment = squareDate.squareCommentList!![i]
+                        val tv = TextView(context)
+                        logger.e { comment.content!!.length }
+                        if (comment.nickName1 != null) {
+                            val tag1 = comment.nickName!!
+                            val tag2 = comment.nickName1!!
+                            val reply = SpannableString("$tag1 reply $tag2: ${comment.content!!}")
+                            reply.setSpan(ForegroundColorSpan(context.resources.getColor(R.color.black_00)), 0, tag1.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                            reply.setSpan(StyleSpan(Typeface.BOLD), 0, tag1.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                            reply.setSpan(ForegroundColorSpan(context.resources.getColor(R.color.black_00)), tag1.length + 6, tag1.length + 8 + tag2.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                            reply.setSpan(StyleSpan(Typeface.BOLD), tag1.length + 6, tag1.length + 8 + tag2.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                            reply.setSpan(ForegroundColorSpan(context.resources.getColor(R.color.black_00)), tag1.length + 1, tag1.length + 6, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                            tv.text = reply
+                        } else {
+                            val tag1 = comment.nickName!!
+                            val reply = SpannableString("$tag1: ${comment.content!!.toString().replace(" ", "")}")
+                            reply.setSpan(ForegroundColorSpan(context.resources.getColor(R.color.black_00)), 0, tag1.length + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                            reply.setSpan(StyleSpan(Typeface.BOLD), 0, tag1.length + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                            tv.text = reply
+                        }
 
-                tv.text = reply
-                viewHolder.llReplay.addView(tv)
+                        viewHolder.llReplay.addView(tv)
+                    }
+                }
+                val tv_read_more = TextView(context).apply {
+                    text = "Read more>>"
+                    setTextColor(context.resources.getColor(R.color.yellow_ffcc00))
+                }
+                viewHolder.llReplay.addView(tv_read_more)
             }
-            val tv_read_more = TextView(context).apply {
-                text = "Read more>>"
-                setTextColor(context.resources.getColor(R.color.yellow_ffcc00))
-            }
-            viewHolder.llReplay.addView(tv_read_more)
+
         }
+    }
+
+    fun upDateList(list: List<SquareDate>) {
+        data.clear()
+        data.addAll(list)
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
@@ -154,35 +201,35 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
         }
     }
     //评价 弹出输入框
-    //    public void evaluateDialog() {
-    //        new TDialog.Builder(fragmentManager)
-    //                .setLayoutRes(R.layout.dialog_evaluate)
-    //                .setScreenWidthAspect(this, 1.0f)
-    //                .setGravity(Gravity.BOTTOM)
-    //                .addOnClickListener(R.id.btn_evluate)
-    //                .setOnBindViewListener(new OnBindViewListener() {
-    //                    @Override
-    //                    public void bindView(BindViewHolder viewHolder) {
-    //                        final EditText editText = viewHolder.getView(R.id.editText);
-    //                        editText.post(new Runnable() {
-    //                            @Override
-    //                            public void run() {
-    //                                InputMethodManager imm = (InputMethodManager) DiffentDialogActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
-    //                                imm.showSoftInput(editText, 0);
-    //                            }
-    //                        });
-    //                    }
-    //                })
-    //                .setOnViewClickListener(new OnViewClickListener() {
-    //                    @Override
-    //                    public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
-    //                        EditText editText = viewHolder.getView(R.id.editText);
-    //                        String content = editText.getText().toString().trim();
-    //                        Toast.makeText(DiffentDialogActivity.this, "评价内容:" + content, Toast.LENGTH_SHORT).show();
-    //                        tDialog.dismiss();
-    //                    }
-    //                })
-    //                .create()
-    //                .show();
-    //    }
+//       fun evaluateDialog() {
+//             TDialog.Builder(fragmentManager)
+//                    .setLayoutRes(R.layout.dialog_evaluate)
+//                    .setScreenWidthAspect(this, 1.0f)
+//                    .setGravity(Gravity.BOTTOM)
+//                    .addOnClickListener(R.id.btn_evluate)
+//                    .setOnBindViewListener(new OnBindViewListener() {
+//                        @Override
+//                        public void bindView(BindViewHolder viewHolder) {
+//                            final EditText editText = viewHolder.getView(R.id.editText);
+//                            editText.post(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    InputMethodManager imm = (InputMethodManager) DiffentDialogActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+//                                    imm.showSoftInput(editText, 0);
+//                                }
+//                            });
+//                        }
+//                    })
+//                    .setOnViewClickListener(new OnViewClickListener() {
+//                        @Override
+//                        public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
+//                            EditText editText = viewHolder.getView(R.id.editText);
+//                            String content = editText.getText().toString().trim();
+//                            Toast.makeText(DiffentDialogActivity.this, "评价内容:" + content, Toast.LENGTH_SHORT).show();
+//                            tDialog.dismiss();
+//                        }
+//                    })
+//                    .create()
+//                    .show();
+//        }
 }

@@ -162,7 +162,7 @@ public class TimeUtils {
 	 */
 	public static String getTimeYMDCN(long timestamp) {
 
-		SimpleDateFormat f = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss",Locale.CHINA);
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd- HH:mm:ss",Locale.CHINA);
 
 		return f.format(new Date(timestamp));
 

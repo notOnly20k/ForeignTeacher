@@ -4,9 +4,9 @@ import android.os.Bundle
 import cn.sinata.xldutils.fragment.BaseFragment
 import cn.sinata.xldutils.utils.SPUtils
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.dto.TeacherSchedule
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.views.ScheduleDateTextView
-import kotlinx.android.synthetic.main.item_schedule.*
 import org.slf4j.LoggerFactory
 
 /**
@@ -17,6 +17,7 @@ class ScheduleCardFragment : BaseFragment() {
     override fun getContentViewLayoutID(): Int {
         return R.layout.item_schedule
     }
+    private val dataList = mutableListOf<TeacherSchedule>()
 
     override fun onFirstVisibleToUser() {
         initDate()
@@ -30,28 +31,42 @@ class ScheduleCardFragment : BaseFragment() {
         val type = arguments!!.getInt("type")
         appComponent.netWork.getTeacherSchedule(SPUtils.getInt("id"), date)
                 .subscribe { list ->
-                    for (i in 0 until gd_content.childCount) {
-                        val view = (gd_content.getChildAt(i) as ScheduleDateTextView)
-                        view.changByState(list[i].reservable)
-                        view.setOnClickListener(object : ScheduleDateTextView.OnScheduleDateTextViewClickListner {
-                            override fun click(isChecked: Boolean) {
-                                scheduleCardFragmentCallBack.scheduleClick(view, isChecked,list[i].id)
-                            }
-
-                        })
-                        if (list[i].discount == 1.0){
-                            view.isShowDiscount(false)
-                        }else{
-                            view.isShowDiscount(true)
-                        }
-
-                        view.setDisCount(list[i].discount.toString())
-                    }
+                    dataList.clear()
+                    dataList.addAll(list)
+                    initView(list)
                 }
     }
 
-    override fun onVisibleToUser() {
+    fun initView(list: List<TeacherSchedule>){
+//        logger.e { "listSize ===${list.size}" +
+//                "/n" +
+//                "childCount===${gd_content.childCount}" }
+//        list.map {  logger.e { "list ===${it}"} }
+//        for (i in 0 until  gd_content.childCount) {
+//            val view = (gd_content.getChildAt(i) as ScheduleDateTextView)
+//            view.changByState(list[i].reservable)
+//            view.setOnClickListener(object : ScheduleDateTextView.OnScheduleDateTextViewClickListner {
+//                override fun click(isChecked: Boolean) {
+//                    scheduleCardFragmentCallBack.scheduleClick(view, isChecked,list[i].id)
+//                }
+//
+//            })
+//            if (list[i].discount == 1.0){
+//                view.isShowDiscount(false)
+//            }else{
+//                view.isShowDiscount(true)
+//            }
+//
+//            view.setDisCount(list[i].discount.toString())
+//        }
+    }
 
+    override fun onVisibleToUser() {
+        if (dataList.isEmpty()) {
+            initDate()
+        }else{
+            initView(dataList)
+        }
     }
 
     override fun onInvisibleToUser() {

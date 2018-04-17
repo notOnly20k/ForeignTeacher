@@ -75,4 +75,14 @@ interface AppApi {
     @POST("ForeignTeachers/app/server")
     fun setTeacherScheduleEnable(@Query("key") key: String): Single<Dto<Any>>
 
+    @POST("ForeignTeachers/app/server")
+    fun getTeacherRecord(@Query("key") key: String): Single<Dto<List<TeacherRecord>>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getSquareList(@Query("key") key: String): Single<Dto<List<SquareDate>>>
+
+    @POST("ForeignTeachers/app/server")
+    fun addGiveThum(@Query("key") key: String): Single<Dto<Any>>
+
+
 }

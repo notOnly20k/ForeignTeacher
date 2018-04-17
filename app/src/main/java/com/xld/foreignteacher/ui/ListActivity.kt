@@ -1,7 +1,11 @@
 package com.xld.foreignteacher.ui
 
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import cn.sinata.xldutils.utils.SPUtils
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.ext.appComponent
+import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.mine.commemt.CommentAdapter
 import com.xld.foreignteacher.ui.mine.setting.BlockedListAdapter
@@ -17,6 +21,8 @@ class ListActivity : BaseTranslateStatusActivity() {
         get() = R.layout.activity_list
     override val changeTitleBar: Boolean
         get() = false
+    private lateinit var adpter: RecyclerView.Adapter<RecyclerView.ViewHolder>
+    private var page = 1
 
     override fun initView() {
         rec_content.setLayoutManager(LinearLayoutManager(this).apply { orientation = LinearLayoutManager.VERTICAL })
@@ -24,28 +30,63 @@ class ListActivity : BaseTranslateStatusActivity() {
         title_bar.titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
         title_bar.setLeftButton(R.mipmap.back_yellow, { finish() })
         when (intent.getStringExtra("type")) {
-            WITHDRAWDETAIL->{
+            WITHDRAWDETAIL -> {
                 title_bar.setTitle(WITHDRAWDETAIL)
-                rec_content.setAdapter(WithDrawDetailAdapter(this))
+                adpter = WithDrawDetailAdapter(this)
+
             }
-            TRANSACTIONS->{
+            TRANSACTIONS -> {
                 title_bar.setTitle(TRANSACTIONS)
-                rec_content.setAdapter(TransactionsAdapter(this))
+                adpter = TransactionsAdapter(this)
+                (adpter as TransactionsAdapter).setListener(object : TransactionsAdapter.OnItemClickListener {
+                    override fun loadMore() {
+                        page++
+                        getTransactions(page)
+                    }
+
+                })
             }
 
-            COMMENT->{
+            COMMENT -> {
                 title_bar.setTitle(COMMENT)
-                rec_content.setAdapter(CommentAdapter(this, emptyList()))
+                adpter = CommentAdapter(this, emptyList())
             }
-            BLOCKED_LIST->{
+            BLOCKED_LIST -> {
                 title_bar.setTitle(BLOCKED_LIST)
-                rec_content.setAdapter(BlockedListAdapter(this))
+                adpter = BlockedListAdapter(this)
+            }
+
+        }
+        rec_content.setAdapter(adpter)
+    }
+
+    override fun initData() {
+        when (intent.getStringExtra("type")) {
+            WITHDRAWDETAIL -> {
+
+            }
+            TRANSACTIONS -> {
+                getTransactions(1)
+            }
+
+            COMMENT -> {
+
+            }
+            BLOCKED_LIST -> {
+
             }
         }
     }
 
-    override fun initData() {
+    fun getTransactions(page: Int) {
+        appComponent.netWork
+                .getTeacherRecord(SPUtils.getInt("id"), page, 1)
+                .doOnLoading { showProgress(it) }
+                .subscribe { list ->
+                    (adpter as TransactionsAdapter).updateList(list)
 
+                    rec_content.isNoMoreData(list.isEmpty())
+                }
     }
 
     companion object {

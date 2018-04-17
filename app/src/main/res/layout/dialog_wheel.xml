@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:background="@color/black_00">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            style="@style/text_bottom_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_centerVertical="true"
+            android:text="@string/cancel" />
+
+        <TextView
+            android:id="@+id/tv_ok"
+            style="@style/text_bottom_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="13dp"
+            android:text="@string/ok" />
+    </RelativeLayout>
+    <com.aigestudio.wheelpicker.WheelPicker
+        android:id="@+id/loop_data"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:wheel_selected_item_text_color="@color/text_333333"
+        app:wheel_item_text_size="15sp"
+        app:wheel_atmospheric="true"
+        app:wheel_visible_item_count="3"
+        app:wheel_item_text_color="@color/color_grey_999999"
+        app:wheel_cyclic="true"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>

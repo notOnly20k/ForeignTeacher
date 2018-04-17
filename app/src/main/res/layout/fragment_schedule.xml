@@ -29,15 +29,15 @@
             android:background="@mipmap/icon_add" />
     </RelativeLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/ll_tab"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_below="@id/rl_title"
         android:background="@color/color_black_22242d"
-        android:orientation="horizontal"></LinearLayout>
+        android:orientation="horizontal"></FrameLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/ll_shape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,15 +46,16 @@
         android:background="@drawable/bg_layout_mine"
         android:orientation="vertical" />
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/ll_shape"
         android:layout_marginTop="-10dp"
         android:background="@color/white"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical"></FrameLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/rl_title"
@@ -73,20 +74,22 @@
                 app:tabMinWidth="55dp"
                 app:tabMode="scrollable" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rec_schedule"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_schedule"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="220dp"
                 android:layout_marginTop="10dp"
                 android:layout_below="@id/tab_date">
-            </android.support.v7.widget.RecyclerView>
+            </android.support.v4.view.ViewPager>
 
 
             <LinearLayout
                 android:id="@+id/ll_set"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rec_schedule"
+                android:layout_below="@id/vp_schedule"
                 android:background="@color/white"
                 android:orientation="vertical">
 

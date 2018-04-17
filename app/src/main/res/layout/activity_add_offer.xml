@@ -23,6 +23,7 @@
         style="@style/style_tv_mine_item"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:textColor="@color/black_000000"
         android:layout_below="@id/title_bar"
         android:layout_toRightOf="@id/tv_title"
         android:drawableRight="@mipmap/icon_more"
@@ -44,8 +45,8 @@
         android:layout_below="@id/tv_title"
         android:layout_toRightOf="@id/tv_title"
         android:drawableRight="@mipmap/icon_more"
-        android:enabled="false"
-        android:textColor="@color/grey_f1f1f1"
+        android:editable="false"
+        android:textColor="@color/black_00"
         android:hint="Choose the right category" />
 
     <View
@@ -70,11 +71,11 @@
         style="@style/style_tv_mine_item"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textColor="@color/grey_f1f1f1"
+        android:textColor="@color/text_333333"
         android:layout_below="@id/tv_type"
+        android:editable="false"
         android:layout_toRightOf="@id/tv_type"
         android:drawableRight="@mipmap/icon_more"
-        android:enabled="false"
         android:hint="Choose language" />
 
     <View
@@ -98,9 +99,9 @@
     <EditText
         android:id="@+id/et_price"
         style="@style/style_tv_mine_item"
+        android:textColor="@color/black_000000"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:textColor="@color/grey_f1f1f1"
         android:layout_below="@id/tv_language"
         android:layout_toRightOf="@id/tv_type"
         android:hint="Set your rate" />
@@ -138,6 +139,7 @@
         android:textSize="@dimen/text_12" />
 
     <TextView
+        android:id="@+id/tv_charging"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

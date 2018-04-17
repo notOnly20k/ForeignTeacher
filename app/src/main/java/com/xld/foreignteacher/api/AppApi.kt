@@ -69,4 +69,10 @@ interface AppApi {
     @POST("ForeignTeachers/app/server")
     fun getSystemMessage(@Query("key") key: String): Single<Dto<List<SystemMessage>>>
 
+    @POST("ForeignTeachers/app/server")
+    fun getTeacherSchedule(@Query("key") key: String): Single<Dto<List<TeacherSchedule>>>
+
+    @POST("ForeignTeachers/app/server")
+    fun setTeacherScheduleEnable(@Query("key") key: String): Single<Dto<Any>>
+
 }

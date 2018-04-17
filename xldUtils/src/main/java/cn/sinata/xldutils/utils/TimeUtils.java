@@ -57,6 +57,13 @@ public class TimeUtils {
 			return "";
 		}
 	}
+
+	public static String getTimeDM(Date time) {
+		SimpleDateFormat formater = new SimpleDateFormat("MM-dd",Locale.CHINA);
+
+		return formater.format(time);
+
+	}
 	/**
 	 * 获取时分
 	 * @param time
@@ -720,7 +727,7 @@ public class TimeUtils {
 		return desc;
 	}
 
-	private static String getWeek(long timeStamp) {
+	public static String getWeek(long timeStamp) {
 		int myDate = 0;
 		String week = null;
 		Calendar cd = Calendar.getInstance();
@@ -728,22 +735,52 @@ public class TimeUtils {
 		myDate = cd.get(Calendar.DAY_OF_WEEK);
 		// 获取指定日期转换成星期几
 		if (myDate == 1) {
-			week = "周日";
+			week = "Sun";
 		} else if (myDate == 2) {
-			week = "周一";
+			week = "Mon";
 		} else if (myDate == 3) {
-			week = "周二";
+			week = "Tus";
 		} else if (myDate == 4) {
-			week = "周三";
+			week = "Wed";
 		} else if (myDate == 5) {
-			week = "周四";
+			week = "Thu";
 		} else if (myDate == 6) {
-			week = "周五";
+			week = "Fri";
 		} else if (myDate == 7) {
-			week = "周六";
+			week = "Sat";
 		}
 		return week;
 	}
+	public static String getWeek(Date timeStamp) {
+		int myDate = 0;
+		String week = null;
+		Calendar cd = Calendar.getInstance();
+		cd.setTime(timeStamp);
+		myDate = cd.get(Calendar.DAY_OF_WEEK);
+		// 获取指定日期转换成星期几
+		if (myDate == 1) {
+			week = "Sun";
+		} else if (myDate == 2) {
+			week = "Mon";
+		} else if (myDate == 3) {
+			week = "Tus";
+		} else if (myDate == 4) {
+			week = "Wed";
+		} else if (myDate == 5) {
+			week = "Thu";
+		} else if (myDate == 6) {
+			week = "Fri";
+		} else if (myDate == 7) {
+			week = "Sat";
+		}
+		return week;
+	}
+
+	public static String getTimeYMD(Date time){
+		SimpleDateFormat formart = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
+		return formart.format(time);
+	}
+
 
 	public static String getTimeAndWeek(long time){
 		StringBuilder s=new StringBuilder();

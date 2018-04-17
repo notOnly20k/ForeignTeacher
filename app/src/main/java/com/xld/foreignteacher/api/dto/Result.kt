@@ -61,7 +61,11 @@ data class OrderMessage(var id: Int = 0, var title: String? = null, var content:
                         var addtime: Long = 0, var userId: Int = 0, var type: Int = 0)
 
 data class UnReadMessageCount(var messNum: Int = 0, var noticeNum: Int = 0,
-                         var messTitle: String? = null, var noticeTitle: String? = null)
+                              var messTitle: String? = null, var noticeTitle: String? = null)
 
-data class SystemMessage( var id: Int = 0, var title: String? = null, var img: String? = null,
-                          var url: Any? = null, var addtime: Long = 0)
+data class SystemMessage(var id: Int = 0, var title: String? = null, var img: String? = null,
+                         var url: Any? = null, var addtime: Long = 0)
+
+data class TeacherSchedule(var sortField: Any? = null, var id: Int = 0, var teacherId: Int = 0,
+                           var day: Long = 0, var startTime: Int = 0, var endTime: Int = 0, var discount: Double = 1.0,
+                           var reservable: Int = 0, var addtime: Long = 0)

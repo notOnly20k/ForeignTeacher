@@ -237,6 +237,37 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .logErrorAndForget(Throwable::toast)
     }
 
+    fun getTeacherSchedule(id: Int, day: String): Maybe<List<TeacherSchedule>> {
+        val key = DES.encryptDES("server=/app/public/getTeacherBooking?id=$id&day=$day")
+        return appComponent.appApi
+                .getTeacherSchedule(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    fun setTeacherScheduleEnable(bookingTeacherId: Int, type: Int, reservable: Int?, discount: Int?): Maybe<Any> {
+        val reservable = if (reservable != null) {
+            "&reservable=$reservable"
+        } else {
+            ""
+        }
+        val discount = if (discount != null) {
+            "&discount=$discount"
+        } else {
+            ""
+        }
+        val key = DES.encryptDES("server=/app/public/setReservableAndDiscount?bookingTeacherId=$bookingTeacherId" +
+                "&type=$type$reservable$discount")
+        return appComponent.appApi
+                .setTeacherScheduleEnable(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
 
     fun getH5Url(type: Int): String {
         return "${BaseUrl}ForeignTeachers/app/public/getAppText?type=$type"

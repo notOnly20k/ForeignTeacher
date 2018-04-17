@@ -37,7 +37,11 @@
     </declare-styleable>
     <declare-styleable name="ScheduleDateTextView">
         <attr name="editable" format="boolean" />
-        <attr name="fill" format="boolean" />
+        <attr name="state" format="enum" >
+            <enum name="open" value="0" />
+            <enum name="normal" value="1" />
+            <enum name="enable" value="2" />
+        </attr>
         <attr name="date_text" format="string" />
         <attr name="discount" format="string" />
         <attr name="show_discount" format="boolean" />

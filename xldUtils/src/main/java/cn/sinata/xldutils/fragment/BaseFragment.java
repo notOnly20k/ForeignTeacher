@@ -24,7 +24,6 @@ import io.reactivex.disposables.Disposable;
  */
 public abstract class BaseFragment extends Fragment{
 
-
     private ProgressDialog dialog;
     protected Context context;
     protected int mScreenWidth;

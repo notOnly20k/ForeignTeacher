@@ -21,13 +21,19 @@ import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.mine.MineFragment
 import com.xld.foreignteacher.ui.msg.MessageFragment
 import com.xld.foreignteacher.ui.order.OrderFragment
+import com.xld.foreignteacher.ui.schedule.ScheduleCardFragment
 import com.xld.foreignteacher.ui.schedule.ScheduleFragment
 import com.xld.foreignteacher.ui.square.SquareFragment
+import com.xld.foreignteacher.views.ScheduleDateTextView
 import com.xld.foreignteacher.views.ViewPagerIndicator
 import java.util.*
 
 
-class MainActivity : BaseTranslateStatusActivity() {
+class MainActivity : BaseTranslateStatusActivity(),ScheduleCardFragment.ScheduleCardFragmentCallBack {
+    override fun scheduleClick(view: ScheduleDateTextView, checked: Boolean, id: Int) {
+
+    }
+
     override val changeTitleBar: Boolean
         get() = false
 

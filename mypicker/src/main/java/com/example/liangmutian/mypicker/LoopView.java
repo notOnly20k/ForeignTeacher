@@ -82,7 +82,7 @@ public class LoopView extends View {
         simpleOnGestureListener = new LoopViewGestureListener(this);
         handler = new MessageHandler(this);
         this.context = context;
-        setTextSize(18F);
+        setTextSize(40F);
     }
 
     static int getSelectItem(LoopView loopview) {

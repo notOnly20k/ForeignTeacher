@@ -61,6 +61,7 @@
                 android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/tv_my_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="65dp"
@@ -79,6 +80,7 @@
                 android:background="@color/grey_f1f1f1" />
 
             <TextView
+                android:id="@+id/tv_invite_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="54dp"
@@ -88,6 +90,7 @@
                 android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/tv_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="54dp"
@@ -97,6 +100,7 @@
                 android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/btn_invite_friend"
                 android:layout_width="170dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
@@ -110,13 +114,17 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/ll_add_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="65dp"
-        android:layout_marginRight="58dp">
+        android:layout_marginRight="58dp"
+        android:visibility="gone"
+        >
 
         <EditText
+            android:id="@+id/et_invite_code"
             android:layout_width="170dp"
             android:layout_height="42dp"
             android:background="@drawable/bg_invite_edit"
@@ -125,6 +133,7 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/btn_ok"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_invite_text"

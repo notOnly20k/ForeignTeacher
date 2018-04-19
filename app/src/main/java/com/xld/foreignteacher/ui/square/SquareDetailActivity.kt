@@ -9,8 +9,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.BindView
 import cn.sinata.xldutils.utils.DensityUtil
+import cn.sinata.xldutils.utils.SPUtils
 import cn.sinata.xldutils.view.TitleBar
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.ext.appComponent
+import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.report.ReportActivity
 import com.xld.foreignteacher.ui.square.adapter.SquareDetailAdapter
@@ -29,6 +32,7 @@ class SquareDetailActivity : BaseTranslateStatusActivity() {
 
     private lateinit var adapter: SquareDetailAdapter
     private lateinit var loadMoreView: TextView
+    private var squareId:Int = 0
     
 
     private var footerType = 0
@@ -37,13 +41,14 @@ class SquareDetailActivity : BaseTranslateStatusActivity() {
         get() = R.layout.activity_square_detail
 
     override fun initView() {
+        squareId = intent.getIntExtra("id",0)
         titleBar.setTitle("Details")
         titleBar.titlelayout.setBackgroundResource(R.color.color_black_1d1e24)
         titleBar.titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
         titleBar.setLeftButton(R.mipmap.back_yellow, { finish() })
         titleBar.addRightButton("report") {
             //todo 传id
-             activityUtil.go(ReportActivity::class.java).put("id", 0).put("type",ReportActivity.REPORT).start()
+             activityUtil.go(ReportActivity::class.java).put("id", squareId).put("type",ReportActivity.REPORT).start()
         }
         titleBar.getRightButton(0).setTextColor(resources.getColor(R.color.yellow_ffcc00))
         val layoutManager = LinearLayoutManager(this)
@@ -61,6 +66,13 @@ class SquareDetailActivity : BaseTranslateStatusActivity() {
     }
 
     override fun initData() {
+        appComponent.netWork.getSquareDetail(squareId,SPUtils.getInt("id"),1,10)
+                .doOnLoading { showProgress(it) }
+                .doOnSubscribe { mCompositeDisposable.add(it) }
+                .subscribe { it->
+                    adapter.setData(it)
+                }
+
         footerType = TYPE_NOMORE
         changeFooterView()
     }

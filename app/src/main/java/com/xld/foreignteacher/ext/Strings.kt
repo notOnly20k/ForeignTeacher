@@ -1,6 +1,5 @@
 package com.xld.foreignteacher.ext
 
-import android.text.TextUtils
 import java.util.regex.Pattern
 
 /**
@@ -23,7 +22,7 @@ fun String.toMD5(): String {
  */
 fun String.isEmailValid(): Boolean {
     var isValid = false
-    val email = StringBuilder()
+    val email = toString()
     //        String expression = "^([a-z0-9A-Z]+[-|\\\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\\\.)+[a-zA-Z]{2,}$";
     val pattern = Pattern.compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")
     val matcher = pattern.matcher(email)
@@ -38,17 +37,28 @@ fun String.isEmailValid(): Boolean {
  */
 fun String.isPhoneNumberValid(): Boolean {
     var isValid = false
-    val phoneNumber = StringBuilder()
-    if (TextUtils.isEmpty(phoneNumber) || phoneNumber.length != 11) {
+    if (isEmpty() ||length != 11) {
         return false
     }
     val expression = "(^(13|14|15|17|18)[0-9]{9}$)"
     val pattern = Pattern.compile(expression)
-    val matcher = pattern.matcher(phoneNumber)
+    val matcher = pattern.matcher(toString())
     if (matcher.matches()) {
         isValid = true
     }
     return isValid
+}
+
+fun String.formateToTel():String{
+    return if (isPhoneNumberValid()){
+        StringBuffer().append(toString()).insert(3,"-").insert(8,"-").toString()
+    }else{
+        ""
+    }
+}
+
+fun String.formateToNum():String{
+    return replace("-", "")
 }
 
 

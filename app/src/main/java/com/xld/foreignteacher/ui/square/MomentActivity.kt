@@ -6,10 +6,15 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.support.v7.widget.GridLayoutManager
+import cn.sinata.xldutils.utils.SPUtils
 import cn.sinata.xldutils.utils.Toast
 import cn.sinata.xldutils.utils.Utils
 import cn.sinata.xldutils.xldUtils
+import com.google.gson.Gson
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.dto.SquareDate
+import com.xld.foreignteacher.ext.appComponent
+import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ext.toFormattedString
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.locate.LocationActivity
@@ -36,10 +41,12 @@ class MomentActivity : BaseTranslateStatusActivity(), MomentAdapter.OnItemClickL
         title_bar.titlelayout.setBackgroundResource(R.color.color_black_1d1e24)
         title_bar.titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
         title_bar.setLeftButton(R.mipmap.back_yellow, { finish() })
-        title_bar.addRightButton("Send") { finish() }
+        title_bar.addRightButton("Send") {
+            sendSquare()
+        }
         title_bar.getRightButton(0).setTextColor(resources.getColor(R.color.yellow_ffcc00))
         title_bar.setTitle("Moment")
-        adpter = MomentAdapter(this, emptyList(),supportFragmentManager)
+        adpter = MomentAdapter(this, emptyList(), supportFragmentManager)
         adpter.setOnItemClickListener(this)
         rec_pic.adapter = adpter
         rec_pic.layoutManager = GridLayoutManager(this, 3)
@@ -47,6 +54,17 @@ class MomentActivity : BaseTranslateStatusActivity(), MomentAdapter.OnItemClickL
             activityUtil.go(LocationActivity::class.java).start()
         }
 
+    }
+
+    private fun sendSquare() {
+        val imgList = mutableListOf<SquareDate.ImgUrlBean>()
+        imgList.add(SquareDate.ImgUrlBean("https://assets-cdn.github.com/images/modules/site/icons/opensource-ico-best.svg?sn"))
+        list.map { imgList.add(SquareDate.ImgUrlBean(it)) }
+        //appComponent.ossHandler.ossUpload(list[0])
+        appComponent.netWork.addSquare(SPUtils.getInt("id"), Gson().toJson(imgList), "",et_content.text.toString())
+                .doOnSubscribe { mCompositeDisposable.add(it) }
+                .doOnLoading { showProgress(it) }
+                .subscribe { finish() }
     }
 
 

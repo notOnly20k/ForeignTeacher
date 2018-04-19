@@ -19,6 +19,7 @@ import cn.sinata.xldutils.view.TitleBar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ext.appComponent
+import com.xld.foreignteacher.ext.formateToNum
 import com.xld.foreignteacher.ext.toMD5
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.main.MainActivity
@@ -144,7 +145,7 @@ class LoginActivity : BaseTranslateStatusActivity() {
         when (view.id) {
 
             R.id.btn_login_commit -> {
-                appComponent.netWork.login(etPhone.text.toString().replace("-", ""), etPwd.text.toString().toMD5())
+                appComponent.netWork.login(etPhone.text.toString().formateToNum(), etPwd.text.toString().toMD5())
                         .doOnSubscribe { mCompositeDisposable.add(it) }
                         .subscribe { user ->
                             activityUtil.go(MainActivity::class.java).start()

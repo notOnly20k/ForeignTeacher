@@ -4,6 +4,7 @@ import cn.sinata.xldutils.utils.Utils
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.api.NetWork
 import com.xld.foreignteacher.ext.appComponent
+import com.xld.foreignteacher.ext.formateToNum
 import com.xld.foreignteacher.ui.H5Activity
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import kotlinx.android.synthetic.main.activity_about.*
@@ -36,7 +37,7 @@ class AboutActivity : BaseTranslateStatusActivity() {
         }
 
         tv_tel.setOnClickListener {
-            val tel = tv_tel.text.toString().replace("-", "")
+            val tel = tv_tel.text.toString().formateToNum()
             Utils.callPhone(this, tel)
         }
     }

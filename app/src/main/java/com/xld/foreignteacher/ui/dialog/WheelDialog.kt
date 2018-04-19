@@ -1,6 +1,7 @@
 package com.xld.foreignteacher.ui.dialog
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatDialogFragment
 import android.view.*
@@ -24,11 +25,11 @@ class WheelDialog : AppCompatDialogFragment() {
         tvCancel = view.findViewById(R.id.tv_cancel)
         loopView = view.findViewById(R.id.loop_data)
         tvSure.setOnClickListener {
-            listener.clickSure(selectData)
+            val s=loopView.data[loopView.currentItemPosition].toString()
+            listener.clickSure(s)
             dismiss()
         }
         loopView.data = dateList
-        loopView.setOnItemSelectedListener { picker, data, position -> selectData =data.toString() }
         tvCancel.setOnClickListener {
             listener.clickCancel()
             dismiss()
@@ -38,7 +39,7 @@ class WheelDialog : AppCompatDialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = Dialog(activity!!, R.style.CustomBottomDialog)
+        val dialog = Dialog((activity as Context?)!!, R.style.CustomBottomDialog)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_wheel)
         dialog.setCanceledOnTouchOutside(true)

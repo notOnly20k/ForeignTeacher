@@ -14,6 +14,7 @@ import com.xld.foreignteacher.R
 import com.xld.foreignteacher.api.NetWork
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
+import com.xld.foreignteacher.ext.formateToNum
 import com.xld.foreignteacher.ext.toFormattedString
 import com.xld.foreignteacher.ui.H5Activity
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
@@ -103,7 +104,7 @@ class VerificationCodeActivity : BaseTranslateStatusActivity(), EditEmptyWatcher
     fun onViewClicked(view: View) {
         when (view.id) {
             R.id.btn_get_verification_code -> {
-                appComponent.netWork.sendMsg(etPhone.text.toString().replace("-", ""), type!!)
+                appComponent.netWork.sendMsg(etPhone.text.toString().formateToNum(), type!!)
                         .doOnSubscribe { mCompositeDisposable.add(it) }
                         .subscribe { code ->
                             showToast(getString(R.string.msg_sended))
@@ -115,7 +116,7 @@ class VerificationCodeActivity : BaseTranslateStatusActivity(), EditEmptyWatcher
                 timer!!.start()
             }
             R.id.btn_login_next -> {
-                appComponent.netWork.checkMsg(etPhone.text.toString().replace("-", ""), etVerificationCode.text.toString(), type!!)
+                appComponent.netWork.checkMsg(etPhone.text.toString().formateToNum(), etVerificationCode.text.toString(), type!!)
                         .doOnLoading { showProgress(it) }
                         .doOnSubscribe { mCompositeDisposable.add(it) }
                         .subscribe { _ -> checkSuccess() }
@@ -129,7 +130,7 @@ class VerificationCodeActivity : BaseTranslateStatusActivity(), EditEmptyWatcher
             TYPE_REGISTER -> {
                 activityUtil.go(SetPwdActivity::class.java)
                         .put(SetPwdActivity.SET_PWD_TYPE, SetPwdActivity.TYPE_REGISTER)
-                        .put("phone", etPhone.getText().toString().replace("-", ""))
+                        .put("phone", etPhone.text.toString().formateToNum())
                         .start()
                 finish()
             }
@@ -144,7 +145,7 @@ class VerificationCodeActivity : BaseTranslateStatusActivity(), EditEmptyWatcher
             TYPE_FORGET -> {
                 activityUtil.go(SetPwdActivity::class.java)
                         .put(SetPwdActivity.SET_PWD_TYPE, SetPwdActivity.TYPE_FORGET)
-                        .put("phone", etPhone.getText().toString().replace("-", ""))
+                        .put("phone", etPhone.text.toString().formateToNum())
                         .start()
                 finish()
             }

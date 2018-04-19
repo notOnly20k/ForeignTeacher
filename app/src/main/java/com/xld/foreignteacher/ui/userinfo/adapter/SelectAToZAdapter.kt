@@ -47,7 +47,7 @@ class SelectAToZAdapter(val context: Context, var list: List<SelectData>) : Recy
                 holder.tvTitle.visibility = View.GONE
             }
             holder.tvLanguage.setOnClickListener { mOnItemClickListener?.onItemClick(list[realPosition]) }
-            holder.tvLanguage.text = this.list[realPosition].Name
+            holder.tvLanguage.text = this.list[realPosition].enName
         }
 
 

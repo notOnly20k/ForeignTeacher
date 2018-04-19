@@ -73,9 +73,10 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
             val viewHolder = holder as ViewHolder
             val squareDate = data[position]
             viewHolder.tvName.text = squareDate.nickName
-            viewHolder.tvTime.text = "${TimeUtils.getTimeHour(squareDate.createTime)}-${TimeUtils.getTimeMinute(squareDate.createTime)}"
+            viewHolder.tvTime.text = TimeUtils.getTimeHM(squareDate.createTime)
             viewHolder.tvContent.text = squareDate.content
             viewHolder.tvLocation.text = squareDate.address
+            viewHolder.ivHead.setImageURI(squareDate.teacherImgUrl)
             viewHolder.btnLike.text = squareDate.giveThumNum.toString()
             if (squareDate.isGiveThum) {
                 viewHolder.btnLike.setCompoundDrawables(iconLike,null,null,null)
@@ -84,7 +85,7 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
             }
 
             viewHolder.elSquareItem.setOnClickListener {
-                activityUtil.go(SquareDetailActivity::class.java).put("id", "").start()
+                activityUtil.go(SquareDetailActivity::class.java).put("id", squareDate.id).start()
             }
             viewHolder.ivHead.setOnClickListener {
                 activityUtil.go(TeacherDetailActivity::class.java).put("id", "").start()

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.dto.City
 import com.xld.foreignteacher.api.dto.Language
 import com.xld.foreignteacher.api.dto.SelectData
 import com.xld.foreignteacher.ext.appComponent
@@ -29,8 +30,8 @@ class SelectLanguageActivity : BaseTranslateStatusActivity(), SelectAToZAdapter.
     override fun onItemClick(selectData: SelectData) {
         when(intent.getStringExtra("type")){
             LANGUAGE->  setResult(EditTeacherInfoActivity.SELECT_LANGUAGE, intent.putExtra(LANGUAGE, selectData as Language))
-            CITY->  setResult(EditTeacherInfoActivity.SELECT_LANGUAGE, intent.putExtra(CITY, selectData as Language))
-            NATIONALITY->  setResult(EditTeacherInfoActivity.SELECT_LANGUAGE, intent.putExtra(NATIONALITY, selectData as Language))
+            CITY->  setResult(EditTeacherInfoActivity.SELECT_CITY, intent.putExtra(CITY, selectData as City))
+            NATIONALITY->  setResult(EditTeacherInfoActivity.SELECT_NATIONALITY, intent.putExtra(NATIONALITY, selectData as Language))
         }
 
         finish()
@@ -141,7 +142,7 @@ class SelectLanguageActivity : BaseTranslateStatusActivity(), SelectAToZAdapter.
         } else {
             filterDateList.clear()
             sourceDateList
-                    .filter { it.Name!!.toLowerCase().contains(filterStr) }
+                    .filter { it.enName!!.toLowerCase().contains(filterStr) }
                     .forEach { filterDateList.add(it) }
         }
 
@@ -162,38 +163,6 @@ class SelectLanguageActivity : BaseTranslateStatusActivity(), SelectAToZAdapter.
                             it
                         }
                         .subscribe { list ->
-//                            val newdata = mutableListOf<Language>()
-//                    newdata.add(Language("AC", null, 1, null))
-//                    newdata.add(Language("BC", null, 1, null))
-//                    newdata.add(Language("CC", null, 1, null))
-//                    newdata.add(Language("DC", null, 1, null))
-//                    newdata.add(Language("EC", null, 1, null))
-//                    newdata.add(Language("FC", null, 1, null))
-//                    newdata.add(Language("GC", null, 1, null))
-//                    newdata.add(Language("GC", null, 1, null))
-//                    newdata.add(Language("AC", null, 1, null))
-//                    newdata.add(Language("GC", null, 1, null))
-//                    newdata.add(Language("GC", null, 1, null))
-//                    newdata.add(Language("ADC", null, 1, null))
-//                    newdata.add(Language("ADC", null, 1, null))
-//                    newdata.add(Language("ABC", null, 1, null))
-//                    newdata.add(Language("AHDC", null, 1, null))
-//                    newdata.add(Language("KADC", null, 1, null))
-//                    newdata.add(Language("LADC", null, 1, null))
-//                    newdata.add(Language("MADC", null, 1, null))
-//                    newdata.add(Language("ZADC", null, 1, null))
-//                    newdata.add(Language("VADC", null, 1, null))
-//                    newdata.add(Language("FADC", null, 1, null))
-//                    newdata.add(Language("ADC", null, 1, null))
-//                    newdata.add(Language("BADC", null, 1, null))
-//                    newdata.add(Language("VADC", null, 1, null))
-//                    newdata.add(Language("AADC", null, 1, null))
-//                    newdata.add(Language("EADC", null, 1, null))
-//                    newdata.add(Language("RADC", null, 1, null))
-//                    newdata.add(Language("FADC", null, 1, null))
-//                    newdata.add(Language("GADC", null, 1, null))
-//                    newdata.add(Language("GADC", null, 1, null))
-//                    newdata.add(Language("AEDC", null, 1, null))
                             Collections.sort(list, PinyinComparator())
                             sourceDateList.addAll(list)
                             adapter.updateList(list)
@@ -204,7 +173,7 @@ class SelectLanguageActivity : BaseTranslateStatusActivity(), SelectAToZAdapter.
                     val view = inflater.inflate(R.layout.item_flow, header, false)
 
                     view.setOnClickListener { it ->
-                        //setResult(EditTeacherInfoActivity.SELECT_LANGUAGE, fromIntent.putExtra("language", (it as TextView).text))
+                        //setResult(EditTeacherInfoActivity.SELECT_LANGUAGE, intent.putExtra("language", (it as TextView).text))
                         finish()
                     }
                     header.addView(view)
@@ -212,6 +181,13 @@ class SelectLanguageActivity : BaseTranslateStatusActivity(), SelectAToZAdapter.
                 adapter.setHeaderView(header)
             }
             CITY->{
+                appComponent.netWork.getOpenedCity()
+                        .doOnSubscribe {mCompositeDisposable.add(it)  }
+                        .doOnLoading { showProgress(it) }
+                        .subscribe {list->
+                            sourceDateList.addAll(list)
+                            adapter.updateList(list)
+                        }
                 val header = LayoutInflater.from(this).inflate(R.layout.item_city_title, rec_languages, false) as TextView
                 adapter.setHeaderView(header)
             }

@@ -5,7 +5,7 @@
     <LinearLayout
         android:id="@+id/btn_cancel"
         style="@style/Crop.ActionButton"
-        android:background="?android:attr/selectableItemBackground"
+        android:background="#1d1e24"
         android:clickable="true"
         android:gravity="center"
         android:orientation="horizontal">
@@ -33,7 +33,7 @@
     <LinearLayout
         android:id="@+id/btn_done"
         style="@style/Crop.ActionButton"
-        android:background="?android:attr/selectableItemBackground"
+        android:background="#1d1e24"
         android:clickable="true"
         android:gravity="center"
         android:orientation="horizontal">

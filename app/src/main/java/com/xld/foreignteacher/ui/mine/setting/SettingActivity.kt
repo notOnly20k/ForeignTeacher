@@ -1,6 +1,7 @@
 package com.xld.foreignteacher.ui.mine.setting
 
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.ext.formateToTel
 import com.xld.foreignteacher.ui.ListActivity
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import kotlinx.android.synthetic.main.activity_setting.*
@@ -19,6 +20,8 @@ class SettingActivity: BaseTranslateStatusActivity() {
         title_bar.titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
         title_bar.setLeftButton(R.mipmap.back_yellow, { finish() })
         title_bar.setTitle("Settings")
+
+        tv_tel_num.text ="18998838818".formateToTel()
 
         tv_change_password.setOnClickListener {
             activityUtil.go(ChangPwdActivity::class.java).start()

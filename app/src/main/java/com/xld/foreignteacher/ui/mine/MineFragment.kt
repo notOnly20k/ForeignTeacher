@@ -18,6 +18,7 @@ import com.xld.foreignteacher.ui.mine.invite.InviteActivity
 import com.xld.foreignteacher.ui.mine.setting.SettingActivity
 import com.xld.foreignteacher.ui.mine.verification.VerificationActivity
 import com.xld.foreignteacher.ui.mine.wallet.WalletActivity
+import com.xld.foreignteacher.ui.userinfo.EditTeacherInfoActivity
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 
@@ -48,6 +49,9 @@ class MineFragment : BaseFragment(), ShareDialog.OnShareItemClickListener, UMSha
     }
 
     override fun onFirstVisibleToUser() {
+        iv_head.setOnClickListener {
+            activityUtil.go(EditTeacherInfoActivity::class.java).put("type", EditTeacherInfoActivity.SAVE).start()
+        }
         tv_verification.setOnClickListener {
             activityUtil.go(VerificationActivity::class.java).start()
         }
@@ -67,7 +71,7 @@ class MineFragment : BaseFragment(), ShareDialog.OnShareItemClickListener, UMSha
         }
 
         tv_comment.setOnClickListener {
-            activityUtil.go(ListActivity::class.java).put("type",ListActivity.COMMENT).start()
+            activityUtil.go(ListActivity::class.java).put("type", ListActivity.COMMENT).start()
         }
 
         tv_about.setOnClickListener {

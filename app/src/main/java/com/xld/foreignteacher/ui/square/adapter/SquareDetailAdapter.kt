@@ -19,21 +19,18 @@ import cn.sinata.xldutils.adapter.LoadMoreAdapter
 import cn.sinata.xldutils.utils.ActivityUtil
 import com.facebook.drawee.view.SimpleDraweeView
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.dto.SquareDate
+import com.xld.foreignteacher.api.dto.SquareDetail
 import com.xld.foreignteacher.ui.userinfo.StudentDetailActivity
 import com.xld.foreignteacher.views.NestedGridView
-import java.util.*
 
 /**
  * Created by cz on 4/1/18.
  */
 class SquareDetailAdapter(private val context: Context) : LoadMoreAdapter() {
-    private val comments: MutableList<String>
+    private val comments: MutableList<SquareDate.SquareCommentListBean> = mutableListOf()
     private val activityUtil: ActivityUtil = ActivityUtil.create(context)
-
-    init {
-        comments = ArrayList()
-        comments.add("")
-    }
+    private lateinit var squareDetail:SquareDetail
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         val inflater = LayoutInflater.from(context)
@@ -54,7 +51,7 @@ class SquareDetailAdapter(private val context: Context) : LoadMoreAdapter() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == TYPE_CONTENT) {
             val contentViewHolder = holder as ContentViewHolder
-            //todo 渲染
+
         } else if (getItemViewType(position) == LoadMoreAdapter.TYPE_NORMAL) {
             val commentViewHolder = holder as CommentViewHolder
 
@@ -81,6 +78,10 @@ class SquareDetailAdapter(private val context: Context) : LoadMoreAdapter() {
         if (position == 0)
             return TYPE_CONTENT
         return if (position == itemCount - 1) LoadMoreAdapter.TYPE_FOOTER else LoadMoreAdapter.TYPE_NORMAL
+    }
+
+    fun setData(data:SquareDetail){
+        squareDetail = data
     }
 
     override fun getItemCount(): Int {

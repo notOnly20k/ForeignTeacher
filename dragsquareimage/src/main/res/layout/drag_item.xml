@@ -7,18 +7,18 @@
         android:id="@+id/drag_item_imageview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f1f1f1"
+        android:background="@drawable/up_load_pic"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:scaleType="fitXY" />
 
     <ImageView
         android:id="@+id/add_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="115dp"
+        android:layout_height="115dp"
         android:layout_centerInParent="true"
         android:scaleType="fitXY"
-        android:src="@drawable/up_load_pic" />
+       />
 
     <View
         android:id="@+id/drag_item_mask_view"

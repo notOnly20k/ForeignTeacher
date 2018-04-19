@@ -4,6 +4,7 @@ import android.os.CountDownTimer
 import android.text.TextUtils
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ext.appComponent
+import com.xld.foreignteacher.ext.formateToNum
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.views.EditEmptyWatcher
 import kotlinx.android.synthetic.main.activity_change_pwd.*
@@ -53,7 +54,7 @@ class ChangPwdActivity : BaseTranslateStatusActivity(), EditEmptyWatcher.Checkab
         et_verification_code.addTextChangedListener(watcher)
 
         btn_get_verification_code.setOnClickListener {
-            appComponent.netWork.sendMsg(et_phone.text.toString().replace("-", ""), "6")
+            appComponent.netWork.sendMsg(et_phone.text.toString().formateToNum(), "6")
                     .doOnSubscribe { mCompositeDisposable.add(it) }
                     .subscribe { code ->
                         showToast(getString(R.string.msg_sended))
@@ -66,7 +67,7 @@ class ChangPwdActivity : BaseTranslateStatusActivity(), EditEmptyWatcher.Checkab
         }
 
         btn_next.setOnClickListener {
-            activityUtil.go(ResetPwdActivity::class.java).put("phone", et_phone.text.toString().replace("-", "")).start()
+            activityUtil.go(ResetPwdActivity::class.java).put("phone", et_phone.text.toString().formateToNum()).start()
         }
     }
 

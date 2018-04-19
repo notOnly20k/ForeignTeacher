@@ -12,7 +12,7 @@
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_size"
-        android:background="@color/black_00">
+        android:background="@color/color_black_1d1e24">
 
         <TextView
             android:id="@+id/tv_title"
@@ -115,7 +115,7 @@
                     android:layout_below="@id/et_name"
                     android:text="Contact Number" />
 
-                <EditText
+                <com.xld.foreignteacher.views.PhoneNumEditText
                     android:id="@+id/et_contact_number"
                     style="@style/style_user_info_item"
                     android:layout_width="match_parent"

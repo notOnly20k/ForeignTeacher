@@ -84,5 +84,30 @@ interface AppApi {
     @POST("ForeignTeachers/app/server")
     fun addGiveThum(@Query("key") key: String): Single<Dto<Any>>
 
+    @POST("ForeignTeachers/app/server")
+    fun getSquareDetail(@Query("key") key: String): Single<Dto<SquareDetail>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getCommentList(@Query("key") key: String): Single<Dto<SquareComment>>
+
+    @POST("ForeignTeachers/app/server")
+    fun addSquare(@Query("key") key: String): Single<Dto<Any>>
+
+    @POST("ForeignTeachers/app/server")
+    fun addComplaint(@Query("key") key: String): Single<Dto<Any>>
+
+    @POST("ForeignTeachers/app/server")
+    fun addOffer(@Query("key") key: String): Single<Dto<Any>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getBenchmarkPrice(@Query("key") key: String): Single<Dto<List<BenchmarkPrice>>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getClassificationList(@Query("key") key: String): Single<Dto<List<Classification>>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getUserInviteCode(@Query("key") key: String): Single<Dto<UserInviteCode>>
+
+
 
 }

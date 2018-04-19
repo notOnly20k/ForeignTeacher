@@ -9,13 +9,11 @@ import com.example.liangmutian.mypicker.DateUtil
 import com.google.gson.Gson
 import com.swifty.dragsquareimage.DraggablePresenterImpl
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.dto.City
 import com.xld.foreignteacher.api.dto.Language
 import com.xld.foreignteacher.api.dto.User
 import com.xld.foreignteacher.data.AlbumImgUrl
-import com.xld.foreignteacher.ext.appComponent
-import com.xld.foreignteacher.ext.doOnLoading
-import com.xld.foreignteacher.ext.e
-import com.xld.foreignteacher.ext.isPhoneNumberValid
+import com.xld.foreignteacher.ext.*
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.dialog.CustomDialog
 import com.xld.foreignteacher.ui.dialog.MyActionDialog
@@ -46,13 +44,14 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
     private lateinit var adapter: StudentPageAdapter
 
     private var sex: String? = null
+    private var cityId: Int? = null
     private var albumList = mutableListOf<AlbumImgUrl>()
 
 
     override fun initView() {
         try {
             val user: User = Gson().fromJson(SPUtils.getString("user"), User::class.java)
-            et_contact_number.setText(user.phone)
+            et_contact_number.setText(user.phone!!.formateToTel())
             et_name.setText(user.nickName)
         } catch (e: Exception) {
             showToast(e.message)
@@ -144,12 +143,15 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
                 }.show(supportFragmentManager, "star_dialog")
             }
 
-            tv_title_right.setOnClickListener { SaveTeacher() }
+            tv_title_right.setOnClickListener {
+                if (commitCheck())
+                SaveTeacher() }
         }
 
     }
 
     private fun SaveTeacher() {
+        val telNum = et_contact_number.text.toString().trim()
 
         var sort = 1
         for (i in 0 until draggablePresenter.imageUrls.size()) {
@@ -160,16 +162,17 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
         }
 
         val albumImgUrl = albumList.toString()
-        logger.e { Gson().toJson(albumList.toString()) }
         appComponent.netWork.editTeacher(SPUtils.getInt("id"), et_name.text.toString(), draggablePresenter.imageUrls[0],
-                sex!!, tv_birth_edit.text.toString(), et_contact_number.text.toString(), star_chinese_level.getSartRating().toInt(),
-                personalProfile = er_introduction.text.toString())
+                sex!!, tv_birth_edit.text.toString(), telNum, star_chinese_level.getSartRating().toInt(),
+                personalProfile = er_introduction.text.toString(),openCityId = cityId)
                 .doOnSubscribe { mCompositeDisposable.add(it) }
                 .doOnLoading { showProgress(it) }
                 .subscribe {
                     activityUtil.go(MainActivity::class.java).start()
                 }
     }
+
+
 
     override fun initData() {
 
@@ -178,16 +181,23 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         draggablePresenter.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == SELECT_LANGUAGE) {
-            tv_language.visibility = View.GONE
-            val language = data!!.getSerializableExtra("language") as Language
-            languageList.add(language)
-            languageAdapter.updateList(languageList)
+        when (resultCode) {
+            SELECT_LANGUAGE -> {
+                tv_language.visibility = View.GONE
+                val language = data!!.getSerializableExtra(SelectLanguageActivity.LANGUAGE) as Language
+                languageList.add(language)
+                languageAdapter.updateList(languageList)
+            }
+            SELECT_CITY -> {
+                val city = data!!.getSerializableExtra(SelectLanguageActivity.CITY) as City
+                tv_current_city_edit.text = city.name
+                cityId = city.id
+            }
         }
     }
 
     override fun commitCheck(): Boolean {
-        if (!et_contact_number.text.toString().isPhoneNumberValid()) {
+        if (!et_contact_number.text.toString().formateToNum().isPhoneNumberValid()) {
             showToast("The phone is not in the correct format")
             return false
         }
@@ -226,18 +236,11 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
         dateDialog.show()
     }
 
-    fun showUrls(view: View) {
-        val array = draggablePresenter.imageUrls ?: return
-        val stringBuffer = StringBuilder()
-        for (i in 0 until array.size()) {
-            val o = array.get(array.keyAt(i))
-            stringBuffer.append(i).append(":").append(o).append("\n")
-        }
-    }
 
     companion object {
-        const val SELECT_LANGUAGE = 2
+        const val SELECT_LANGUAGE = 1
         const val SELECT_CITY = 2
+        const val SELECT_NATIONALITY = 3
         const val EDIT = "edit"
         const val SAVE = "save"
     }

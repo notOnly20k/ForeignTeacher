@@ -238,8 +238,8 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
     }
 
     fun getTeacherSchedule(id: Int, day: String): Maybe<List<TeacherSchedule>> {
-        logger.e { "day==$day" }
-        val key = DES.encryptDES("server=/app/public/getTeacherBooking?id=$id&day=$day")
+        logger.e {"getTeacherSchedule----->day==$day     id = $id"}
+        val key = DES.encryptDES("server=/app/public/getTeacherBooking?teacherId=$id&day=$day")
         return appComponent.appApi
                 .getTeacherSchedule(key)
                 .toMaybe()
@@ -282,9 +282,31 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
 
     fun getSquareList(id: Int,page: Int,rows: Int,type: Int=2): Maybe<List<SquareDate>> {
 
-        val key = DES.encryptDES("server=/app/userSquare/getSquareList?userId=$id&id=$id&page=$page&type=$type&rows=$rows")
+        val key = DES.encryptDES("server=/app/userSquare/getSquareList?userId=$id&page=$page&type=$type&rows=$rows")
         return appComponent.appApi
                 .getSquareList(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    fun getSquareDetail(id: Int,userId:Int,page: Int,rows: Int,type: Int=2): Maybe<SquareDetail> {
+
+        val key = DES.encryptDES("server=/app/userSquare/getSquareDetail?userId=$userId&id=$id&page=$page&type=$type&rows=$rows")
+        return appComponent.appApi
+                .getSquareDetail(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    fun getCommentList(id: Int,page: Int,rows: Int): Maybe<SquareComment> {
+
+        val key = DES.encryptDES("server=/app/userSquare/getSquareCommentList?id=$id&page=$page&rows=$rows")
+        return appComponent.appApi
+                .getCommentList(key)
                 .toMaybe()
                 .toNetWork()
                 .map { it.check() }
@@ -300,6 +322,68 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .map { it.check() }
                 .logErrorAndForget(Throwable::toast)
     }
+
+    fun addSquare(teacherId:Int,imgUrl: String,address:String,content:String):Maybe<Any>{
+        val key = DES.encryptDES("server=/app/userSquare/addSquare?teacherId=$teacherId&imgUrl=$imgUrl&address=$address&content=$content")
+        return appComponent.appApi
+                .addSquare(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    fun addOffer(teachersId:Int,title: String,languagesId:Int,classificationId:Int,price:Int):Maybe<Any>{
+        val key = DES.encryptDES("server=/app/userFight/addCurriculum?teachersId=$teachersId&languagesId=$languagesId&title=$title" +
+                "&classificationId=$classificationId&price=$price")
+        return appComponent.appApi
+                .addSquare(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    fun getBenchmarkPrice(id: Int):Maybe<List<BenchmarkPrice>>{
+        val key = DES.encryptDES("server=/app/userFight/getBenchmarkPrice?id=$id")
+        return appComponent.appApi
+                .getBenchmarkPrice(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    fun getClassificationList():Maybe<List<Classification>>{
+        val key = DES.encryptDES("server=/app/userTeacher/getClassificationList")
+        return appComponent.appApi
+                .getClassificationList(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    fun getUserInviteCode(id: Int):Maybe<UserInviteCode>{
+        val key = DES.encryptDES("server=/app/user/getUserInviteCode?&id=$id")
+        return appComponent.appApi
+                .getUserInviteCode(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+
+//    fun addComplaint(teacherId:Int,imgUrl: String,address:String,content:String):Maybe<Any>{
+//        val key = DES.encryptDES("server=/app/public/addComplaint?teacherId=$teacherId&imgUrl=$imgUrl&address=$address&content=$content")
+//        return appComponent.appApi
+//                .addSquare(key)
+//                .toMaybe()
+//                .toNetWork()
+//                .map { it.check() }
+//                .logErrorAndForget(Throwable::toast)
+//    }
 
 
 

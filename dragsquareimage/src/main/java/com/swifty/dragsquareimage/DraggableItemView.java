@@ -40,6 +40,7 @@ public class DraggableItemView extends FrameLayout implements ActionDialogClick 
     private float smallerRate = scaleRate * 0.9f;
     private Spring springX, springY;
     private ObjectAnimator scaleAnimator;
+    private ObjectAnimator scaleAnimator2;
     private boolean hasSetCurrentSpringValue = false;
     private DraggableSquareView parentView;
     private SpringConfig springConfigCommon = SpringConfig.fromOrigamiTensionAndFriction(140, 7);
@@ -172,8 +173,8 @@ public class DraggableItemView extends FrameLayout implements ActionDialogClick 
             imageView.setScaleX(scaleRate);
             imageView.setScaleY(scaleRate);
 
-            addView.setScaleX(scaleRate);
-            addView.setScaleY(scaleRate);
+//            addView.setScaleX(scaleRate);
+//            addView.setScaleY(scaleRate);
 
             maskView.setScaleX(scaleRate);
             maskView.setScaleY(scaleRate);

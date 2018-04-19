@@ -81,6 +81,7 @@ class ListActivity : BaseTranslateStatusActivity() {
     fun getTransactions(page: Int) {
         appComponent.netWork
                 .getTeacherRecord(SPUtils.getInt("id"), page, 1)
+                .doOnSubscribe { mCompositeDisposable.add(it) }
                 .doOnLoading { showProgress(it) }
                 .subscribe { list ->
                     (adpter as TransactionsAdapter).updateList(list)

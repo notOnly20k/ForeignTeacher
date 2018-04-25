@@ -66,7 +66,7 @@ class SquareDetailActivity : BaseTranslateStatusActivity() {
     }
 
     override fun initData() {
-        appComponent.netWork.getSquareDetail(squareId,SPUtils.getInt("id"),1,10)
+        appComponent.netWork.getSquareDetail(squareId,appComponent.userHandler.getUser()!!.id,1,10)
                 .doOnLoading { showProgress(it) }
                 .doOnSubscribe { mCompositeDisposable.add(it) }
                 .subscribe { it->

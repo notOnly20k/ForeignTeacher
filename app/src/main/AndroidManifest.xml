@@ -85,6 +85,7 @@
         <activity android:name=".ui.schedule.AddOfferActivity" />
         <activity android:name=".ui.schedule.AddGroupOfferActivity" />
         <activity android:name=".ui.schedule.adapter.EditScheduleActivity" />
+        <activity android:name=".ui.mine.InfoActivity" android:windowSoftInputMode="stateUnchanged"/>
 
 
         <activity
@@ -145,7 +146,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="67e2e2b7f0387d0a17eb566450383f33"></meta-data>
+            android:value="4b2a3add173ae3692e560c9bffa65497"></meta-data>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

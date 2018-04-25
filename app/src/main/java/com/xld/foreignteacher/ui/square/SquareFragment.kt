@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import cn.sinata.xldutils.fragment.BaseFragment
 import cn.sinata.xldutils.utils.ActivityUtil
-import cn.sinata.xldutils.utils.SPUtils
 import cn.sinata.xldutils.view.SwipeRefreshRecyclerLayout
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.api.dto.SquareDate
@@ -69,7 +68,7 @@ class SquareFragment : BaseFragment() {
 
     private fun initDate(page: Int, type: Int) {
         appComponent.netWork
-                .getSquareList(SPUtils.getInt("id"), page, 10)
+                .getSquareList(appComponent.userHandler.getUser()!!.id, page, 10)
                 .doOnLoading { rec_square.isRefreshing = it }
                 .subscribe { list ->
                     if (type == 1) {

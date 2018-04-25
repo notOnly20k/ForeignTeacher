@@ -14,7 +14,6 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.OnCheckedChanged
 import butterknife.OnClick
-import cn.sinata.xldutils.utils.SPUtils
 import cn.sinata.xldutils.view.TitleBar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.xld.foreignteacher.R
@@ -148,9 +147,10 @@ class LoginActivity : BaseTranslateStatusActivity() {
                 appComponent.netWork.login(etPhone.text.toString().formateToNum(), etPwd.text.toString().toMD5())
                         .doOnSubscribe { mCompositeDisposable.add(it) }
                         .subscribe { user ->
+                           // SPUtils.save("id", user.id)
+                            appComponent.userHandler.saveUser(user)
                             activityUtil.go(MainActivity::class.java).start()
-                            SPUtils.save("id", user.id)
-                            SPUtils.save("phone", user.phone)
+
                             finish()
                         }
             }

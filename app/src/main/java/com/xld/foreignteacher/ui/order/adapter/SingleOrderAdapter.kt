@@ -34,6 +34,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
     private val data: MutableList<String>
     private val activityUtil: ActivityUtil
     private val logger = LoggerFactory.getLogger("SquareAdapter")
+    private lateinit var singleOrderItemClickListener: SingleOrderItemClickListener
 
     init {
         data = ArrayList()
@@ -66,10 +67,10 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == TYPE_NORMAL) {
             val viewHolder = holder as ViewHolder
-            val backDra=context.resources.getDrawable(R.mipmap.icon_woman)
-            backDra.setBounds( backDra.minimumWidth, 0,0 ,backDra.minimumHeight)
-            viewHolder.tvName.setCompoundDrawablesWithIntrinsicBounds(null,null,backDra,null)
-            viewHolder.tvName.compoundDrawablePadding=backDra.minimumHeight/2
+            val backDra = context.resources.getDrawable(R.mipmap.icon_woman)
+            backDra.setBounds(backDra.minimumWidth, 0, 0, backDra.minimumHeight)
+            viewHolder.tvName.setCompoundDrawablesWithIntrinsicBounds(null, null, backDra, null)
+            viewHolder.tvName.compoundDrawablePadding = backDra.minimumHeight / 2
             when (type) {
                 SingleOrderFragment.NEW_ORDERS -> {
                     viewHolder.tvPromotion.visibility = View.VISIBLE
@@ -87,6 +88,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                                 .setDialogListene(object : CustomDialog.CustomDialogListener {
                                     override fun clickButton1(customDialog: CustomDialog) {
                                         customDialog.dismiss()
+                                        singleOrderItemClickListener.onDialogClick(type)
                                     }
 
                                     override fun clickButton2(customDialog: CustomDialog) {
@@ -128,6 +130,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                                 .setDialogListene(object : CustomDialog.CustomDialogListener {
                                     override fun clickButton1(customDialog: CustomDialog) {
                                         customDialog.dismiss()
+                                        singleOrderItemClickListener.onDialogClick(type)
                                     }
 
                                     override fun clickButton2(customDialog: CustomDialog) {
@@ -143,7 +146,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                     viewHolder.tvAcceptCount.visibility = View.GONE
                     viewHolder.tvCancelReason.visibility = View.VISIBLE
                     viewHolder.btnCancel.text = "Delete"
-                    viewHolder.btnAccept.visibility=View.GONE
+                    viewHolder.btnAccept.visibility = View.GONE
                     viewHolder.btnCancel.setOnClickListener {
                         CustomDialog.Builder()
                                 .create()
@@ -151,6 +154,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                                 .setDialogListene(object : CustomDialog.CustomDialogListener {
                                     override fun clickButton1(customDialog: CustomDialog) {
                                         customDialog.dismiss()
+                                        singleOrderItemClickListener.onDialogClick(type)
                                     }
 
                                     override fun clickButton2(customDialog: CustomDialog) {
@@ -166,7 +170,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                     viewHolder.tvAccept.text = "Refusal cause"
                     viewHolder.tvAcceptCount.visibility = View.GONE
                     viewHolder.tvCancelReason.visibility = View.VISIBLE
-                    viewHolder.btnAccept.visibility=View.GONE
+                    viewHolder.btnAccept.visibility = View.GONE
                     viewHolder.btnCancel.text = "Delete"
                     viewHolder.btnCancel.setOnClickListener {
                         CustomDialog.Builder()
@@ -175,6 +179,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                                 .setDialogListene(object : CustomDialog.CustomDialogListener {
                                     override fun clickButton1(customDialog: CustomDialog) {
                                         customDialog.dismiss()
+                                        singleOrderItemClickListener.onDialogClick(type)
                                     }
 
                                     override fun clickButton2(customDialog: CustomDialog) {
@@ -191,6 +196,15 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
 
         }
     }
+
+    fun setListener(listener: SingleOrderItemClickListener) {
+        singleOrderItemClickListener = listener
+    }
+
+    interface SingleOrderItemClickListener {
+        fun onDialogClick(type: String)
+    }
+
 
     inner class ViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
         @BindView(R.id.iv_head)

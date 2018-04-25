@@ -27,7 +27,7 @@ class InviteActivity : BaseTranslateStatusActivity() {
 
         btn_ok.setOnClickListener {
             if (et_invite_code.text.isNotEmpty()) {
-                appComponent.netWork.addInviteCode(SPUtils.getInt("id"), et_invite_code.text.toString())
+                appComponent.netWork.addInviteCode(appComponent.userHandler.getUser()!!.id, et_invite_code.text.toString())
                         .doOnLoading { showProgress(it) }
                         .subscribe {
                             ll_add_code.visibility = View.GONE
@@ -38,7 +38,7 @@ class InviteActivity : BaseTranslateStatusActivity() {
     }
 
     override fun initData() {
-        appComponent.netWork.getUserInviteCode(SPUtils.getInt("id"))
+        appComponent.netWork.getUserInviteCode(appComponent.userHandler.getUser()!!.id)
                 .doOnLoading { showProgress(it) }
                 .subscribe { it ->
                     if (it.isAddInviteCode) {

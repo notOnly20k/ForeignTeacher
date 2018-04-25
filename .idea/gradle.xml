@@ -8,10 +8,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/WheelPicker" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/crop" />
             <option value="$PROJECT_DIR$/dragsquareimage" />
-            <option value="$PROJECT_DIR$/mypicker" />
             <option value="$PROJECT_DIR$/xldUtils" />
           </set>
         </option>

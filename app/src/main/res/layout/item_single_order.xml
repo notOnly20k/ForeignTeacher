@@ -12,14 +12,14 @@
         android:id="@+id/tv_promotion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
         android:layout_marginTop="@dimen/dp_2"
         android:background="@drawable/bg_order_warn"
         android:gravity="center"
         android:text="@string/ads_promotion"
         android:textColor="@color/white"
-        android:textSize="13sp"
+        android:textSize="12sp"
         android:visibility="gone"
         tools:visibility="visible"
         />
@@ -30,8 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/dp_8"
-        android:layout_marginLeft="@dimen/dp_8"
-        android:layout_marginRight="@dimen/dp_8"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
         app:cardCornerRadius="0dp"
         app:cardElevation="5dp">
 

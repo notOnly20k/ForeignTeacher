@@ -14,6 +14,7 @@ import cn.sinata.xldutils.fragment.BaseFragment
 import cn.sinata.xldutils.utils.ActivityUtil
 import cn.sinata.xldutils.utils.TimeUtils
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ui.dialog.CustomPopWindow
 import com.xld.foreignteacher.ui.order.adapter.SingleOrderFragmentAdapter
 import com.xld.foreignteacher.ui.schedule.adapter.EditScheduleActivity
@@ -28,7 +29,7 @@ import java.util.*
  * Created by cz on 3/29/18.
  */
 class ScheduleFragment : BaseFragment() {
-    lateinit var activityUtil:ActivityUtil
+    lateinit var activityUtil: ActivityUtil
     override fun getContentViewLayoutID(): Int {
         return R.layout.fragment_schedule
     }
@@ -68,10 +69,10 @@ class ScheduleFragment : BaseFragment() {
 
         }
         tv_set_unavailable_time.setOnClickListener {
-            activityUtil.go(EditScheduleActivity::class.java).put("type",EditScheduleActivity.UNAVAILABLE).start()
+            activityUtil.go(EditScheduleActivity::class.java).put("type", EditScheduleActivity.UNAVAILABLE).start()
         }
         tv_set_discount.setOnClickListener {
-            activityUtil.go(EditScheduleActivity::class.java).put("type",EditScheduleActivity.DISCOUNT).start()
+            activityUtil.go(EditScheduleActivity::class.java).put("type", EditScheduleActivity.DISCOUNT).start()
         }
 
     }
@@ -108,14 +109,14 @@ class ScheduleFragment : BaseFragment() {
 
     private fun initScheduleView() {
         val c = Calendar.getInstance()
+        val id =appComponent.userHandler.getUser().id
         for (i in 0 until 15) {
-            fragmentList.add(ScheduleCardFragment.createInstance(TimeUtils.getTimeYMD(c.time),ScheduleCardFragment.DISABLE))
             if (i == 0) {
                 c.add(Calendar.DAY_OF_MONTH, 0)
             } else {
                 c.add(Calendar.DAY_OF_MONTH, 1)
             }
-
+            fragmentList.add(ScheduleCardFragment.createInstance(TimeUtils.getTimeYMD(c.time), ScheduleCardFragment.ENABLE,id))
             titles.add(c.time)
         }
 
@@ -143,6 +144,7 @@ class ScheduleFragment : BaseFragment() {
                 tvWeek.isSelected = true
                 tvDate.textSize = 16F
                 tvWeek.textSize = 15F
+
                 vp_schedule.currentItem = tab.position
 
             }
@@ -157,7 +159,7 @@ class ScheduleFragment : BaseFragment() {
 
 
 
-        vp_schedule.currentItem = 1
+        vp_schedule.currentItem = 0
         tab_date.getTabAt(0)!!.select()
 
     }

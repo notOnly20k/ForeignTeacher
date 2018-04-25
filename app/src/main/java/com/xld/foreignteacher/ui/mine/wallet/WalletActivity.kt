@@ -1,5 +1,6 @@
 package com.xld.foreignteacher.ui.mine.wallet
 
+import android.graphics.Paint
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ui.ListActivity
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
@@ -22,7 +23,8 @@ class WalletActivity : BaseTranslateStatusActivity() {
             activityUtil.go(ListActivity::class.java).put("type", ListActivity.TRANSACTIONS).start()
         })
         title_bar.getRightButton(0).setTextColor(resources.getColor(R.color.yellow_ffcc00))
-
+        tv_withdraw_details.paint.flags = Paint.UNDERLINE_TEXT_FLAG
+        tv_withdraw_details.paint.isAntiAlias = true
         tv_withdraw_details.setOnClickListener {
             activityUtil.go(ListActivity::class.java).put("type", ListActivity.WITHDRAWDETAIL).start()
         }

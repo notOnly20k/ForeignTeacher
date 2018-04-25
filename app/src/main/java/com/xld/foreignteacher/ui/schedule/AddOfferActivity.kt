@@ -4,12 +4,10 @@ import android.graphics.Paint
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
-import cn.sinata.xldutils.utils.SPUtils
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.api.NetWork.Companion.TYPE_CHARGE_RULES
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
-import com.xld.foreignteacher.ext.e
 import com.xld.foreignteacher.ui.H5Activity
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.dialog.WheelDialog
@@ -112,8 +110,7 @@ class AddOfferActivity : BaseTranslateStatusActivity() {
             return
         }
         val price = et_price.text.toString().toInt()
-        logger.e { SPUtils.getInt("id") }
-        appComponent.netWork.addOffer(SPUtils.getInt("id"), et_title.text.toString(), languageId!!, typeId!!, price)
+        appComponent.netWork.addOffer(appComponent.userHandler.getUser()!!.id, et_title.text.toString(), languageId!!, typeId!!, price)
                 .doOnSubscribe { mCompositeDisposable.add(it) }
                 .doOnLoading { showProgress(it) }
                 .subscribe {
@@ -122,7 +119,7 @@ class AddOfferActivity : BaseTranslateStatusActivity() {
     }
 
     override fun initData() {
-        appComponent.netWork.getBenchmarkPrice(SPUtils.getInt("id"))
+        appComponent.netWork.getBenchmarkPrice(appComponent.userHandler.getUser()!!.id)
                 .doOnSubscribe { mCompositeDisposable.add(it) }
                 .subscribe {
                     val text = SpannableString("Actual income:￥${it[0].benchmarkPrice}/h")

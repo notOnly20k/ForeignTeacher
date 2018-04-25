@@ -83,9 +83,8 @@ class SetPwdActivity : BaseTranslateStatusActivity(), EditEmptyWatcher.Checkable
                             .doOnLoading { showProgress(it) }
                             .subscribe { user ->
                                 showToast(getString(R.string.register_ok))
-                                SPUtils.save("user", Gson().toJson(user))
-                                SPUtils.save("id", user.id)
-                                activityUtil.go(EditTeacherInfoActivity::class.java).put("type", EditTeacherInfoActivity.SAVE).start()
+                                appComponent.userHandler.saveUser(user)
+                                activityUtil.go(EditTeacherInfoActivity::class.java).start()
                                 finish()
                             }
                 }

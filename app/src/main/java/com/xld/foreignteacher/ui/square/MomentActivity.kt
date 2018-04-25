@@ -61,7 +61,7 @@ class MomentActivity : BaseTranslateStatusActivity(), MomentAdapter.OnItemClickL
         imgList.add(SquareDate.ImgUrlBean("https://assets-cdn.github.com/images/modules/site/icons/opensource-ico-best.svg?sn"))
         list.map { imgList.add(SquareDate.ImgUrlBean(it)) }
         //appComponent.ossHandler.ossUpload(list[0])
-        appComponent.netWork.addSquare(SPUtils.getInt("id"), Gson().toJson(imgList), "",et_content.text.toString())
+        appComponent.netWork.addSquare(appComponent.userHandler.getUser()!!.id, Gson().toJson(imgList), "",et_content.text.toString())
                 .doOnSubscribe { mCompositeDisposable.add(it) }
                 .doOnLoading { showProgress(it) }
                 .subscribe { finish() }

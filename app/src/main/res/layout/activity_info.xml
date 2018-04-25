@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:scrollbars="none">
+
+    <RelativeLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_size"
+        android:background="@color/color_black_1d1e24">
+        <TextView
+            android:id="@+id/tv_title_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/back_yellow"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_8"
+            />
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/BarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/info"
+            android:textColor="@color/yellow_ffcc00" />
+
+        <TextView
+            android:id="@+id/tv_title_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_8"
+            android:text="@string/save"
+            android:textColor="@color/yellow_ffcc00" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/l_white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.swifty.dragsquareimage.DraggableSquareView
+                android:id="@+id/drag_square"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="273dp" />
+
+            <LinearLayout
+                android:id="@+id/ll_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/viewpager"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/android_margin" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/android_margin"
+                android:paddingRight="@dimen/android_margin">
+
+                <TextView
+                    android:id="@+id/tv_person_info"
+                    style="@style/style_title_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/person_infomation" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="100dp"
+                    android:layout_height="3dp"
+                    android:layout_below="@id/tv_person_info"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="1dp"
+                    android:background="@drawable/left_radio_view" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/style_user_info_item"
+                    android:layout_width="111dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view"
+                    android:text="Name" />
+
+                <EditText
+                    android:id="@+id/et_name"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view"
+                    android:layout_marginLeft="22dp"
+                    android:layout_toRightOf="@id/tv_name"
+                    android:background="@null"
+                    android:hint="@string/edit_name_hint"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/tv_gender"
+                    style="@style/style_user_info_item"
+                    android:layout_width="111dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_name"
+                    android:text="Gender" />
+
+                <TextView
+                    android:id="@+id/tv_gender_edit"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_name"
+                    android:layout_marginLeft="22dp"
+                    android:layout_toRightOf="@id/tv_name"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/tv_birth"
+                    style="@style/style_user_info_item"
+                    android:layout_width="111dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_gender"
+                    android:text="Date of birth" />
+
+                <TextView
+                    android:id="@+id/tv_birth_edit"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_gender"
+                    android:layout_marginLeft="22dp"
+                    android:layout_toRightOf="@id/tv_gender"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_birth_edit"
+                    android:layout_marginBottom="@dimen/android_margin"
+                    android:layout_marginTop="@dimen/android_margin"
+                    android:background="@color/dividing_line_color" />
+
+                <TextView
+                    android:id="@+id/tv_contact_number"
+                    style="@style/style_user_info_item"
+                    android:layout_width="111dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view2"
+                    android:text="Contact Number" />
+
+                <com.xld.foreignteacher.views.PhoneNumEditText
+                    android:id="@+id/et_contact_number"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view2"
+                    android:layout_marginLeft="22dp"
+                    android:layout_toRightOf="@id/tv_contact_number"
+                    android:background="@null"
+                    android:hint="@string/edit_contact_number_hint"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLength="13" />
+
+
+                <TextView
+                    android:id="@+id/tv_nationality"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_contact_number"
+                    android:text="Nationality" />
+
+                <TextView
+                    android:id="@+id/tv_nationality_edit"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_contact_number"
+                    android:layout_marginLeft="22dp"
+                    android:layout_toRightOf="@id/tv_nationality"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="111" />
+
+                <TextView
+                    android:id="@+id/tv_language"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_nationality"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:text="Language" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rec_languages"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_language"
+                    tools:listitem="@layout/item_add_languages"></android.support.v7.widget.RecyclerView>
+
+                <com.xld.foreignteacher.views.StarBarView
+                    android:id="@+id/star_chinese_level"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rec_languages"
+                    android:layout_marginLeft="133dp"
+                    android:layout_marginTop="4dp"
+                    app:space_width="2dp"
+                    app:star_height="13dp"
+                    app:star_hollow="@mipmap/star_normal"
+                    app:star_isIndicator="true"
+                    app:star_max="5"
+                    app:star_orientation="horizontal"
+                    app:star_rating="4"
+                    app:star_solid="@mipmap/star_selected"
+                    app:star_width="13dp" />
+
+                <TextView
+                    android:id="@+id/tv_chinese_level"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rec_languages"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:text="Chinese level" />
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_chinese_level"
+                    android:layout_marginBottom="@dimen/android_margin"
+                    android:layout_marginTop="@dimen/android_margin"
+                    android:background="@color/dividing_line_color" />
+
+                <TextView
+                    android:id="@+id/tv_introduction"
+                    style="@style/style_user_info_item"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view4"
+                    android:text="Introduction" />
+
+                <EditText
+                    android:id="@+id/et_introduction"
+                    style="@style/style_user_info_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view4"
+                    android:layout_marginLeft="22dp"
+                    android:layout_toRightOf="@id/tv_introduction"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:hint="@string/edit_introduction"
+                    android:inputType="textMultiLine" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

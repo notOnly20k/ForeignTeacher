@@ -37,54 +37,18 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
-        <!--<com.aigestudio.wheelpicker.widgets.WheelDatePicker-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--app:wheel_atmospheric="true"-->
-        <!--app:wheel_cyclic="true"-->
-        <!--app:wheel_item_text_color="@color/color_grey_999999"-->
-        <!--app:wheel_item_text_size="15sp"-->
-        <!--app:wheel_selected_item_text_color="@color/text_333333"-->
-        <!--app:wheel_visible_item_count="3">-->
-
-        <!--</com.aigestudio.wheelpicker.widgets.WheelDatePicker>-->
-        <com.aigestudio.wheelpicker.widgets.WheelYearPicker
-            android:id="@+id/wheel_year"
-            android:layout_width="0dp"
+        <com.aigestudio.wheelpicker.widgets.WheelDatePicker
+            android:id="@+id/wd_date"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
+            android:layout_gravity="center"
             app:wheel_atmospheric="true"
             app:wheel_cyclic="true"
             app:wheel_item_text_color="@color/color_grey_999999"
             app:wheel_item_text_size="15sp"
             app:wheel_selected_item_text_color="@color/text_333333"
-            app:wheel_visible_item_count="3" />
+            app:wheel_visible_item_count="3">
 
-        <com.aigestudio.wheelpicker.widgets.WheelMonthPicker
-            android:id="@+id/wheel_month"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            app:wheel_atmospheric="true"
-            app:wheel_cyclic="true"
-            app:wheel_item_text_color="@color/color_grey_999999"
-            app:wheel_item_text_size="15sp"
-            app:wheel_selected_item_text_color="@color/text_333333"
-            app:wheel_visible_item_count="3" />
-
-        <com.aigestudio.wheelpicker.widgets.WheelDayPicker
-            android:id="@+id/wheel_day"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            app:wheel_atmospheric="true"
-            app:wheel_cyclic="true"
-            app:wheel_item_text_color="@color/color_grey_999999"
-            app:wheel_item_text_size="15sp"
-            app:wheel_selected_item_text_color="@color/text_333333"
-            app:wheel_visible_item_count="3" />
+        </com.aigestudio.wheelpicker.widgets.WheelDatePicker>
     </LinearLayout>
 </LinearLayout>

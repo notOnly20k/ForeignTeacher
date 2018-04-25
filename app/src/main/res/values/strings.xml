@@ -70,7 +70,7 @@
     <string name="introduction">Introduction</string>
     <string name="feeds">Feeds</string>
     <string name="user_comment">User\'s comment</string>
-    <string name="evaluate_count">( %1$f )</string>
+    <string name="evaluate_count">( %1$d )</string>
     <string name="price_at_least">¥%1$d/hour</string>
     <string name="price_class">¥%1$d</string>
     <string name="orders">Orders</string>
@@ -93,7 +93,8 @@
     <string name="passport">Passport</string>
     <string name="valid_visa">Valid visa</string>
     <string name="verified">verified</string>
-    <string name="minmum">Minmum ￥%1$f</string>
+    <string name="minmum">Minmum ￥%1$d</string>
+    <string name="cancel_order_count">Canceled orders %1$d</string>
     <string name="with_draw">Withdraw</string>
 
 

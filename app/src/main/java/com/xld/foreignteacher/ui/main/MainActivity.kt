@@ -17,6 +17,9 @@ import com.chaychan.library.BottomBarLayout
 import com.timmy.tdialog.TDialog
 import com.umeng.socialize.UMShareAPI
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.dto.TeacherSchedule
+import com.xld.foreignteacher.ext.appComponent
+import com.xld.foreignteacher.ext.e
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.mine.MineFragment
 import com.xld.foreignteacher.ui.msg.MessageFragment
@@ -29,10 +32,11 @@ import com.xld.foreignteacher.views.ViewPagerIndicator
 import java.util.*
 
 
-class MainActivity : BaseTranslateStatusActivity(),ScheduleCardFragment.ScheduleCardFragmentCallBack {
-    override fun scheduleClick(view: ScheduleDateTextView, checked: Boolean, id: Int) {
+class MainActivity : BaseTranslateStatusActivity(), ScheduleCardFragment.ScheduleCardFragmentCallBack {
+    override fun scheduleClick(view: ScheduleDateTextView, checked: Boolean, position: Int, list: List<TeacherSchedule>) {
 
     }
+
 
     override val changeTitleBar: Boolean
         get() = false
@@ -63,7 +67,17 @@ class MainActivity : BaseTranslateStatusActivity(),ScheduleCardFragment.Schedule
     }
 
     override fun initData() {
-
+        appComponent.locationHandler.locationSubject
+                .doOnSubscribe { mCompositeDisposable.add(it) }
+                .subscribe {
+                    logger.e { it }
+                    appComponent.userHandler.saveUser(
+                            appComponent.userHandler.getUser().copy(
+                                    lat = it.latitude, lon = it.longitude
+                            )
+                    )
+                }
+        appComponent.locationHandler.start()
     }
 
     private fun changeFragment(previousPosition: Int, currentPosition: Int) {

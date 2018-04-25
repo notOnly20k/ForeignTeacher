@@ -2,6 +2,7 @@ package com.xld.foreignteacher.ui.schedule
 
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
+import com.xld.foreignteacher.ui.dialog.SelectDateDialog
 import kotlinx.android.synthetic.main.activity_add_grouo_offer.*
 
 /**
@@ -19,6 +20,10 @@ class AddGroupOfferActivity: BaseTranslateStatusActivity() {
         title_bar.setLeftButton(R.mipmap.back_yellow, { finish() })
         title_bar.setTitle("Add Group offer")
         title_bar.addRightButton("Preview", {})
+
+        et_start_time.setOnClickListener {
+            SelectDateDialog().show(supportFragmentManager,"date")
+        }
     }
 
     override fun initData() {

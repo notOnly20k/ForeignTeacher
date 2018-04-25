@@ -74,7 +74,8 @@
                 android:layout_below="@id/rl_name"
                 android:layout_toRightOf="@id/tv_language"
                 android:drawableRight="@mipmap/icon_more"
-                android:enabled="false"
+                android:editable="false"
+                android:focusableInTouchMode="false"
                 android:hint="Choose language" />
 
             <View
@@ -175,14 +176,13 @@
                 android:layout_below="@id/tv_min"
                 android:text="Contact" />
 
-            <EditText
+            <com.xld.foreignteacher.views.PhoneNumEditText
                 android:id="@+id/et_contact"
                 style="@style/style_tv_mine_item"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@id/tv_min"
                 android:layout_toRightOf="@id/tv_contact"
-                android:enabled="false"
                 android:hint="Mobile Number" />
             <View
                 android:layout_width="match_parent"
@@ -208,7 +208,8 @@
                 android:drawableRight="@mipmap/right_arrow"
                 android:layout_below="@id/tv_contact"
                 android:layout_toRightOf="@id/tv_contact"
-                android:enabled="false"
+                android:editable="false"
+                android:focusableInTouchMode="false"
                 android:hint="Set the deadline" />
             <View
                 android:layout_width="match_parent"
@@ -234,7 +235,8 @@
                 android:drawableRight="@mipmap/right_arrow"
                 android:layout_below="@id/tv_deadline"
                 android:layout_toRightOf="@id/tv_contact"
-                android:enabled="false"
+                android:editable="false"
+                android:focusableInTouchMode="false"
                 android:hint="Set the starting time" />
 
             <View
@@ -290,7 +292,8 @@
                 android:drawableRight="@mipmap/icon_locate"
                 android:layout_below="@id/tv_end_time"
                 android:layout_toRightOf="@id/tv_contact"
-                android:enabled="false"
+                android:editable="false"
+                android:focusableInTouchMode="false"
                 android:hint="Set address" />
 
             <LinearLayout

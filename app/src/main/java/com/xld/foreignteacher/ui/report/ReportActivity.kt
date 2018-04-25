@@ -1,5 +1,6 @@
 package com.xld.foreignteacher.ui.report
 
+import android.os.CountDownTimer
 import android.view.Gravity
 import android.widget.TextView
 import com.timmy.tdialog.TDialog
@@ -60,24 +61,25 @@ class ReportActivity : BaseTranslateStatusActivity() {
         }
     }
 
-    fun showDeclinDialog(){
+    fun showDeclinDialog() {
         TDialog.Builder(supportFragmentManager)
                 .setLayoutRes(R.layout.dialog_cancel_confirm)    //设置弹窗展示的xml布局
-                .setOnBindViewListener {viewHolder->
+                .setOnBindViewListener { viewHolder ->
                     viewHolder.getView<TextView>(R.id.tv_no)
                     viewHolder.getView<TextView>(R.id.tv_yes)
-                    viewHolder.getView<TextView>(R.id.tv_info).text=R.string.cancel_confirm_info.toFormattedString(this)
+                    viewHolder.getView<TextView>(R.id.tv_info).text = R.string.cancel_confirm_info.toFormattedString(this)
                 }
-                .addOnClickListener(R.id.tv_no,R.id.tv_yes)
+                .addOnClickListener(R.id.tv_no, R.id.tv_yes)
                 .setOnViewClickListener { viewHolder, view, tDialog ->
-                   when(view.id){
-                       R.id.tv_no->{
-                           tDialog.dismiss()
-                       }
-                       R.id.tv_yes->{
-                           tDialog.dismiss()
-                       }
-                   }
+                    when (view.id) {
+                        R.id.tv_no -> {
+                            tDialog.dismiss()
+                        }
+                        R.id.tv_yes -> {
+                            tDialog.dismiss()
+                            showTDialog()
+                        }
+                    }
                 }
                 .setScreenWidthAspect(this, 1f)   //设置弹窗宽度(参数aspect为屏幕宽度比例 0 - 1f)
                 .setScreenHeightAspect(this, 1f)  //设置弹窗高度(参数aspect为屏幕宽度比例 0 - 1f)
@@ -88,8 +90,9 @@ class ReportActivity : BaseTranslateStatusActivity() {
                 .create()   //创建TDialog
                 .show()    //展示
     }
+
     fun showTDialog() {
-        TDialog.Builder(supportFragmentManager)
+        val dialog = TDialog.Builder(supportFragmentManager)
                 .setLayoutRes(R.layout.dialog_inform_ok)    //设置弹窗展示的xml布局
                 .setScreenWidthAspect(this, 0.4f)   //设置弹窗宽度(参数aspect为屏幕宽度比例 0 - 1f)
                 .setScreenHeightAspect(this, 0.2f)  //设置弹窗高度(参数aspect为屏幕宽度比例 0 - 1f)
@@ -100,6 +103,16 @@ class ReportActivity : BaseTranslateStatusActivity() {
                 .setCancelable(true)    //弹窗是否可以取消
                 .create()   //创建TDialog
                 .show()    //展示
+
+        val timer: CountDownTimer = object : CountDownTimer(2000, 1000) {
+            override fun onTick(l: Long) {
+            }
+
+            override fun onFinish() {
+                dialog?.dismiss()
+                finish()
+            }
+        }.start()
     }
 
     private fun infoViewClicked(view: InformItemView) {

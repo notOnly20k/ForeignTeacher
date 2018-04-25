@@ -13,90 +13,113 @@
 
         <GridLayout
             android:id="@+id/gd_content"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:columnCount="3">
 
             <com.xld.foreignteacher.views.ScheduleDateTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:date_text="9:00-10:00"
-                app:state="normal" />
+                app:date_text="08:00-09:00"
+                android:tag="left"
+                 />
 
             <com.xld.foreignteacher.views.ScheduleDateTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:date_text="9:00-10:00" />
+                android:tag="center"
+                app:date_text="09:00-10:00" />
 
             <com.xld.foreignteacher.views.ScheduleDateTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:date_text="9:00-10:00"
-
+                app:date_text="10:00-11:00"
+                android:tag="right"
                 />
 
             <com.xld.foreignteacher.views.ScheduleDateTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:date_text="9:00-10:00"
-
+                app:date_text="11:00-12:00"
+                android:tag="left"
                 />
 
             <com.xld.foreignteacher.views.ScheduleDateTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:date_text="9:00-10:00"
-
+                app:date_text="12:00-13:00"
+                android:tag="center"
                 />
 
             <com.xld.foreignteacher.views.ScheduleDateTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:date_text="9:00-10:00"
-
+                app:date_text="13:00-14:00"
+                android:tag="right"
                 />
 
             <com.xld.foreignteacher.views.ScheduleDateTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:date_text="9:00-10:00"
-
+                app:date_text="14:00-15:00"
+                android:tag="left"
                 />
 
             <com.xld.foreignteacher.views.ScheduleDateTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:date_text="9:00-10:00"
-
-                app:state="normal" />
-
-            <com.xld.foreignteacher.views.ScheduleDateTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:date_text="9:00-10:00"
-
-                app:editable="false" />
-
-            <com.xld.foreignteacher.views.ScheduleDateTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:date_text="9:00-10:00"
-
+                app:date_text="15:00-16:00"
+                android:tag="center"
                 />
 
             <com.xld.foreignteacher.views.ScheduleDateTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:date_text="9:00-10:00"
-
+                app:date_text="16:00-17:00"
+                android:tag="right"
                 />
 
             <com.xld.foreignteacher.views.ScheduleDateTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:date_text="9:00-10:00"
+                app:date_text="17:00-18:00"
+                android:tag="left"
+                />
 
+            <com.xld.foreignteacher.views.ScheduleDateTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:date_text="18:00-19:00"
+                android:tag="center"
+                />
+
+            <com.xld.foreignteacher.views.ScheduleDateTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:date_text="19:00-20:00"
+                android:tag="right"
+                />
+
+            <com.xld.foreignteacher.views.ScheduleDateTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:date_text="20:00-21:00"
+                android:tag="left"
+                />
+
+            <com.xld.foreignteacher.views.ScheduleDateTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:date_text="21:00-22:00"
+                android:tag="center"
+                />
+
+            <com.xld.foreignteacher.views.ScheduleDateTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:date_text="23:00-24:00"
+                android:tag="right"
                 />
 
 

@@ -68,6 +68,7 @@ class SingleOrderFragment : BaseFragment() {
 
     }
 
+
     override fun onVisibleToUser() {
 
     }

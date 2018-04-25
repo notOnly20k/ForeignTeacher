@@ -29,9 +29,9 @@ import java.util.*
 class SelectLanguageActivity : BaseTranslateStatusActivity(), SelectAToZAdapter.OnItemClickListener {
     override fun onItemClick(selectData: SelectData) {
         when(intent.getStringExtra("type")){
-            LANGUAGE->  setResult(EditTeacherInfoActivity.SELECT_LANGUAGE, intent.putExtra(LANGUAGE, selectData as Language))
-            CITY->  setResult(EditTeacherInfoActivity.SELECT_CITY, intent.putExtra(CITY, selectData as City))
-            NATIONALITY->  setResult(EditTeacherInfoActivity.SELECT_NATIONALITY, intent.putExtra(NATIONALITY, selectData as Language))
+            LANGUAGE->  setResult(SELECT_LANGUAGE, intent.putExtra(LANGUAGE, selectData as Language))
+            CITY->  setResult(SELECT_CITY, intent.putExtra(CITY, selectData as City))
+            NATIONALITY->  setResult(SELECT_NATIONALITY, intent.putExtra(NATIONALITY, selectData as Language))
         }
 
         finish()
@@ -201,6 +201,9 @@ class SelectLanguageActivity : BaseTranslateStatusActivity(), SelectAToZAdapter.
         const val CITY="city"
         const val LANGUAGE="language"
         const val NATIONALITY="nationality"
+        const val SELECT_LANGUAGE = 1
+        const val SELECT_CITY = 2
+        const val SELECT_NATIONALITY = 3
     }
 
 }

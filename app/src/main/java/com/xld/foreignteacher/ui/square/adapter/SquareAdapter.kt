@@ -19,7 +19,6 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import cn.sinata.xldutils.adapter.LoadMoreAdapter
 import cn.sinata.xldutils.utils.ActivityUtil
-import cn.sinata.xldutils.utils.SPUtils
 import cn.sinata.xldutils.utils.TimeUtils
 import com.facebook.drawee.view.SimpleDraweeView
 import com.xld.foreignteacher.R
@@ -104,7 +103,7 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
             viewHolder.btnLike.setOnClickListener {
                 if (squareDate.isGiveThum.not())
                 context.appComponent.netWork
-                       .addGiveThum(squareDate.id, SPUtils.getInt("id"))
+                       .addGiveThum(squareDate.id,context.appComponent.userHandler.getUser()!!.id)
                        .doOnLoading {  }
                        .subscribe {
                            viewHolder.btnLike.text = (squareDate.giveThumNum+1).toString()
@@ -127,7 +126,7 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
             //todo 如果有评论就加载
             viewHolder.llReplay.removeAllViews()
             viewHolder.llReplay.visibility = View.GONE
-            if (squareDate.squareCommentList != null) {
+            if (squareDate.squareCommentList != null&&squareDate.squareCommentList!!.isNotEmpty()) {
                 viewHolder.llReplay.visibility = View.VISIBLE
                 for (i in 0..squareDate.squareCommentList!!.size) {
                     if (i < 3) {

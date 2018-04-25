@@ -14,7 +14,7 @@ android {
         versionName "1.0"
         vectorDrawables.useSupportLibrary = false
         multiDexEnabled true
-
+        manifestPlaceholders = [qqappid: "1106795530"]
 
         buildConfigField("String", "APP_SERVER_ENDPOINT", "\"${app_server_endpoint}\"")
     }
@@ -22,6 +22,7 @@ android {
     dexOptions {
         preDexLibraries true
     }
+
 
     dataBinding.enabled = true
     defaultConfig.javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true
@@ -46,7 +47,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':xldUtils')
     compile project(':dragsquareimage')
-    compile project(':mypicker')
+    compile project(':WheelPicker')
     api "com.android.support:appcompat-v7:$support_library_version"
     implementation "com.android.support:preference-v7:$support_library_version"
     implementation "com.android.support:preference-v14:$support_library_version"
@@ -78,7 +79,7 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.10'
     compile 'com.github.Hitomis:CrazyShadow:v1.0.1'
     compile 'com.hyman:flowlayout-lib:1.1.2'
-    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
+    //compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
     compile 'com.aliyun.dpa:oss-android-sdk:+'
     compile 'com.squareup.okio:okio:1.9.0'
     implementation 'sk.baka.slf4j:slf4j-handroid:1.7.26'

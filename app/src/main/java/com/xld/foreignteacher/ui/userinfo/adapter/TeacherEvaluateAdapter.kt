@@ -12,22 +12,25 @@ import butterknife.ButterKnife
 import cn.sinata.xldutils.utils.ActivityUtil
 import com.facebook.drawee.view.SimpleDraweeView
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.dto.TeacherDetail
 import com.xld.foreignteacher.ui.square.adapter.SquareImgAdapter
 import com.xld.foreignteacher.views.StarBarView
+import org.slf4j.LoggerFactory
 import java.util.*
 
 /**
  * Created by cz on 4/2/18.
  */
-class TeacherEvaluateAdapter(private val context: Context, private val data: List<String>) : BaseAdapter() {
+class TeacherEvaluateAdapter(private val context: Context) : BaseAdapter() {
+    private val logger =LoggerFactory.getLogger("TeacherEvaluateAdapter")
     private val activityUtil: ActivityUtil = ActivityUtil.create(context)
-
+    private val dataList = mutableListOf<TeacherDetail.CommentListBean>()
     override fun getCount(): Int {
-        return data.size
+        return dataList.size
     }
 
     override fun getItem(position: Int): Any {
-        return data[position]
+        return dataList[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -40,16 +43,27 @@ class TeacherEvaluateAdapter(private val context: Context, private val data: Lis
             convertView = LayoutInflater.from(context).inflate(R.layout.item_teacher_evaluate, null)
         }
         val holder = ViewHolder(convertView!!)
+        holder.ivHead.setImageURI(dataList[position].userImgUrl)
+        holder.sbvStarbar.setStarRating(dataList[position].score.toFloat())
+        holder.tvContent.text = dataList[position].remark?:""
         //todo 如果有图片就加载
         val urls = ArrayList<String>()
-        urls.add("")
-        urls.add("")
-        urls.add("")
-        urls.add("")
-        urls.add("")
-        holder.gvImg.adapter = SquareImgAdapter(urls, context)
-        holder.gvImg.visibility = View.VISIBLE
+        if (dataList[position].imgUrl != null && dataList[position].imgUrl!!.isNotEmpty()) {
+            dataList[position].imgUrl!!.sortedBy { it.sort }.map {
+                urls.add(it.imgUrl!!)
+            }
+            holder.gvImg.adapter = SquareImgAdapter(urls, context)
+            holder.gvImg.visibility = View.VISIBLE
+        }else{
+            holder.gvImg.visibility = View.GONE
+        }
         return convertView
+    }
+
+    fun upDataList(list: List<TeacherDetail.CommentListBean>) {
+        dataList.clear()
+        dataList.addAll(list)
+        notifyDataSetChanged()
     }
 
     internal class ViewHolder(view: View) {

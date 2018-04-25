@@ -3,10 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ForeignTeacher.iml" filepath="$PROJECT_DIR$/ForeignTeacher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WheelPicker/WheelPicker.iml" filepath="$PROJECT_DIR$/WheelPicker/WheelPicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/crop/crop.iml" filepath="$PROJECT_DIR$/crop/crop.iml" />
       <module fileurl="file://$PROJECT_DIR$/dragsquareimage/dragsquareimage.iml" filepath="$PROJECT_DIR$/dragsquareimage/dragsquareimage.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mypicker/mypicker.iml" filepath="$PROJECT_DIR$/mypicker/mypicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/xldUtils/xldUtils.iml" filepath="$PROJECT_DIR$/xldUtils/xldUtils.iml" />
     </modules>
   </component>

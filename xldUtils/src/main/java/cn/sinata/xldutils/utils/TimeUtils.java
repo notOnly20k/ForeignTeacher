@@ -350,7 +350,7 @@ public class TimeUtils {
 	@SuppressWarnings("deprecation")
 	public static int getYear(String dateString) {
 
-		SimpleDateFormat formart = new SimpleDateFormat("yyyy/MM/dd",Locale.CHINA);
+		SimpleDateFormat formart = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
 
 		try {
 			Date d = formart.parse(dateString);
@@ -367,7 +367,7 @@ public class TimeUtils {
 	@SuppressWarnings("deprecation")
 	public static int getMonth(String dateString) {
 
-		SimpleDateFormat formart = new SimpleDateFormat("yyyy/MM/dd",Locale.CHINA);
+		SimpleDateFormat formart = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
 
 		try {
 			Date d = formart.parse(dateString);

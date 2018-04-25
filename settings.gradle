@@ -1,1 +1,1 @@
-include ':app',':xldUtils',':crop',':dragsquareimage','mypicker'
+include ':app',':xldUtils',':crop',':dragsquareimage',":WheelPicker"

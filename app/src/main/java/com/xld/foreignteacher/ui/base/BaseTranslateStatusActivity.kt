@@ -32,6 +32,7 @@ abstract class BaseTranslateStatusActivity : BaseActivity() {
     protected abstract val changeTitleBar: Boolean
     protected val logger: Logger by lazy { LoggerFactory.getLogger(javaClass.simpleName) }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(contentViewResId)
@@ -108,6 +109,9 @@ abstract class BaseTranslateStatusActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        if (progress!=null) {
+            progress.dismiss()
+        }
         if (mCompositeDisposable != null) { //取消订阅
             mCompositeDisposable.clear()
         }

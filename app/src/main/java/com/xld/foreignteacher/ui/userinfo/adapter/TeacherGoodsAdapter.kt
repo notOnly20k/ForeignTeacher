@@ -13,19 +13,21 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import cn.sinata.xldutils.utils.ActivityUtil
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.dto.TeacherDetail
 
 /**
  * Created by cz on 4/2/18.
  */
-class TeacherGoodsAdapter(private val context: Context, private val data: List<String>) : BaseAdapter() {
+class TeacherGoodsAdapter(private val context: Context) : BaseAdapter() {
     private val activityUtil: ActivityUtil = ActivityUtil.create(context)
+    private val dataList = mutableListOf<TeacherDetail.CurriculumListBean>()
 
     override fun getCount(): Int {
-        return data.size
+        return dataList.size
     }
 
     override fun getItem(position: Int): Any {
-        return data[position]
+        return dataList[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -38,10 +40,18 @@ class TeacherGoodsAdapter(private val context: Context, private val data: List<S
             convertView = LayoutInflater.from(context).inflate(R.layout.item_teacher_goods, null)
         }
         val holder = ViewHolder(convertView!!)
-        val spannableString = SpannableString(context.getString(R.string.price_at_least, 199))
-        spannableString.setSpan(AbsoluteSizeSpan(17, true), 1, Integer.toString(199).length + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+        val spannableString = SpannableString(context.getString(R.string.price_at_least, dataList[position].price))
+        spannableString.setSpan(AbsoluteSizeSpan(17, true), 1, Integer.toString(dataList[position].price).length + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
         holder.tvPrice.text = spannableString
+        holder.tvSubTitle.text = dataList[position].name
+        holder.tvTitle.text = dataList[position].title
         return convertView
+    }
+
+    fun upDataList(list: List<TeacherDetail.CurriculumListBean>) {
+        dataList.clear()
+        dataList.addAll(list)
+        notifyDataSetChanged()
     }
 
     internal inner class ViewHolder(view: View) {

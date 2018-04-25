@@ -17,7 +17,7 @@ class WheelDialog : AppCompatDialogFragment() {
     private lateinit var tvCancel: TextView
     private lateinit var loopView: WheelPicker
     private lateinit var listener: WheelDialogListener
-    private var selectData =""
+    private var selectData = ""
     private var dateList = mutableListOf<String>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_wheel, container, false)
@@ -25,7 +25,7 @@ class WheelDialog : AppCompatDialogFragment() {
         tvCancel = view.findViewById(R.id.tv_cancel)
         loopView = view.findViewById(R.id.loop_data)
         tvSure.setOnClickListener {
-            val s=loopView.data[loopView.currentItemPosition].toString()
+            val s = loopView.data[loopView.currentItemPosition].toString()
             listener.clickSure(s)
             dismiss()
         }

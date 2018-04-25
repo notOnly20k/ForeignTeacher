@@ -11,7 +11,7 @@ import java.util.*
 /**
  * Created by cz on 4/2/18.
  */
-class StudentPageAdapter(context: Context, private val urls: List<String>) : android.support.v4.view.PagerAdapter() {
+class StudentPageAdapter(context: Context, private val urls: MutableList<String>) : android.support.v4.view.PagerAdapter() {
     private val imgViews: MutableList<SimpleDraweeView>
 
 
@@ -37,6 +37,12 @@ class StudentPageAdapter(context: Context, private val urls: List<String>) : and
         view.setImageURI(urls[position])
         container.addView(view)
         return view
+    }
+
+    fun update(list: List<String>){
+        urls.clear()
+        urls.addAll(list)
+        notifyDataSetChanged()
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {

@@ -128,20 +128,27 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
 
         tv_title_right.setOnClickListener {
             if (commitCheck())
-                SaveTeacher()
+                saveTeacher()
         }
 
     }
 
-    private fun SaveTeacher() {
+    private fun saveTeacher() {
         val telNum = et_contact_number.text.toString().formateToNum()
-
+        sex = if (tv_gender_edit.text.toString() == "Male") {
+            1
+        } else {
+            2
+        }
         var sort = 1
         for (i in 0 until draggablePresenter.imageUrls.size()) {
             if (draggablePresenter.imageUrls[i] != null) {
-                sort++
                 albumList.add(AlbumImgUrl(draggablePresenter.imageUrls[i], sort))
+                sort++
             }
+        }
+        albumList.map {
+            logger.e { it }
         }
 
         val albumImgUrl = albumList.toString()

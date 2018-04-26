@@ -25,7 +25,6 @@
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_pic"
         android:paddingLeft="@dimen/android_margin"
         android:paddingBottom="@dimen/android_margin"
         >
@@ -43,6 +42,9 @@
         android:paddingRight="8dp"
         android:text="Location"
         android:textSize="15sp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textColor="@color/black_00"
         android:gravity="center_vertical"
         android:layout_height="50dp" />

@@ -50,7 +50,7 @@
         android:background="@color/black_00"
         android:visibility="gone">
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/et_search"
             android:layout_width="0dp"
             android:layout_height="30dp"
@@ -59,6 +59,7 @@
             android:layout_weight="1"
             android:background="@drawable/bg_search_edittext"
             android:drawableLeft="@mipmap/icon_search"
+            android:drawablePadding="@dimen/dp_8"
             android:hint="district/street.."
             android:textColor="@color/black_00"
             android:textSize="@dimen/textSize" />

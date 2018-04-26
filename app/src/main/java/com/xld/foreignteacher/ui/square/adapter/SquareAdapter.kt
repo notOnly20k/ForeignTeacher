@@ -26,7 +26,6 @@ import com.xld.foreignteacher.api.dto.SquareDate
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ext.e
-import com.xld.foreignteacher.ui.locate.LocationActivity
 import com.xld.foreignteacher.ui.square.SquareDetailActivity
 import com.xld.foreignteacher.ui.userinfo.TeacherDetailActivity
 import com.xld.foreignteacher.views.NestedGridView
@@ -96,9 +95,6 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
                 //todo 翻译成功后显示
                 viewHolder.tvTranslation.visibility = View.VISIBLE
                 true
-            }
-            viewHolder.tvLocation.setOnClickListener {
-                activityUtil.go(LocationActivity::class.java).start()
             }
             viewHolder.btnLike.setOnClickListener {
                 if (squareDate.isGiveThum.not())

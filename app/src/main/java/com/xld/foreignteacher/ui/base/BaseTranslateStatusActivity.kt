@@ -79,7 +79,7 @@ abstract class BaseTranslateStatusActivity : BaseActivity() {
      */
     protected open fun commitCheck(): Boolean {
         if (!NetUtils.isNetworkAvailable(this)) {
-            Toast.create(this).show("网络错误，请检查后重试")
+            Toast.create(this).show("connect error")
             return false
         }
         return true

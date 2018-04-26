@@ -40,7 +40,7 @@ fun String.isPhoneNumberValid(): Boolean {
     if (isEmpty() ||length != 11) {
         return false
     }
-    val expression = "(^(13|14|15|17|18)[0-9]{9}$)"
+    val expression = "(^(13|14|15|17|16|18)[0-9]{9}$)"
     val pattern = Pattern.compile(expression)
     val matcher = pattern.matcher(toString())
     if (matcher.matches()) {

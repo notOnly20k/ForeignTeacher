@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory
 class SquareFragment : BaseFragment() {
     private val logger = LoggerFactory.getLogger("SquareFragment")
     private var page = 1
-    private var dataList= mutableListOf<SquareDate>()
+    private var dataList = mutableListOf<SquareDate>()
     override fun getContentViewLayoutID(): Int {
         return R.layout.fragment_square
     }
@@ -78,8 +78,10 @@ class SquareFragment : BaseFragment() {
                         dataList.addAll(list)
                     }
                     adapter.upDateList(dataList)
-                    if (list != null)
-                        rec_square.isNoMoreData(list.isEmpty())
+                    if (list != null && list.isEmpty()) {
+                        this.page--
+                    }
+                    rec_square.isNoMoreData(list.isEmpty())
                 }
     }
 

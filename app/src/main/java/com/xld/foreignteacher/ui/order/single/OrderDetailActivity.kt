@@ -46,7 +46,6 @@ class OrderDetailActivity : BaseTranslateStatusActivity() {
                     .setGravity(Gravity.CENTER)     //设置弹窗展示位置
                     .setTag("SubscribeDialog")   //设置Tag
                     .setDimAmount(0.6f)     //设置弹窗背景透明度(0-1f)
-                    .setCancelableOutside(true)     //弹窗在界面外是否可以点击取消
                     .setCancelable(false)    //弹窗是否可以取消
                     .create()   //创建TDialog
                     .show()    //展示
@@ -55,7 +54,7 @@ class OrderDetailActivity : BaseTranslateStatusActivity() {
                 }
 
                 override fun onFinish() {
-                    dialog.dismiss()
+                    dialog?.dismiss()
                     finish()
                 }
             }.start()

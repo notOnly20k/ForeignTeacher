@@ -96,6 +96,7 @@
     <string name="minmum">Minmum ￥%1$d</string>
     <string name="cancel_order_count">Canceled orders %1$d</string>
     <string name="with_draw">Withdraw</string>
+    <string name="no_search_results">No search results</string>
 
 
     <string name="facebook_app_id">487692214752558</string>

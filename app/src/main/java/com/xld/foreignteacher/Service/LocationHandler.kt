@@ -4,6 +4,7 @@ import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationListener
+import com.amap.api.services.core.ServiceSettings
 import com.umeng.facebook.FacebookSdk.getApplicationContext
 import io.reactivex.subjects.BehaviorSubject
 
@@ -17,6 +18,7 @@ class LocationHandler {
     var locationSubject: BehaviorSubject<AMapLocation> = BehaviorSubject.create()
 
     init {
+        ServiceSettings.getInstance().language = ServiceSettings.ENGLISH//默认是中文ServiceSettings.CHINESE
         //声明定位回调监听器
         val mLocationListener = AMapLocationListener { aMapLocation -> locationSubject.onNext(aMapLocation) }
         //初始化定位

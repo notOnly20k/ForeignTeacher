@@ -6,10 +6,10 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.support.v7.widget.GridLayoutManager
-import cn.sinata.xldutils.utils.SPUtils
 import cn.sinata.xldutils.utils.Toast
 import cn.sinata.xldutils.utils.Utils
 import cn.sinata.xldutils.xldUtils
+import com.amap.api.services.core.PoiItem
 import com.google.gson.Gson
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.api.dto.SquareDate
@@ -51,17 +51,15 @@ class MomentActivity : BaseTranslateStatusActivity(), MomentAdapter.OnItemClickL
         rec_pic.adapter = adpter
         rec_pic.layoutManager = GridLayoutManager(this, 3)
         tv_location.setOnClickListener {
-            activityUtil.go(LocationActivity::class.java).start()
+            activityUtil.go(LocationActivity::class.java).startForResult(LocationActivity.ADDRESS)
         }
 
     }
 
     private fun sendSquare() {
         val imgList = mutableListOf<SquareDate.ImgUrlBean>()
-        imgList.add(SquareDate.ImgUrlBean("https://assets-cdn.github.com/images/modules/site/icons/opensource-ico-best.svg?sn"))
         list.map { imgList.add(SquareDate.ImgUrlBean(it)) }
-        //appComponent.ossHandler.ossUpload(list[0])
-        appComponent.netWork.addSquare(appComponent.userHandler.getUser()!!.id, Gson().toJson(imgList), "",et_content.text.toString())
+        appComponent.netWork.addSquare(appComponent.userHandler.getUser()!!.id, Gson().toJson(imgList), tv_location.text.toString(), et_content.text.toString())
                 .doOnSubscribe { mCompositeDisposable.add(it) }
                 .doOnLoading { showProgress(it) }
                 .subscribe { finish() }
@@ -83,7 +81,7 @@ class MomentActivity : BaseTranslateStatusActivity(), MomentAdapter.OnItemClickL
             intent.putExtra(MediaStore.EXTRA_OUTPUT, u)
         } else {
             val contentValues = ContentValues(1)
-            contentValues.put(MediaStore.Images.Media.DATA, tempFile!!.getAbsolutePath())
+            contentValues.put(MediaStore.Images.Media.DATA, tempFile!!.absolutePath)
             val uri = this.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
         }
@@ -108,6 +106,10 @@ class MomentActivity : BaseTranslateStatusActivity(), MomentAdapter.OnItemClickL
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
             when (requestCode) {
+                LocationActivity.ADDRESS -> {
+                    val address = data!!.getParcelableExtra<PoiItem>("address")
+                    tv_location.text = address.cityName + address.adName + address.snippet
+                }
                 0 -> if (tempFile != null && tempFile!!.exists()) {
                     list.add(tempFile!!.absolutePath)
                     adpter.updateList(list)

@@ -12,10 +12,7 @@ import butterknife.OnClick
 import cn.sinata.xldutils.view.TitleBar
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.api.NetWork
-import com.xld.foreignteacher.ext.appComponent
-import com.xld.foreignteacher.ext.doOnLoading
-import com.xld.foreignteacher.ext.formateToNum
-import com.xld.foreignteacher.ext.toFormattedString
+import com.xld.foreignteacher.ext.*
 import com.xld.foreignteacher.ui.H5Activity
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.views.EditEmptyWatcher
@@ -93,9 +90,8 @@ class VerificationCodeActivity : BaseTranslateStatusActivity(), EditEmptyWatcher
     override fun initData() {
         type = null
         when (register_type) {
-            TYPE_REGISTER -> type = "5"
+            TYPE_REGISTER -> type = "4"
             TYPE_FORGET -> type = "6"
-            TYPE_CHANGE_PHONE -> type = "4"
         }
     }
 
@@ -104,16 +100,20 @@ class VerificationCodeActivity : BaseTranslateStatusActivity(), EditEmptyWatcher
     fun onViewClicked(view: View) {
         when (view.id) {
             R.id.btn_get_verification_code -> {
-                appComponent.netWork.sendMsg(etPhone.text.toString().formateToNum(), type!!)
-                        .doOnSubscribe { mCompositeDisposable.add(it) }
-                        .subscribe { code ->
-                            showToast(getString(R.string.msg_sended))
-                            etVerificationCode.setText(code)
-                        }
+                if (!etPhone.text.toString().formateToNum().isPhoneNumberValid()) {
+                    showToast("Illegal phone number")
+                } else {
+                    appComponent.netWork.sendMsg(etPhone.text.toString().formateToNum(), type!!)
+                            .doOnSubscribe { mCompositeDisposable.add(it) }
+                            .subscribe { code ->
+                                showToast(getString(R.string.msg_sended))
+                                etVerificationCode.setText(code)
+                            }
 
-                btnGetVerificationCode.isEnabled = false
-                canSendMsg = false
-                timer!!.start()
+                    btnGetVerificationCode.isEnabled = false
+                    canSendMsg = false
+                    timer!!.start()
+                }
             }
             R.id.btn_login_next -> {
                 appComponent.netWork.checkMsg(etPhone.text.toString().formateToNum(), etVerificationCode.text.toString(), type!!)

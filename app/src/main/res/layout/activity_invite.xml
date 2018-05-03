@@ -66,7 +66,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="65dp"
                 android:layout_marginTop="@dimen/android_margin"
-                android:text="698954"
                 android:textColor="@color/black_00"
                 android:textSize="32sp"
                 android:textStyle="bold" />
@@ -85,7 +84,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="54dp"
                 android:layout_marginTop="30dp"
-                android:text="App-Invited 32 friends"
                 android:textColor="@color/black_00"
                 android:textSize="13sp" />
 
@@ -95,7 +93,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="54dp"
                 android:layout_marginTop="@dimen/android_margin"
-                android:text="Received ￥66 cash reward"
                 android:textColor="@color/black_00"
                 android:textSize="13sp" />
 
@@ -106,9 +103,9 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/bg_yellow_button"
-                android:textColor="@color/black_00"
                 android:gravity="center"
-                android:text="Invite friend" />
+                android:text="Invite friend"
+                android:textColor="@color/black_00" />
 
         </LinearLayout>
     </RelativeLayout>
@@ -120,8 +117,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="65dp"
         android:layout_marginRight="58dp"
-        android:visibility="gone"
-        >
+        android:visibility="visible">
 
         <EditText
             android:id="@+id/et_invite_code"

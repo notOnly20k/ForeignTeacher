@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
@@ -120,7 +119,6 @@ class LocationActivity : BaseTranslateStatusActivity(), LocationSource, PoiSearc
         })
 
         et_search.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            Log.i("MY", "setOnItemClickListener")
             if (autoTips != null && autoTips.size > position) {
                 val tip = autoTips[position]
                 searchPoi(tip)
@@ -199,7 +197,6 @@ class LocationActivity : BaseTranslateStatusActivity(), LocationSource, PoiSearc
      * 响应逆地理编码
      */
     fun geoAddress() {
-        //        Log.i("MY", "geoAddress"+ searchLatlonPoint.toString());
         showProgress(true)
         et_search.setText("")
         if (searchLatlonPoint != null) {
@@ -251,8 +248,7 @@ class LocationActivity : BaseTranslateStatusActivity(), LocationSource, PoiSearc
     /**
      * 开始进行poi搜索
      */
-    fun doSearchQuery() {
-        //        Log.i("MY", "doSearchQuery");
+    private fun doSearchQuery() {
         currentPage = 0
         query = PoiSearch.Query(searchKey, null, "")// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
         query?.cityLimit = true

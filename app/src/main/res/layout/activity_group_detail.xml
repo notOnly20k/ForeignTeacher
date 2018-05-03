@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <View
+        style="@style/navigation_normal_style"
+        android:id="@+id/fake_status_bar"
+        android:layout_alignParentBottom="true"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -11,14 +15,16 @@
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/img_pic"
                 android:layout_width="match_parent"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@color/color_place_holder"
                 android:layout_height="273dp" />
             <TextView
                 android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="90dp"
                 android:background="@color/yellow_ffcc00"
                 android:text="¥30/person"
@@ -32,7 +38,7 @@
             <TextView
                 android:id="@+id/tv_person"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="90dp"
                 android:background="@color/l_white"
                 android:text="15/30"
@@ -92,11 +98,13 @@
                     android:gravity="center"
                     android:textSize="12sp"
                     android:text="Cancel request"
+                    android:visibility="gone"
                     android:textColor="@color/black_00" />
 
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/rl_content"
@@ -170,10 +178,6 @@
         </RelativeLayout>
 
     </ScrollView>
-    <View
-        style="@style/navigation_normal_style"
-        android:id="@+id/fake_status_bar"
-        android:layout_alignParentBottom="true"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="80dp"

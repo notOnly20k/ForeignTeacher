@@ -1,14 +1,20 @@
-package com.swifty.dragsquareimage;
+package com.xld.foreignteacher.util;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.util.SparseArray;
 import android.widget.Toast;
 
 import com.soundcloud.android.crop.Crop;
+import com.swifty.dragsquareimage.ActionDialog;
+import com.swifty.dragsquareimage.DraggablePresenter;
+import com.swifty.dragsquareimage.DraggableSquareView;
 
 import java.io.File;
 
@@ -76,6 +82,19 @@ public class DraggablePresenterImpl implements DraggablePresenter, DraggableSqua
             Uri uri = Crop.getOutput(result);
             String imagePath = uri.toString();
             dragSquare.fillItemImage(imageStatus, imagePath, isModify);
+            OssUtil ossUtil = new OssUtil(activity);
+            ossUtil.uploadSingle(getAbsolutePath(uri), new OssUtil.OSSUploadCallBack() {
+                @Override
+                public void onFinish(String url) {
+                    dragSquare.fillItemImage(imageStatus, url, true); //成功之后修改占位图
+//                    dragSquare.fillItemImage(imageStatus, url, isModify);
+                }
+
+                @Override
+                public void onFial(String message) {
+                    super.onFial(message);
+                }
+            });
 
         } else if (resultCode == Crop.RESULT_ERROR) {
             Toast.makeText(dragSquare.getContext(), Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
@@ -120,5 +139,35 @@ public class DraggablePresenterImpl implements DraggablePresenter, DraggableSqua
     @Override
     public void setCustomActionDialog(ActionDialog actionDialog) {
         dragSquare.setCustomActionDialog(actionDialog);
+    }
+
+    /**
+     * 根据Uri获取图片文件的绝对路径
+     */
+    public String getAbsolutePath(final Uri uri) {
+        if (null == uri) {
+            return null;
+        }
+
+        final String scheme = uri.getScheme();
+        String data = null;
+        if (scheme == null) {
+            data = uri.getPath();
+        } else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
+            data = uri.getPath();
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            Cursor cursor = activity.getContentResolver().query(uri,
+                    new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        data = cursor.getString(index);
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
     }
 }

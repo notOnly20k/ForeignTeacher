@@ -1,18 +1,20 @@
 package com.xld.foreignteacher.ui.order.single
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cn.sinata.xldutils.fragment.BaseFragment
+import cn.sinata.xldutils.view.SwipeRefreshRecyclerLayout
 import com.timmy.tdialog.TDialog
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.dto.PersonalTrainingOrder
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ui.order.adapter.SingleOrderAdapter
 import kotlinx.android.synthetic.main.fragment_single_order_list.*
+import org.slf4j.LoggerFactory
 
 /**
  * Created by cz on 4/3/18.
@@ -20,9 +22,12 @@ import kotlinx.android.synthetic.main.fragment_single_order_list.*
 class SingleOrderListFragment : BaseFragment(), SingleOrderAdapter.SingleOrderItemClickListener {
 
     private lateinit var adpter: SingleOrderAdapter
+    private val logger = LoggerFactory.getLogger("SingleOrderListFragment")
     override fun getContentViewLayoutID(): Int {
         return R.layout.fragment_single_order_list
     }
+    private val dataList = mutableListOf<PersonalTrainingOrder.RowsBean>()
+    private var page = 1
 
     private lateinit var type: String
 
@@ -32,10 +37,23 @@ class SingleOrderListFragment : BaseFragment(), SingleOrderAdapter.SingleOrderIt
         adpter.setListener(this)
         rec_order.setAdapter(adpter)
         rec_order.setLayoutManager(LinearLayoutManager(context).apply { orientation = LinearLayoutManager.VERTICAL })
-        initData()
+        initData(1)
+        rec_order.setOnRefreshListener(object : SwipeRefreshRecyclerLayout.OnRefreshListener{
+            override fun onRefresh() {
+                page = 1
+                dataList.clear()
+                initData(page)
+            }
+
+            override fun onLoadMore() {
+                page++
+                initData(page)
+            }
+
+        })
     }
 
-    private fun initData() {
+    private fun initData(page: Int) {
         var state = 1
         when (type) {
             SingleOrderFragment.NEW_ORDERS -> {
@@ -54,10 +72,16 @@ class SingleOrderListFragment : BaseFragment(), SingleOrderAdapter.SingleOrderIt
                 state = 3
             }
         }
-        appComponent.netWork.getMyPersonalTrainingOrder(appComponent.userHandler.getUser().id, state, 1, 10)
+        appComponent.netWork.getMyPersonalTrainingOrder(1, state, page, 10)
                 .doOnSubscribe { addDisposable(it) }
                 .subscribe {
+                    dataList.addAll(it.rows!!)
+                    adpter.setDataList(dataList)
+                    if (it.rows==null||it.rows!!.isEmpty()) {
+                        this.page--
+                    }
 
+                    rec_order?.isNoMoreData(it.rows==null||it.rows!!.isEmpty())
                 }
     }
 
@@ -92,14 +116,6 @@ class SingleOrderListFragment : BaseFragment(), SingleOrderAdapter.SingleOrderIt
                 .create()   //创建TDialog
                 .show()    //展示
 
-        val timer: CountDownTimer = object : CountDownTimer(2000, 1000) {
-            override fun onTick(l: Long) {
-            }
-
-            override fun onFinish() {
-                dialog?.dismiss()
-            }
-        }.start()
     }
 
     companion object {

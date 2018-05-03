@@ -1,22 +1,24 @@
 package com.xld.foreignteacher.ui.square
 
-import android.graphics.Color
+import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.util.TypedValue
+import android.text.TextUtils
 import android.view.Gravity
-import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
 import butterknife.BindView
-import cn.sinata.xldutils.utils.DensityUtil
-import cn.sinata.xldutils.utils.SPUtils
+import cn.sinata.xldutils.view.SwipeRefreshRecyclerLayout
 import cn.sinata.xldutils.view.TitleBar
+import com.timmy.tdialog.TDialog
+import com.timmy.tdialog.listener.OnViewClickListener
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.report.ReportActivity
 import com.xld.foreignteacher.ui.square.adapter.SquareDetailAdapter
+import kotlinx.android.synthetic.main.activity_square_detail.*
 
 /**
  * Created by cz on 4/1/18.
@@ -24,84 +26,142 @@ import com.xld.foreignteacher.ui.square.adapter.SquareDetailAdapter
 class SquareDetailActivity : BaseTranslateStatusActivity() {
     override val changeTitleBar: Boolean
         get() = false
-    
+
     @BindView(R.id.title_bar)
     lateinit var titleBar: TitleBar
     @BindView(R.id.recycler_view)
-    lateinit var recyclerView: RecyclerView
+    lateinit var recyclerView: SwipeRefreshRecyclerLayout
 
     private lateinit var adapter: SquareDetailAdapter
     private lateinit var loadMoreView: TextView
-    private var squareId:Int = 0
-    
+    private var squareId: Int = 0
+    var page = 1
+    var id = -1
 
-    private var footerType = 0
 
     override val contentViewResId: Int
         get() = R.layout.activity_square_detail
 
     override fun initView() {
-        squareId = intent.getIntExtra("id",0)
+        squareId = intent.getIntExtra("id", 0)
         titleBar.setTitle("Details")
         titleBar.titlelayout.setBackgroundResource(R.color.color_black_1d1e24)
         titleBar.titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
         titleBar.setLeftButton(R.mipmap.back_yellow, { finish() })
         titleBar.addRightButton("report") {
             //todo 传id
-             activityUtil.go(ReportActivity::class.java).put("id", squareId).put("type",ReportActivity.REPORT).start()
+            activityUtil.go(ReportActivity::class.java).put("id", squareId).put("type", ReportActivity.REPORT).start()
         }
         titleBar.getRightButton(0).setTextColor(resources.getColor(R.color.yellow_ffcc00))
         val layoutManager = LinearLayoutManager(this)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
-        recyclerView.layoutManager = layoutManager
+        recyclerView.setLayoutManager(layoutManager)
         adapter = SquareDetailAdapter(this)
-        loadMoreView = TextView(this)
-        loadMoreView.setBackgroundColor(Color.WHITE)
-        loadMoreView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-        loadMoreView.setTextColor(resources.getColor(R.color.color_hint))
-        loadMoreView.setPadding(0, DensityUtil.dip2px(this, 16f), 0, DensityUtil.dip2px(this, 16f))
-        loadMoreView.gravity = Gravity.CENTER
-        changeFooterView()
-        recyclerView.adapter = adapter
+        adapter.setOnClickCallback(object : SquareDetailAdapter.OnClickCallback {
+            override fun doLike(squareId: Int) {
+                appComponent.netWork
+                        .addGiveThum(squareId, appComponent.userHandler.getUser()!!.id)
+                        .doOnLoading { showProgress(it) }
+                        .subscribe {
+                            page = 1
+                            loadData()
+                        }
+            }
+
+            override fun onComment() {
+                evaluateDialog(null)
+            }
+
+            override fun onReply(commentId: Int) {
+                evaluateDialog(commentId)
+            }
+
+        })
+        recyclerView.setAdapter(adapter)
+        recyclerView.setOnRefreshListener(object : SwipeRefreshRecyclerLayout.OnRefreshListener {
+            override fun onRefresh() {
+                page = 1
+                loadData()
+            }
+
+            override fun onLoadMore() {
+                page++
+                loadData()
+            }
+
+        })
+
+        img_like.setOnClickListener {
+            appComponent.netWork
+                    .addGiveThum(id, appComponent.userHandler.getUser()!!.id)
+                    .doOnLoading { showProgress(it) }
+                    .subscribe {
+                        page = 1
+                        loadData()
+                    }
+        }
+        img_comment.setOnClickListener {
+            evaluateDialog(null)
+        }
     }
 
     override fun initData() {
-        appComponent.netWork.getSquareDetail(squareId,appComponent.userHandler.getUser()!!.id,1,10)
-                .doOnLoading { showProgress(it) }
-                .doOnSubscribe { mCompositeDisposable.add(it) }
-                .subscribe { it->
-                    adapter.setData(it)
-                }
-
-        footerType = TYPE_NOMORE
-        changeFooterView()
+        val intent = intent
+        id = intent.getIntExtra("id", 0)
+        loadData()
     }
+
 
     /**
-     * 根据数据状态改变footerview
+     * 评论
      */
-    private fun changeFooterView() {
-        when (footerType) {
-            TYPE_NODATA -> {
-                loadMoreView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(this, 48f))
-                loadMoreView.text = "No more comment"
-            }
-            TYPE_LOADING -> {
-                loadMoreView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                loadMoreView.text = "Loading..."
-            }
-            TYPE_NOMORE -> {
-                loadMoreView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                loadMoreView.text = "No more comment"
-            }
-        }
-        adapter.setFooterView(loadMoreView)
+    fun evaluateDialog(commentId: Int?) {
+        TDialog.Builder(supportFragmentManager)
+                .setLayoutRes(R.layout.dialog_evaluate)
+                .setScreenWidthAspect(this, 1.0f)
+                .setGravity(Gravity.BOTTOM)
+                .addOnClickListener(R.id.btn_evluate)
+                .setOnDismissListener {
+                    //隐藏键盘
+                }
+                .setOnBindViewListener { viewHolder ->
+                    val editText = viewHolder.getView<EditText>(R.id.editText)
+                    editText.post(Runnable {
+                        val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.showSoftInput(editText, 0)
+                    })
+                }
+                .setOnViewClickListener(OnViewClickListener { viewHolder, view, tDialog ->
+                    val editText = viewHolder.getView<EditText>(R.id.editText)
+                    val content = editText.text.toString()
+                    if (TextUtils.isEmpty(content)) {
+                        showToast("Input Comment")
+                        return@OnViewClickListener
+                    }
+                    appComponent.netWork.addSquareComment(appComponent.userHandler.getUser().id, id, content, commentId)
+                            .subscribe {
+                                page = 1
+                                loadData()
+                                tDialog.dismiss()
+                            }
+
+                })
+                .create()
+                .show()
     }
 
-    companion object {
-
-        private val TYPE_NODATA = 0
-        private val TYPE_NOMORE = 2
-        private val TYPE_LOADING = 1
+    fun loadData() {
+        appComponent.netWork.getSquareDetail(squareId, appComponent.userHandler.getUser()!!.id, page, 10)
+                .doOnLoading { recyclerView.isRefreshing = it }
+                .doOnSubscribe { mCompositeDisposable.add(it) }
+                .subscribe { it ->
+                    if (page == 1) {
+                        adapter.setData(it)
+                    } else {
+                        adapter.addData(it.squareCommentList!!)
+                    }
+                    recyclerView.isNoMoreData(it.squareCommentList == null || it.squareCommentList!!.size < 10 || it.squareCommentList!!.isEmpty())
+                }
     }
+
 }

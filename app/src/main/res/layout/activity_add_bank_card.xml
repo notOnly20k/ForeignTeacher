@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_f1f1f1"
+    android:orientation="vertical">
+
+    <cn.sinata.xldutils.view.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/android_margin"
+            android:paddingRight="8dp"
+            android:text="Cardholder"
+            android:textColor="@color/black_00"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_cardholder"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/android_margin"
+            android:background="@color/white"
+            android:hint="Please enter the cardholder's name"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/android_margin"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/android_margin"
+            android:paddingRight="8dp"
+            android:text="Card No"
+            android:textColor="@color/black_00"
+            android:textSize="15sp" />
+
+        <com.xld.foreignteacher.views.CardInputEditText
+            android:id="@+id/et_card_no"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/android_margin"
+            android:background="@color/white"
+            android:hint="Please enter the bank card number"
+            android:maxLength="23"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:enabled="false"
+        android:layout_marginLeft="@dimen/android_margin"
+        android:layout_marginRight="@dimen/android_margin"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_bg_commit"
+        android:gravity="center"
+        android:text="Add"
+        android:textColor="@color/black_00"
+        android:textSize="16sp" />
+
+</LinearLayout>

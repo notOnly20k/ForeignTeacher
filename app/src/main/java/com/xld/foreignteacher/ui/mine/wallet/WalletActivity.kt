@@ -2,6 +2,8 @@ package com.xld.foreignteacher.ui.mine.wallet
 
 import android.graphics.Paint
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.ext.appComponent
+import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ui.ListActivity
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import kotlinx.android.synthetic.main.activity_wallet.*
@@ -36,6 +38,15 @@ class WalletActivity : BaseTranslateStatusActivity() {
     }
 
     override fun initData() {
+        appComponent.netWork.getMyWallet(1)
+                .doOnSubscribe { mCompositeDisposable.add(it) }
+                .doOnLoading { showProgress(it) }
+                .subscribe {
+                    tv_money.text = it.teachers?.balance?.toString() ?: "0"
+                    tv_monthly_income_count.text = it.lucreMonth.toString()
+                    tv_weekly_average_count.text = it.weeklyAverage.toString()
+                    tv_total_income_count.text = it.lucreTotal.toString()
 
+                }
     }
 }

@@ -6,7 +6,6 @@ import com.umeng.commonsdk.UMConfigure
 import com.umeng.facebook.FacebookSdk
 import com.umeng.socialize.PlatformConfig
 import com.xld.foreignteacher.Service.LocationHandler
-import com.xld.foreignteacher.Service.OssHandler
 import com.xld.foreignteacher.Service.UserHandler
 import com.xld.foreignteacher.api.AppApi
 import com.xld.foreignteacher.api.NetWork
@@ -29,7 +28,6 @@ class BaseApp : BaseApplication(), AppComponent {
     override lateinit var locationHandler: LocationHandler
     override lateinit var scheduleSubject: BehaviorSubject<Pair<Int,ScheduleDateTextView>>
     override lateinit var userHandler: UserHandler
-    override lateinit var ossHandler: OssHandler
     override lateinit var appApi: AppApi
     override lateinit var netWork: NetWork
 
@@ -59,7 +57,6 @@ class BaseApp : BaseApplication(), AppComponent {
         netWork = NetWork(this, appApi)
 
         FacebookSdk.sdkInitialize(this)
-        ossHandler = OssHandler(applicationContext)
         userHandler=UserHandler()
         locationHandler = LocationHandler()
         scheduleSubject = BehaviorSubject.create()

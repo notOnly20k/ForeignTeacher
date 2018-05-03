@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <cn.sinata.xldutils.view.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:gravity="top"
+        android:textSize="14sp"
+        android:padding="8dp"
+        android:background="@color/white"
+        android:hint="Clear and attractive introduction for your offer"
+        android:layout_height="300dp" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_f1f1f1"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rec_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
+
+</LinearLayout>

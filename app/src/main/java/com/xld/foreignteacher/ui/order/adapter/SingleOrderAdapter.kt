@@ -14,9 +14,11 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import cn.sinata.xldutils.adapter.LoadMoreAdapter
 import cn.sinata.xldutils.utils.ActivityUtil
+import cn.sinata.xldutils.utils.TimeUtils
 import cn.sinata.xldutils.utils.Utils
 import com.facebook.drawee.view.SimpleDraweeView
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.dto.PersonalTrainingOrder
 import com.xld.foreignteacher.ui.dialog.CustomDialog
 import com.xld.foreignteacher.ui.order.single.OrderDetailActivity
 import com.xld.foreignteacher.ui.order.single.PendingDetailActivity
@@ -25,25 +27,15 @@ import com.xld.foreignteacher.ui.order.single.SingleOrderFragment
 import com.xld.foreignteacher.ui.report.DeclinedActivity
 import com.xld.foreignteacher.ui.report.ReportActivity
 import org.slf4j.LoggerFactory
-import java.util.*
 
 /**
  * Created by cz on 4/3/18.
  */
 class SingleOrderAdapter(private val context: Context, private val fragmentManager: FragmentManager, private val type: String) : LoadMoreAdapter() {
-    private val data: MutableList<String>
-    private val activityUtil: ActivityUtil
+    private val data = mutableListOf<PersonalTrainingOrder.RowsBean>()
+    private val activityUtil: ActivityUtil = ActivityUtil.create(context)
     private val logger = LoggerFactory.getLogger("SquareAdapter")
     private lateinit var singleOrderItemClickListener: SingleOrderItemClickListener
-
-    init {
-        data = ArrayList()
-        activityUtil = ActivityUtil.create(context)
-        data.add("")
-        data.add("")
-        data.add("")
-        data.add("")
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         if (viewType == TYPE_NORMAL) {
@@ -64,16 +56,49 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
         return super.getItemCount() + data.size
     }
 
+    fun setDataList(list: List<PersonalTrainingOrder.RowsBean>) {
+        data.clear()
+        data.addAll(list)
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == TYPE_NORMAL) {
+            val order = data[position]
             val viewHolder = holder as ViewHolder
-            val backDra = context.resources.getDrawable(R.mipmap.icon_woman)
-            backDra.setBounds(backDra.minimumWidth, 0, 0, backDra.minimumHeight)
-            viewHolder.tvName.setCompoundDrawablesWithIntrinsicBounds(null, null, backDra, null)
-            viewHolder.tvName.compoundDrawablePadding = backDra.minimumHeight / 2
             when (type) {
                 SingleOrderFragment.NEW_ORDERS -> {
                     viewHolder.tvPromotion.visibility = View.VISIBLE
+                    if (order.user != null && order.user!!.imgUrl != null) {
+                        viewHolder.ivHead.setImageURI(order.teachers!!.imgUrl)
+                    }
+                    viewHolder.tvName.text = order.user!!.nickName
+                    val age = TimeUtils.getAge("1995-02-16")-1
+                    viewHolder.tvAge.text = String.format(context.resources.getString(R.string.ages), age)
+                    viewHolder.tvTitle.text = order.curriculum?.title ?: ""
+                    viewHolder.tvWeeks.text = order.bookingAutoWeeks.toString() + "Weeks"
+                    viewHolder.tvInfo.text = order.curriculum?.className ?: ""
+
+                    var backDra = if (order.user!!.sex == 1) {
+                        context.resources.getDrawable(R.mipmap.icon_male)
+                    } else {
+                        context.resources.getDrawable(R.mipmap.icon_woman)
+                    }
+                    backDra.setBounds(backDra.minimumWidth, 0, 0, backDra.minimumHeight)
+
+                    viewHolder.tvName.setCompoundDrawablesWithIntrinsicBounds(null, null, backDra, null)
+                    viewHolder.tvName.compoundDrawablePadding = backDra.minimumHeight / 2
+                    viewHolder.tvAttendingClient.text = String.format(context.resources.getString(R.string.attending_client), order.numberOfPeople)
+                    viewHolder.tvLocation.text = order.address
+                    viewHolder.tvPrice.text = "￥"+ order.payMoney
+
+
+//                    val MD = TimeUtils.getCurrentTimeMMDD(order.curriculum?.startTime ?: 0)
+//                    val start = TimeUtils.getTimeHM(order.curriculum?.startTime ?: 0)
+//                    val end = TimeUtils.getTimeHM(order.curriculum?.endTime ?: 0)
+//                    viewHolder.tvClassTime.text = "$MD $start $end"
+
+
                     viewHolder.cvItem.setOnClickListener {
                         activityUtil.go(OrderDetailActivity::class.java).start()
                     }
@@ -211,8 +236,8 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
         lateinit var ivHead: SimpleDraweeView
         @BindView(R.id.tv_name)
         lateinit var tvName: TextView
-        @BindView(R.id.tv_time)
-        lateinit var tvTime: TextView
+        @BindView(R.id.tv_age)
+        lateinit var tvAge: TextView
         @BindView(R.id.tv_price)
         lateinit var tvPrice: TextView
         @BindView(R.id.view)

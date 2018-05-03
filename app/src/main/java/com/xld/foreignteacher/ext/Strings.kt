@@ -37,7 +37,7 @@ fun String.isEmailValid(): Boolean {
  */
 fun String.isPhoneNumberValid(): Boolean {
     var isValid = false
-    if (isEmpty() ||length != 11) {
+    if (isEmpty() || length != 11) {
         return false
     }
     val expression = "(^(13|14|15|17|16|18)[0-9]{9}$)"
@@ -49,18 +49,20 @@ fun String.isPhoneNumberValid(): Boolean {
     return isValid
 }
 
-fun String.formateToTel():String{
-    return if (isPhoneNumberValid()){
-        StringBuffer().append(toString()).insert(3,"-").insert(8,"-").toString()
-    }else{
+fun String.formateToTel(): String {
+    return if (isPhoneNumberValid()) {
+        StringBuffer().append(toString()).insert(3, "-").insert(8, "-").toString()
+    } else {
         ""
     }
 }
 
-fun String.formateToNum():String{
-    return replace("-", "")
+fun String.formateToCard(): String {
+
+   return StringBuffer().append(toString()).insert(6, " ").insert(11, " ").insert(16," ").insert(21," ").toString()
+
 }
 
-
-
-
+fun String.formateToNum(): String {
+    return replace("-", "").replace(" ","")
+}

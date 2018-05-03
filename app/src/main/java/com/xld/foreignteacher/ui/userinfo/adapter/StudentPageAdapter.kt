@@ -1,6 +1,7 @@
 package com.xld.foreignteacher.ui.userinfo.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,7 @@ class StudentPageAdapter(context: Context, private val urls: MutableList<String>
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        Log.e("aaaaaa",urls[position])
         val view = imgViews[position]
         view.setImageURI(urls[position])
         container.addView(view)

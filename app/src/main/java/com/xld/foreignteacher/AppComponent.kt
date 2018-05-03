@@ -1,7 +1,6 @@
 package com.xld.foreignteacher
 
 import com.xld.foreignteacher.Service.LocationHandler
-import com.xld.foreignteacher.Service.OssHandler
 import com.xld.foreignteacher.Service.UserHandler
 import com.xld.foreignteacher.api.AppApi
 import com.xld.foreignteacher.api.NetWork
@@ -14,7 +13,6 @@ import io.reactivex.subjects.BehaviorSubject
 interface  AppComponent{
     val appApi: AppApi
     val netWork:NetWork
-    val ossHandler:OssHandler
     val userHandler:UserHandler
     val locationHandler:LocationHandler
     val scheduleSubject:BehaviorSubject<Pair<Int,ScheduleDateTextView>>

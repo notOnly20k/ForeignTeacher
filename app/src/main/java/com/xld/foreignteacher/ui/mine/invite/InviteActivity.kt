@@ -4,7 +4,6 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.View
-import cn.sinata.xldutils.utils.SPUtils
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
@@ -38,7 +37,7 @@ class InviteActivity : BaseTranslateStatusActivity() {
     }
 
     override fun initData() {
-        appComponent.netWork.getUserInviteCode(appComponent.userHandler.getUser()!!.id)
+        appComponent.netWork.getUserInviteCode(appComponent.userHandler.getUser().id)
                 .doOnLoading { showProgress(it) }
                 .subscribe { it ->
                     if (it.isAddInviteCode) {

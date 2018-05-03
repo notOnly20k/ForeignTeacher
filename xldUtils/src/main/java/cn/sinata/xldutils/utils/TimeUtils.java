@@ -784,6 +784,33 @@ public class TimeUtils {
 		return formart.format(time);
 	}
 
+	public static int getAge(String str){
+		int age =0;
+		SimpleDateFormat formart = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
+
+		try {
+			Date d=formart.parse(str);
+
+			Calendar now = Calendar.getInstance();
+			now.setTime(new Date());// 当前时间
+
+			Calendar birth = Calendar.getInstance();
+			birth.setTime(d);
+
+			if (birth.after(now)) {//如果传入的时间，在当前时间的后面，返回0岁
+				age = 0;
+			} else {
+				age = now.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+				if (now.get(Calendar.DAY_OF_YEAR) > birth.get(Calendar.DAY_OF_YEAR)) {
+					age += 1;
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return age;
+	}
+
 
 	public static String getTimeAndWeek(long time){
 		StringBuilder s=new StringBuilder();

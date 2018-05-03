@@ -8,6 +8,7 @@ import cn.sinata.xldutils.utils.ActivityUtil
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
+import com.xld.foreignteacher.ext.e
 import com.xld.foreignteacher.ui.ListActivity
 import com.xld.foreignteacher.ui.schedule.adapter.EditScheduleActivity
 import com.xld.foreignteacher.ui.userinfo.adapter.StudentPageAdapter
@@ -40,7 +41,7 @@ class TeacherDetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_teacher_detail)
-        id = 1
+        id = intent.getIntExtra("id",-1)
         mCompositeDisposable = CompositeDisposable()
         progress = MyDialogProgress(this)
         ButterKnife.bind(this)
@@ -74,6 +75,7 @@ class TeacherDetailActivity : BaseActivity() {
                     .doOnLoading { showProgress(it) }
                     .subscribe {
                         val urls = ArrayList<String>()
+                        logger.e { "aaaaaa${ it.albumList}" }
                         if (it.albumList != null && it.albumList!!.isNotEmpty()) {
                             it.albumList!!.sortedBy { it.sort }.map { urls.add(it.imgUrl!!) }
                             adapter = StudentPageAdapter(this, urls)
@@ -81,6 +83,7 @@ class TeacherDetailActivity : BaseActivity() {
                             val viewPagerIndicator = ViewPagerIndicator(this, ll_indicator, R.mipmap.indicator_white, R.mipmap.indicator_yellow, urls.size)
                             viewPagerIndicator.setupWithViewPager(viewpager)
                         }
+                        iv_user_head.setImageURI(it.imgUrl)
                         tv_user_name.text = it.nickName
                         tv_distance.text = "${it.km}km"
                         tv_score.text = "${it.score?.toDouble()}"

@@ -1,72 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
-        android:background="@color/color_black_1d1e24"
-        android:gravity="center"
-        android:textSize="@dimen/textSize_20"
-        android:textColor="@color/yellow_ffcc00"
         android:layout_height="46dp"
         android:layout_centerInParent="true"
-        android:text="Message" />
+        android:background="@color/color_black_1d1e24"
+        android:gravity="center"
+        android:text="Message"
+        android:textColor="@color/yellow_ffcc00"
+        android:textSize="@dimen/textSize_20" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp">
+
         <ImageView
             android:id="@+id/img_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/official_notice"
             android:layout_centerVertical="true"
-            />
+            android:src="@mipmap/official_notice" />
+
         <TextView
             android:id="@+id/tv_name"
-            android:layout_toRightOf="@id/img_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Official Notice"
-            android:textSize="@dimen/text_16"
-            android:textColor="@color/text_333333"
             android:layout_marginLeft="@dimen/android_margin"
             android:layout_marginTop="10dp"
-            />
+            android:layout_toRightOf="@id/img_icon"
+            android:text="Official Notice"
+            android:textColor="@color/text_333333"
+            android:textSize="@dimen/text_16" />
+
         <TextView
             android:id="@+id/tv_info"
-            android:layout_below="@id/tv_name"
-            android:layout_toRightOf="@id/img_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Our app went live"
-            android:textSize="12sp"
-            android:textColor="@color/color_grey_999999"
+            android:layout_below="@id/tv_name"
             android:layout_marginLeft="@dimen/android_margin"
-            />
+            android:layout_toRightOf="@id/img_icon"
+            android:text="Our app went live"
+            android:textColor="@color/color_grey_999999"
+            android:textSize="12sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/brage_red"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:textColor="@color/white"
-            android:textSize="12dp"
-            android:text="2"
+            android:layout_marginRight="@dimen/android_margin"
+            android:background="@mipmap/brage_red"
             android:gravity="center_horizontal"
-            android:layout_marginRight="@dimen/android_margin"
-            />
+            android:text="2"
+            android:textColor="@color/white"
+            android:textSize="12dp" />
+
         <View
-            android:layout_alignParentBottom="true"
-            android:layout_marginRight="@dimen/android_margin"
-            android:layout_marginLeft="@dimen/android_margin"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/grey_f1f1f1"/>
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:layout_marginRight="@dimen/android_margin"
+            android:background="@color/grey_f1f1f1" />
 
     </RelativeLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rec_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

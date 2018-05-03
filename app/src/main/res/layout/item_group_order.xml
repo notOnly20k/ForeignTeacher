@@ -23,7 +23,7 @@
         android:gravity="center"
         android:maxLines="1"
         android:singleLine="true"
-        android:text="¥30/person"
+        android:text="@string/person_count"
         android:textColor="@color/black_000000"
         android:textSize="@dimen/text_10"/>
 
@@ -53,6 +53,7 @@
         android:textSize="@dimen/text_12"
         android:gravity="center"
         android:textColor="@color/yellow_ffcc00_alpha"
+        android:visibility="gone"
         android:id="@+id/tv_timer"/>
     <TextView
         android:layout_width="match_parent"

@@ -2,133 +2,147 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/tools"
-    android:background="@color/grey_f1f1f1"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/grey_f1f1f1"
+    android:orientation="vertical">
+
     <cn.sinata.xldutils.view.TitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    
-    <EditText
-        android:hint="Visa number"
-        android:textSize="13sp"
-        android:paddingLeft="@dimen/android_margin"
-        android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="50dp" />
 
-    <TextView
-        android:id="@+id/tv_choose_type"
-        android:visibility="gone"
-        android:gravity="center_vertical"
-        android:textColor="@color/text_333333"
-        android:textSize="16sp"
-        android:text="Choose certificate type"
-        android:drawableRight="@mipmap/right_arrow"
-        android:paddingLeft="@dimen/android_margin"
-        android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="50dp" />
-
-    <LinearLayout
-        android:layout_marginTop="@dimen/dp_10"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/black_00"
-            android:layout_marginLeft="@dimen/android_margin"
-            android:text="Upload valid and clear Chinese visa page"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="11sp"
-            android:textColor="@color/grey_cccccc"
-            android:layout_marginLeft="@dimen/android_margin"
-            android:text="-Please upload clear passport personal detail page"
-            />
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:layout_width="83dp"
-            android:layout_height="83dp"
-            android:layout_marginTop="30dp"
-            app:placeholderImage="@drawable/up_load_pic"
-            fresco:placeholderImageScaleType="centerCrop"
-            fresco:actualImageScaleType="centerCrop"
-            android:layout_marginBottom="@dimen/android_margin"
-            android:layout_marginRight="@dimen/android_margin"
-            android:layout_gravity="right"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="@dimen/dp_10"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/android_margin"
-        android:background="@color/white"
-        android:paddingTop="@dimen/dp_10"
-        android:paddingRight="@dimen/android_margin"
-        android:orientation="vertical"
         >
-        <TextView
-            android:text="Example"
-            android:textColor="@color/black_00"
-            android:textSize="15sp"
-            android:background="@drawable/bg_bottom_yellow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="10dp"
-            app:placeholderImage="@drawable/up_load_pic"
-            fresco:placeholderImageScaleType="centerCrop"
-            fresco:actualImageScaleType="centerCrop"
-            app:roundedCornerRadius="@dimen/dp_10"
-            android:layout_marginBottom="@dimen/android_margin"
-            android:layout_marginRight="@dimen/android_margin"
-            android:layout_gravity="right"
-            />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="11sp"
-            android:textColor="@color/grey_cccccc"
-            android:text="Holding passport photo"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="11sp"
-            android:textColor="@color/grey_cccccc"
-            android:text="1.-include passport owner half body picture"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="11sp"
-            android:textColor="@color/grey_cccccc"
-            android:text="2.-visa need to be clearly viwed"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="11sp"
-            android:textColor="@color/grey_cccccc"
-            android:text="3.-clear face without any cover"
-            />
+            <EditText
+                android:id="@+id/et_number"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:hint="Visa number"
+                android:paddingLeft="@dimen/android_margin"
+                android:textSize="13sp" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_choose_type"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:drawableRight="@mipmap/right_arrow"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/android_margin"
+                android:text="Choose certificate type"
+                android:textColor="@color/text_333333"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_upload_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:text="Upload valid and clear Chinese visa page"
+                    android:textColor="@color/black_00"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:text="-Please upload clear passport personal detail page"
+                    android:textColor="@color/grey_cccccc"
+                    android:textSize="11sp" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/img_pic"
+                    android:layout_width="83dp"
+                    android:layout_height="83dp"
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="@dimen/android_margin"
+                    android:layout_marginRight="@dimen/android_margin"
+                    android:layout_marginTop="30dp"
+                    app:placeholderImage="@drawable/up_load_pic"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImageScaleType="centerCrop" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/android_margin"
+                android:paddingRight="@dimen/android_margin"
+                android:paddingTop="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_bottom_yellow"
+                    android:text="Example"
+                    android:textColor="@color/black_00"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/android_margin"
+                    android:layout_marginTop="10dp"
+                    android:src="@mipmap/huzhaorenzheng" />
+
+                <TextView
+                    android:id="@+id/tv_tips_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Holding passport photo"
+                    android:textColor="@color/grey_cccccc"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tv_tips_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1.-include passport owner half body picture"
+                    android:textColor="@color/grey_cccccc"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tv_tips_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2.-visa need to be clearly viwed"
+                    android:textColor="@color/grey_cccccc"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tv_tips_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3.-clear face without any cover"
+                    android:textColor="@color/grey_cccccc"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>

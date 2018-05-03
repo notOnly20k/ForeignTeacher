@@ -16,6 +16,7 @@
         android:background="@color/white">
 
         <TextView
+            android:id="@+id/tv_bank"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -28,12 +29,13 @@
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/tv_bank_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="30dp"
             android:layout_marginTop="15dp"
-            android:text="6212 XXXXX XXXX XXXX XX XXX" />
+            />
     </RelativeLayout>
 
     <LinearLayout
@@ -52,15 +54,18 @@
             android:textSize="16sp" />
 
         <EditText
+            android:id="@+id/et_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:inputType="number"
             android:layout_marginLeft="@dimen/android_margin"
-            android:text="Please enter the withdraw amount"
+            android:hint="Please enter the withdraw amount"
             android:textColor="@color/grey_cccccc"
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/tv_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|end"
@@ -73,6 +78,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/btn_with_draw"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="@dimen/android_margin"

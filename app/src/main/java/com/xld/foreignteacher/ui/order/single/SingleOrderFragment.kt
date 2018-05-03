@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import cn.sinata.xldutils.fragment.BaseFragment
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ui.order.adapter.SingleOrderFragmentAdapter
 import kotlinx.android.synthetic.main.fragment_single_order.*
 import org.slf4j.LoggerFactory
@@ -20,6 +21,7 @@ class SingleOrderFragment : BaseFragment() {
     private val logger = LoggerFactory.getLogger("SingleOrderFragment")
     private val fragmentList = ArrayList<BaseFragment>()
     private val titles = ArrayList<String>()
+    private var orderNumList = mutableListOf<Int>()
     override fun getContentViewLayoutID(): Int {
         return R.layout.fragment_single_order
     }
@@ -44,6 +46,15 @@ class SingleOrderFragment : BaseFragment() {
                 val tvTab = tab.customView!!.findViewById<TextView>(R.id.tv_tab)
                 tvTab.isSelected = true
                 tvTab.textSize = 14F
+                val tvBrage = tab.customView!!.findViewById<TextView>(R.id.barge)
+                when {
+                    orderNumList.isEmpty() -> tvBrage.visibility = View.GONE
+                    orderNumList[tab.position] == 0 -> tvBrage.visibility = View.GONE
+                    else -> {
+                        tvBrage.visibility = View.VISIBLE
+                        tvBrage.text = orderNumList[tab.position].toString()
+                    }
+                }
                 vp_order.currentItem = tab.position
             }
 
@@ -60,12 +71,33 @@ class SingleOrderFragment : BaseFragment() {
         for (i in 0 until titles.size) {
             val tab = tab_order.getTabAt(i)
             tab!!.setCustomView(R.layout.item_order_table)
+            val tvBrage = tab.customView!!.findViewById<TextView>(R.id.barge)
+            when {
+                orderNumList.isEmpty() -> tvBrage.visibility = View.GONE
+                orderNumList[tab.position] == 0 -> tvBrage.visibility = View.GONE
+                else -> {
+                    tvBrage.visibility = View.VISIBLE
+                    tvBrage.text = orderNumList[tab.position].toString()
+                }
+            }
             tab.customView!!.findViewById<TextView>(R.id.tv_tab).text = titles[i]
         }
         vp_order.currentItem = 1
         tab_order.getTabAt(0)!!.select()
 
+        initData()
+    }
 
+    private fun initData() {
+        appComponent.netWork.getOrderNum(appComponent.userHandler.getUser().id, 2)
+                .doOnSubscribe { addDisposable(it) }
+                .subscribe {
+                    orderNumList.add(it.num1)
+                    orderNumList.add(it.num2)
+                    orderNumList.add(it.num3)
+                    orderNumList.add(it.num4)
+                    orderNumList.add(it.num5)
+                }
     }
 
 

@@ -314,8 +314,26 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .logErrorAndForget(Throwable::toast)
     }
 
+    //
+    fun addSquareComment(userId: Int, squareId: Int, content: String, commentId: Int?, type: Int = 2): Maybe<UserComment> {
+        val commid = if (commentId == null) {
+            ""
+        } else {
+            "&commentId=$commentId"
+        }
+
+        val key = DES.encryptDES("server=/app/userSquare/addSquareComment?userId=$userId&squareId=$squareId&content=$content$commid&type=$type")
+        logger.e { "server=/app/userSquare/addSquareComment?userId=$userId&squareId=$squareId&content=$content$commid&type=$type" }
+        return appComponent.appApi
+                .addSquareComment(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
     //获取广场评论列表
-    fun getSquareCommentList(id: Int, page: Int, rows: Int): Maybe<SquareComment> {
+    fun getSquareCommentList(id: Int, page: Int, rows: Int): Maybe<CommentReply> {
 
         val key = DES.encryptDES("server=/app/userSquare/getSquareCommentList?id=$id&page=$page&rows=$rows")
         return appComponent.appApi
@@ -437,9 +455,80 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .logErrorAndForget(Throwable::toast)
     }
 
-    //获取个人订单
-    fun getMyPersonalTrainingOrder(teacherId: Int, state: Int, page: Int, rows: Int): Maybe<Any> {
+    //获取个人订单列表
+    fun getMyPersonalTrainingOrder(teacherId: Int, state: Int, page: Int, rows: Int): Maybe<PersonalTrainingOrder> {
         val key = DES.encryptDES("server=/app/teacher/getMyPersonalTrainingOrder?teacherId=$teacherId&state=$state&page=$page&rows=$rows")
+        return appComponent.appApi
+                .getMyPersonalTrainingOrder(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //获取个人拼单列表
+    fun getTeacherFightList(id: Int, status: Int, page: Int, rows: Int): Maybe<List<GroupOrder>> {
+        val key = DES.encryptDES("server=/app/userFight/getTeacherFightList?id=$id&status=$status&page=$page&rows=$rows")
+        return appComponent.appApi
+                .getTeacherFightList(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //添加拼拼订单
+    fun addFight(teacherId: Int, languagesId: Int, enrolment: Int, classesNumber: Int, price: Int, title: String, phone: String, address: String,
+                 lat: String, lon: String, backgroundCourse: String, introduce: String, introduceImgs: String, deadlineRegistration: String,
+                 reservationDeadline: String, openingTime: String, endTime: String): Maybe<Any> {
+        val key = DES.encryptDES("server=/app/userFight/addFight?teacherId=$teacherId&languagesId=$languagesId&enrolment=$enrolment&classesNumber=$classesNumber" +
+                "&price=$price&title=$title&phone=$phone&address=$address&lat=$lat&lon=$lon&backgroundCourse=$backgroundCourse&introduce=$introduce&introduceImgs=$introduceImgs" +
+                "&deadlineRegistration=$deadlineRegistration&reservationDeadline=$reservationDeadline&openingTime=$openingTime&endTime=$endTime")
+        return appComponent.appApi
+                .response(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //获取个人拼单详情
+    fun getFightDetail(id: Int, lat: Double, lon: Double): Maybe<GroupOrderDetail> {
+        val key = DES.encryptDES("server=/app/userFight/getFightDetail?id=$id&lat=$lat&lon=$lon")
+        return appComponent.appApi
+                .getTeacherFightDetail(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+
+    //删除拼单
+    fun delFigh(id: Int): Maybe<Any> {
+        val key = DES.encryptDES("server=/app/userFight/delFight?id=$id")
+        return appComponent.appApi
+                .response(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //订单数
+    fun getOrderNum(id: Int, type: Int): Maybe<OrderNum> {
+        val key = DES.encryptDES("server=/app/userFight/getOrderNum?id=$id&type=$type")
+        return appComponent.appApi
+                .getOrderNum(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //取消拼单
+    fun cancelFigh(id: Int, cancelRemark: String, remark: String): Maybe<Any> {
+        val key = DES.encryptDES("server=/app/userFight/cancleFight?id=$id&cancelRemark=$cancelRemark&remark=$remark")
         return appComponent.appApi
                 .response(key)
                 .toMaybe()
@@ -487,6 +576,99 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
         val key = DES.encryptDES("server=/app/userTeacher/getTeacherSquareList?teacherId=$teacherId&page=$page&rows=$rows&type=$type")
         return appComponent.appApi
                 .getTeacherSquareList(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+    }
+
+    //获取私教银行卡详情
+    fun queryTeacherBankAccout(foreignId: Int): Maybe<List<TeacherBankAccout>> {
+        val key = DES.encryptDES("server=/app/teacher/queryTeacherBankAccout?foreignId=$foreignId")
+        return appComponent.appApi
+                .queryTeacherBankAccout(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+
+    }
+
+    //获取我的钱包
+    fun getMyWallet(teacherId: Int): Maybe<WalletDetail> {
+        val key = DES.encryptDES("server=/app/teacher/myWallet?teacherId=$teacherId")
+        return appComponent.appApi
+                .getMyWallet(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //获取提现详情
+    fun withdrawDetails(teacherId: Int, page: Int, rows: Int): Maybe<List<WithDrawDetail>> {
+        val key = DES.encryptDES("server=/app/teacher/withdrawDetails?teacherId=$teacherId&page=$page&rows=$rows")
+        return appComponent.appApi
+                .withdrawDetails(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //添加银行卡
+    fun addBankAccount(foreignId: Int, name: String, account: String, role: Int): Maybe<Any> {
+        val key = DES.encryptDES("server=/app/teacher/addBankAccount?foreignId=$foreignId&name=$name&account=$account&role=$role")
+        return appComponent.appApi
+                .response(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //申请认证
+    fun applyAuthentication(teacherId: Int, certificateName: String?, credentialsNumber: String, credentialsImg: String, type: Int): Maybe<Any> {
+        val certificateName = if (certificateName != null) {
+            "&certificateName=$certificateName"
+        } else {
+            ""
+        }
+
+        val key = DES.encryptDES("server=/app/teacher/applyAuthentication?teacherId=$teacherId$certificateName&credentialsNumber=$credentialsNumber&credentialsImg=$credentialsImg&type=$type")
+        return appComponent.appApi
+                .response(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //获取认证详情
+    fun authenticationDetail(teacherId: Int, state: Int, type: Int): Maybe<Any> {
+        val key = DES.encryptDES("server=/app/teacher/authenticationDetail?teacherId=$teacherId&state=$state&type=$type")
+        return appComponent.appApi
+                .response(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //获取认证
+    fun myAuthentication(teacherId: Int): Maybe<MyAuthentication> {
+        val key = DES.encryptDES("server=/app/teacher/myAuthentication?teacherId=$teacherId")
+        return appComponent.appApi
+                .getMyAuthentication(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //申请提现
+    fun applyWithdraw(foreignId: Int, bankAccountId: Int, withdrawMoney: Double, role: Int = 2): Maybe<Any> {
+        val key = DES.encryptDES("server=/app/teacher/applyWithdraw?foreignId=$foreignId&bankAccountId=$bankAccountId&withdrawMoney=$withdrawMoney&role=$role")
+        return appComponent.appApi
+                .response(key)
                 .toMaybe()
                 .toNetWork()
                 .map { it.check() }

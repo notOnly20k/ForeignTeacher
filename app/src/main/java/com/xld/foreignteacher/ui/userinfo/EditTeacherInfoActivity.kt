@@ -3,7 +3,6 @@ package com.xld.foreignteacher.ui.userinfo
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.swifty.dragsquareimage.DraggablePresenterImpl
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.api.dto.City
 import com.xld.foreignteacher.api.dto.Language
@@ -20,6 +19,7 @@ import com.xld.foreignteacher.ui.userinfo.SelectLanguageActivity.Companion.SELEC
 import com.xld.foreignteacher.ui.userinfo.SelectLanguageActivity.Companion.SELECT_LANGUAGE
 import com.xld.foreignteacher.ui.userinfo.adapter.LanguageAdapter
 import com.xld.foreignteacher.ui.userinfo.adapter.StudentPageAdapter
+import com.xld.foreignteacher.util.DraggablePresenterImpl
 import com.xld.foreignteacher.views.StarBarView
 import kotlinx.android.synthetic.main.activity_user_info.*
 
@@ -153,7 +153,7 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
 
         val albumImgUrl = albumList.toString()
         appComponent.netWork.editTeacher(appComponent.userHandler.getUser()!!.id, et_name.text.toString(), albumList[0].imgUrl,
-                sex!!, tv_birth_edit.text.toString(), telNum, star_chinese_level.getSartRating().toInt(),
+                sex!!, tv_birth_edit.text.toString(), telNum, star_chinese_level.getSartRating().toInt(),albumImgUrl = albumImgUrl,
                 personalProfile = er_introduction.text.toString(), openCityId = cityId)
                 .doOnSubscribe { mCompositeDisposable.add(it) }
                 .doOnLoading { showProgress(it) }

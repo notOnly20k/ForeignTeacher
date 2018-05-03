@@ -67,7 +67,7 @@
                     android:textSize="13sp" />
 
                 <TextView
-                    android:id="@+id/tv_time"
+                    android:id="@+id/tv_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/tv_name"
@@ -133,13 +133,12 @@
                 <TextView
                     android:id="@+id/tv_attending_client"
                     style="@style/style_order_info_item"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_info"
                     android:layout_marginTop="@dimen/dp_10"
                     android:drawableLeft="@mipmap/icon_user_count"
-                    android:text="attending_client" />
+                    android:text="@string/attending_client" />
 
                 <TextView
                     android:id="@+id/tv_class_time"

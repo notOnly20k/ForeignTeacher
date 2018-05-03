@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
+import android.webkit.WebViewClient
 import cn.sinata.xldutils.fragment.BaseFragment
 import com.xld.foreignteacher.R
 import kotlinx.android.synthetic.main.fragment_h5.*
@@ -22,9 +24,13 @@ class H5Fragment : BaseFragment() {
         return R.layout.fragment_h5
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onFirstVisibleToUser() {
         val url=arguments!!.getString(URL)
         webView.isVerticalScrollBarEnabled = false
+        webView.webChromeClient = WebChromeClient();
+        webView.webViewClient = WebViewClient();
+        webView.settings.javaScriptEnabled = true;
         webView.loadUrl(url)
     }
 

@@ -7,6 +7,7 @@ import com.xld.foreignteacher.R
 import com.xld.foreignteacher.api.dto.SquareListBean
 import com.xld.foreignteacher.api.dto.TeacherDetail
 import com.xld.foreignteacher.api.dto.TeacherRecord
+import com.xld.foreignteacher.api.dto.WithDrawDetail
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
@@ -31,6 +32,7 @@ class ListActivity : BaseTranslateStatusActivity() {
     private var teacherRecordList = mutableListOf<TeacherRecord>()
     private var commentList = mutableListOf<TeacherDetail.CommentListBean>()
     private var offerList = mutableListOf<TeacherDetail.CurriculumListBean>()
+    private var withDrawList = mutableListOf<WithDrawDetail>()
     private var feedList = mutableListOf<SquareListBean>()
 
     override fun initView() {
@@ -71,7 +73,7 @@ class ListActivity : BaseTranslateStatusActivity() {
                 title_bar.setTitle(OFFERS)
                 adpter = CurriculumAdapter(this)
             }
-            FEEDS->{
+            FEEDS -> {
                 title_bar.setTitle(FEEDS)
                 adpter = FeedAdapter(this)
             }
@@ -83,7 +85,8 @@ class ListActivity : BaseTranslateStatusActivity() {
                 page = 1
                 when (intent.getStringExtra("type")) {
                     WITHDRAWDETAIL -> {
-
+                        withDrawList.clear()
+                        getWithdrawDetails(page)
                     }
                     TRANSACTIONS -> {
                         teacherRecordList.clear()
@@ -102,7 +105,7 @@ class ListActivity : BaseTranslateStatusActivity() {
                         offerList.clear()
                         getOffers(page)
                     }
-                    FEEDS->{
+                    FEEDS -> {
                         feedList.clear()
                         getFeeds(page)
                     }
@@ -113,7 +116,7 @@ class ListActivity : BaseTranslateStatusActivity() {
                 page++
                 when (intent.getStringExtra("type")) {
                     WITHDRAWDETAIL -> {
-
+                        getWithdrawDetails(page)
                     }
                     TRANSACTIONS -> {
                         getTransactions(page)
@@ -128,7 +131,7 @@ class ListActivity : BaseTranslateStatusActivity() {
                     OFFERS -> {
                         getOffers(page)
                     }
-                    FEEDS->{
+                    FEEDS -> {
                         getFeeds(page)
                     }
                 }
@@ -140,7 +143,7 @@ class ListActivity : BaseTranslateStatusActivity() {
     override fun initData() {
         when (intent.getStringExtra("type")) {
             WITHDRAWDETAIL -> {
-
+                getWithdrawDetails(1)
             }
             TRANSACTIONS -> {
                 getTransactions(1)
@@ -155,7 +158,7 @@ class ListActivity : BaseTranslateStatusActivity() {
             OFFERS -> {
                 getOffers(1)
             }
-            FEEDS->{
+            FEEDS -> {
                 getFeeds(1)
             }
         }
@@ -164,12 +167,24 @@ class ListActivity : BaseTranslateStatusActivity() {
 
     fun getTransactions(page: Int) {
         appComponent.netWork
-                .getTeacherRecord(appComponent.userHandler.getUser()!!.id, page, 1)
+                .getTeacherRecord(appComponent.userHandler.getUser()!!.id, page, 10)
                 .doOnSubscribe { mCompositeDisposable.add(it) }
                 .doOnLoading { rec_content.isRefreshing = it }
                 .subscribe { list ->
                     teacherRecordList.addAll(list)
                     (adpter as TransactionsAdapter).updateList(teacherRecordList)
+                    noMoreData(list)
+                }
+    }
+
+    fun getWithdrawDetails(page: Int) {
+        appComponent.netWork
+                .withdrawDetails(appComponent.userHandler.getUser()!!.id, page, 10)
+                .doOnSubscribe { mCompositeDisposable.add(it) }
+                .doOnLoading { rec_content?.isRefreshing = it }
+                .subscribe { list ->
+                    withDrawList.addAll(list)
+                    (adpter as WithDrawDetailAdapter).updateList(withDrawList)
                     noMoreData(list)
                 }
     }
@@ -186,10 +201,11 @@ class ListActivity : BaseTranslateStatusActivity() {
                     noMoreData(list)
                 }
     }
-   fun getFeeds(page: Int) {
+
+    fun getFeeds(page: Int) {
         val id = intent.getIntExtra("id", -1)
         appComponent.netWork
-                .getTeacherSquareList(id, page, 10,2)
+                .getTeacherSquareList(id, page, 10, 2)
                 .doOnSubscribe { mCompositeDisposable.add(it) }
                 .doOnLoading { rec_content.isRefreshing = it }
                 .subscribe { list ->
@@ -203,7 +219,7 @@ class ListActivity : BaseTranslateStatusActivity() {
         val id = intent.getIntExtra("id", -1)
         appComponent.netWork.getTeacherCommentList(id, page, 10)
                 .doOnSubscribe { mCompositeDisposable.add(it) }
-                .doOnLoading { rec_content.isRefreshing = it }
+                .doOnLoading { rec_content?.isRefreshing = it }
                 .subscribe {
                     commentList.addAll(it)
                     (adpter as CommentAdapter).upDataList(commentList)
@@ -215,7 +231,7 @@ class ListActivity : BaseTranslateStatusActivity() {
         if (list.isEmpty()) {
             this.page--
         }
-        rec_content.isNoMoreData(list.isEmpty())
+        rec_content?.isNoMoreData(list.isEmpty())
     }
 
     companion object {

@@ -75,7 +75,7 @@
     <string name="price_class">¥%1$d</string>
     <string name="orders">Orders</string>
     <string name="group_orders">Group orders</string>
-    <string name="ages">Age: %1$f</string>
+    <string name="ages">Age: %1$d</string>
     <string name="attending_clients">Attending clients</string>
     <string name="client_count">¥%1$d people</string>
     <string name="time">Time</string>
@@ -107,5 +107,7 @@
         \n up on your cancel rate,this might \n affect client‘s choice.
         \n Are you sure you have to cancel \n this confirmed order?</string>
     <string name="charging_rules">Charging rules</string>
+    <string name="attending_client">attending client:%1$d</string>
+    <string name="person_count">¥%1$d/person</string>
 
 </resources>

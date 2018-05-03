@@ -56,7 +56,7 @@ interface AppApi {
     fun getSquareDetail(@Query("key") key: String): Single<Dto<SquareDetail>>
 
     @POST("ForeignTeachers/app/server")
-    fun getCommentList(@Query("key") key: String): Single<Dto<SquareComment>>
+    fun getCommentList(@Query("key") key: String): Single<Dto<CommentReply>>
 
     @POST("ForeignTeachers/app/server")
     fun getBenchmarkPrice(@Query("key") key: String): Single<Dto<List<BenchmarkPrice>>>
@@ -71,10 +71,16 @@ interface AppApi {
     fun getTeacherInfo(@Query("key") key: String): Single<Dto<Teacher>>
 
     @POST("ForeignTeachers/app/server")
-    fun getMyPersonalTrainingOrder(@Query("key") key: String): Single<Dto<Any>>
+    fun getMyPersonalTrainingOrder(@Query("key") key: String): Single<Dto<PersonalTrainingOrder>>
 
     @POST("ForeignTeachers/app/server")
     fun getTeacherDetail(@Query("key") key: String): Single<Dto<TeacherDetail>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getTeacherFightList(@Query("key") key: String): Single<Dto<List<GroupOrder>>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getTeacherFightDetail(@Query("key") key: String): Single<Dto<GroupOrderDetail>>
 
     @POST("ForeignTeachers/app/server")
     fun getTeacherCommentList(@Query("key") key: String): Single<Dto<List<TeacherDetail.CommentListBean>>>
@@ -84,6 +90,26 @@ interface AppApi {
 
     @POST("ForeignTeachers/app/server")
     fun getTeacherSquareList(@Query("key") key: String): Single<Dto<List<SquareListBean>>>
+
+    @POST("ForeignTeachers/app/server")
+    fun queryTeacherBankAccout(@Query("key") key: String): Single<Dto<List<TeacherBankAccout>>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getMyWallet(@Query("key") key: String): Single<Dto<WalletDetail>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getOrderNum(@Query("key") key: String): Single<Dto<OrderNum>>
+
+
+    @POST("ForeignTeachers/app/server")
+    fun withdrawDetails(@Query("key") key: String): Single<Dto<List<WithDrawDetail>>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getMyAuthentication(@Query("key") key: String): Single<Dto<MyAuthentication>>
+
+    @POST("ForeignTeachers/app/server")
+    fun addSquareComment(@Query("key") key: String): Single<Dto<UserComment>>
+
 
 
 }

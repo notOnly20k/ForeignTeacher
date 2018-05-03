@@ -31,6 +31,7 @@ class SquareImgAdapter(private val data: List<String>, private val context: Cont
             convertView = LayoutInflater.from(context).inflate(R.layout.item_square_img, null)
         }
         val draweeView = convertView as SquareDraweeView?
+        draweeView?.setImageURI(data[position])
         //todo 渲染
         return convertView!!
     }

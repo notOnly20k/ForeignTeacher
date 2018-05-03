@@ -21,11 +21,12 @@ data class Dto<out T>(val sys: Long, val code: Int, val msg: String, val data: T
 }
 
 
-data class User(var imgUrl: String? = null, var id: Int, var phone: String? = null, var sex: Int,
-                var identCode: String? = null, var nickName: String? = null, var inviteCode: String? = null,
+data class User(var imgUrl: String? = null, var id: Int = -1, var phone: String? = null, var sex: Int = 1,
+                var birthDay: String? = null,
+                var identCode: String? = null, var nickName: String = "", var inviteCode: String? = null,
                 var lat: Double? = null, var lon: Double? = null)
 
-data class Teacher(var id: Int, var phone: String? = null, var sex: Int, var contactInformation: String? = null, var nickName: String? = null,
+data class Teacher(var id: Int, var phone: String? = null, var sex: Int, var contactInformation: String? = null, var nickName: String = "",
                    var birthDay: String? = null, var passWord: Boolean = false, var albumList: List<AlbumListBean>? = null, var personalProfile: String?,
                    var isHot: Boolean?, var hotSort: Int?, var openCityId: Int?, var languagesId: String?, var nationality: String?, var chineseLevel: Int? = 0,
                    var age: Int?)
@@ -83,7 +84,7 @@ data class TeacherRecord(private var id: Int, var userId: Int, var money: Int, v
                          var createTime: Long, var status: Int, var teacherId: Int)
 
 data class SquareDate(var commentNum: Int, var content: String? = null, var id: Int, var createTime: Long,
-                      var isGiveThum: Boolean = false, var nickName: String? = null, var giveThumNum: Int, var contents: String? = null,
+                      var giveThum: Boolean = false, var nickName: String? = null, var giveThumNum: Int, var contents: String? = null,
                       var address: String? = null, var teacherImgUrl: String? = null, var teacherId: Int, var squareCommentList: List<SquareCommentListBean>? = null,
                       var imgUrl: List<ImgUrlBean>? = null) {
 
@@ -94,7 +95,7 @@ data class SquareDate(var commentNum: Int, var content: String? = null, var id: 
     class ImgUrlBean(var imgUrl: String? = null)
 }
 
-data class SquareDetail(var commentNum: Int, var content: String? = null, var id: Int, var createTime: Long, var isGiveThum: Boolean = false,
+data class SquareDetail(var commentNum: Int, var content: String? = null, var id: Int, var createTime: Long, var giveThum: Boolean = false,
                         var nickName: String? = null, var giveThumNum: Int, var contents: String? = null, var address: String? = null, var teacherImgUrl: String? = null,
                         var teacherId: Int, var squareCommentList: List<SquareCommentListBean>? = null, var imgUrl: List<ImgUrlBean>? = null) {
 
@@ -111,6 +112,42 @@ data class SquareDetail(var commentNum: Int, var content: String? = null, var id
     class ImgUrlBean(var imgUrl: String? = null, var sort: Int? = null)
 }
 
+class CommentReply {
+
+    var squareComment: SquareCommentBean? = null
+    var squareCommentLists: List<SquareCommentListsBean>? = null
+
+    class SquareCommentBean {
+
+
+        var id: Int = 0
+        var squareId: Int = 0
+        var userId: Int = 0
+        var content: String? = null
+        var commentId: Any? = null
+        var createTime: Long = 0
+        var type: Int = 0
+        var imgUrl: String? = null
+            get() = if (field == null) "" else field
+        var nickName: String? = null
+            get() = if (field == null) "" else field
+    }
+
+    class SquareCommentListsBean {
+
+
+        var content: String? = null
+        var imgUrl: String? = null
+        var id: Int = 0
+        var createTime: Long = 0
+        var sex: Int = 0
+        var nickName: String? = null
+        var userId: Int = 0
+        var type: Int = 0
+    }
+}
+
+
 data class SquareComment(var squareComment: SquareCommentBean? = null, var squareCommentLists: List<SquareCommentListsBean>? = null) {
 
 
@@ -121,6 +158,17 @@ data class SquareComment(var squareComment: SquareCommentBean? = null, var squar
     class SquareCommentListsBean(var content: String? = null, var imgUrl: String? = null, var id: Int, var createTime: Long,
                                  var sex: Int, var nickName: String? = null, var userId: Int, var type: Int)
 }
+
+class UserComment {
+    var imgUrl: String? = null
+    var content: String? = null
+    var id: Int = 0
+    var createTime: Long = 0
+    var nickName: String? = null
+    var userId: Int = 0
+    var type: Int = 0
+}
+
 
 data class BenchmarkPrice(var id: Int, var benchmarkPrice: Double, var superBaseRatio: Double)
 

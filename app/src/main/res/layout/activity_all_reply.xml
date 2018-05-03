@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/yellow_ffcc00"
+    android:fitsSystemWindows="true">
+    <cn.sinata.xldutils.view.TitleBar
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/title_bar"/>
+    <cn.sinata.xldutils.view.SwipeRefreshRecyclerLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/recycler_view"
+        android:paddingRight="@dimen/android_margin"
+        android:paddingLeft="@dimen/android_margin"
+        android:background="@color/white"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_reply"
+        android:background="@drawable/bg_et_reply"
+        android:textSize="@dimen/textSize15"
+        android:paddingLeft="28dp"
+        android:paddingRight="20dp"
+        android:singleLine="true"
+        android:imeOptions="actionDone"
+        android:paddingTop="18dp"
+        android:paddingBottom="18dp"
+        android:gravity="center_vertical"
+        android:hint="Input comment"/>
+</LinearLayout>

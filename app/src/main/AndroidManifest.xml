@@ -85,9 +85,12 @@
         <activity android:name=".ui.schedule.AddOfferActivity" />
         <activity android:name=".ui.schedule.AddGroupOfferActivity" />
         <activity android:name=".ui.schedule.adapter.EditScheduleActivity" />
+        <activity android:name=".ui.square.CommentDetailActivity" />
+        <activity android:name=".ui.schedule.IntroductionActivity" />
         <activity android:name=".ui.mine.InfoActivity" android:windowSoftInputMode="stateUnchanged"/>
         <activity android:name=".ui.mine.setting.ChangeMobileActivity" android:windowSoftInputMode="stateAlwaysVisible|adjustPan" />
         <activity android:name=".ui.mine.setting.ResetMobileActivity" android:windowSoftInputMode="stateAlwaysVisible|adjustPan" />
+        <activity android:name=".ui.mine.wallet.AddBankCardActivity" android:windowSoftInputMode="stateAlwaysVisible|adjustPan" />
 
 
         <activity

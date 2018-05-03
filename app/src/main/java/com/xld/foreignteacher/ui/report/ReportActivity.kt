@@ -1,10 +1,13 @@
 package com.xld.foreignteacher.ui.report
 
+import android.app.Activity
 import android.os.CountDownTimer
 import android.view.Gravity
 import android.widget.TextView
 import com.timmy.tdialog.TDialog
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.ext.appComponent
+import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ext.toFormattedString
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.views.InformItemView
@@ -16,9 +19,14 @@ class ReportActivity : BaseTranslateStatusActivity() {
         get() = R.layout.activity_report
     override val changeTitleBar: Boolean
         get() = false
+    private var lastView: InformItemView? = null
+    private var reason = ""
+    private var id = -1
+    private var detail = ""
+    private lateinit var type: String
 
     override fun initView() {
-        val type = intent.getStringExtra("type")
+        type = intent.getStringExtra("type")
         title_bar.titlelayout.setBackgroundResource(R.color.color_black_1d1e24)
         title_bar.titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
         title_bar.setLeftButton(R.mipmap.back_yellow, { finish() })
@@ -37,6 +45,8 @@ class ReportActivity : BaseTranslateStatusActivity() {
                 }
             }
             CANCEL_REQUEST -> {
+                id = intent.getIntExtra("id", -1)
+                detail = et_reason.text.toString()
                 title_bar.setTitle(CANCEL_REQUEST)
                 tv_title.text = "Reason for cancellation"
                 tv_other_reason.text = "Details"
@@ -54,7 +64,6 @@ class ReportActivity : BaseTranslateStatusActivity() {
                 tv_lewd_or_harassing_content.setOnClickListener { infoViewClicked(it as InformItemView) }
                 tv_violation_user_name.setOnClickListener { infoViewClicked(it as InformItemView) }
                 btn_commit.setOnClickListener {
-                    val reason = et_reason.text.toString()
                     showDeclinDialog()
                 }
             }
@@ -77,7 +86,12 @@ class ReportActivity : BaseTranslateStatusActivity() {
                         }
                         R.id.tv_yes -> {
                             tDialog.dismiss()
-                            showTDialog()
+
+                            appComponent.netWork.cancelFigh(id, reason, detail)
+                                    .doOnSubscribe { mCompositeDisposable.add(it) }
+                                    .doOnLoading { showProgress(it) }
+                                    .subscribe { showTDialog() }
+
                         }
                     }
                 }
@@ -99,7 +113,7 @@ class ReportActivity : BaseTranslateStatusActivity() {
                 .setGravity(Gravity.CENTER)     //设置弹窗展示位置
                 .setTag("SubscribeDialog")   //设置Tag
                 .setDimAmount(0.6f)     //设置弹窗背景透明度(0-1f)
-                .setCancelable(true)    //弹窗是否可以取消
+                .setCancelable(false)    //弹窗是否可以取消
                 .create()   //创建TDialog
                 .show()    //展示
 
@@ -109,6 +123,9 @@ class ReportActivity : BaseTranslateStatusActivity() {
 
             override fun onFinish() {
                 dialog?.dismiss()
+                if (type == CANCEL_REQUEST) {
+                    setResult(Activity.RESULT_OK)
+                }
                 finish()
             }
         }.start()
@@ -117,6 +134,16 @@ class ReportActivity : BaseTranslateStatusActivity() {
     private fun infoViewClicked(view: InformItemView) {
         view.checked = !view.checked
         changeBtnStatus()
+        if (view.checked) {
+            reason = view.text
+            if (lastView != null && lastView != view) {
+                lastView!!.checked = false
+            }
+
+            lastView = view
+        } else {
+            reason = ""
+        }
     }
 
     private fun changeBtnStatus() {

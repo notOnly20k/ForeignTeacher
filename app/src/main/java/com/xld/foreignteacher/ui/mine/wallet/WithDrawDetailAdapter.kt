@@ -5,29 +5,23 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import butterknife.BindView
 import butterknife.ButterKnife
 import cn.sinata.xldutils.adapter.LoadMoreAdapter
 import cn.sinata.xldutils.utils.ActivityUtil
+import cn.sinata.xldutils.utils.TimeUtils
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.dto.WithDrawDetail
 import org.slf4j.LoggerFactory
-import java.util.*
 
 /**
  * Created by cz on 4/13/18.
  */
-class WithDrawDetailAdapter(val context: Context): LoadMoreAdapter() {
-    private val data: MutableList<String>
-    private val activityUtil: ActivityUtil
+class WithDrawDetailAdapter(val context: Context) : LoadMoreAdapter() {
+    private val data = mutableListOf<WithDrawDetail>()
+    private val activityUtil: ActivityUtil = ActivityUtil.create(context)
     private val logger = LoggerFactory.getLogger("SquareAdapter")
-
-    init {
-        data = ArrayList()
-        activityUtil = ActivityUtil.create(context)
-        data.add("")
-        data.add("")
-        data.add("")
-        data.add("")
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         if (viewType == TYPE_NORMAL) {
@@ -50,35 +44,39 @@ class WithDrawDetailAdapter(val context: Context): LoadMoreAdapter() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == TYPE_NORMAL) {
-
+            val holder = holder as ViewHolder
+            holder.tvTitle.text = when (data[position].state) {
+                1 -> {
+                    "Pending"
+                }
+                2 -> {
+                    "WithDraw"
+                }
+                3 -> {
+                    "Refused"
+                }
+                else -> {
+                    ""
+                }
+            }
+            holder.tvMoney.text=data[position].withdrawMoney.toString()
+            holder.tvTime.text=TimeUtils.getTimeYMDCN(data[position].createdate)
         }
     }
 
+    fun updateList(list: List<WithDrawDetail>) {
+        data.clear()
+        data.addAll(list)
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
-//        @BindView(R.id.iv_head)
-//        lateinit var ivHead: SimpleDraweeView
-//        @BindView(R.id.tv_name)
-//        lateinit var tvName: TextView
-//        @BindView(R.id.tv_time)
-//        lateinit var tvTime: TextView
-//        @BindView(R.id.tv_content)
-//        lateinit var tvContent: TextView
-//        @BindView(R.id.tv_translation)
-//        lateinit var tvTranslation: TextView
-//        @BindView(R.id.gv_img)
-//        lateinit var gvImg: NestedGridView
-//        @BindView(R.id.tv_location)
-//        lateinit var tvLocation: TextView
-//        @BindView(R.id.btn_like)
-//        lateinit var btnLike: TextView
-//        @BindView(R.id.btn_comment)
-//        lateinit var btnComment: ImageView
-//        @BindView(R.id.ll_bottom)
-//        lateinit var llBottom: LinearLayout
-//        @BindView(R.id.ll_replay)
-//        lateinit var llReplay: LinearLayout
-//        @BindView(R.id.el_square_item)
-//        lateinit var elSquareItem: RelativeLayout
+        @BindView(R.id.tv_title)
+        lateinit var tvTitle: TextView
+        @BindView(R.id.tv_time)
+        lateinit var tvTime: TextView
+        @BindView(R.id.tv_money)
+        lateinit var tvMoney: TextView
 
         init {
             ButterKnife.bind(this, view)

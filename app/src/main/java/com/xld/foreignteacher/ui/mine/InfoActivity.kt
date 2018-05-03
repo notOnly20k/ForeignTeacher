@@ -4,7 +4,7 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.google.gson.Gson
-import com.swifty.dragsquareimage.DraggablePresenterImpl
+import com.xld.foreignteacher.util.DraggablePresenterImpl
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.api.dto.Language
 import com.xld.foreignteacher.api.dto.User

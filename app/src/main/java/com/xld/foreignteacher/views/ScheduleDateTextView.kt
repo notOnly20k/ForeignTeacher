@@ -1,6 +1,9 @@
 package com.xld.foreignteacher.views
 
 import android.content.Context
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.RelativeSizeSpan
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +26,7 @@ class ScheduleDateTextView @JvmOverloads constructor(context: Context,
     private var showDiscount = false
     private var onScheduleDateTextViewClickListner: OnScheduleDateTextViewClickListner? = null
     private var isChecked = false
-    private var classState:Int= NORMAL
+    private var classState: Int = NORMAL
 
 
     init {
@@ -51,17 +54,17 @@ class ScheduleDateTextView @JvmOverloads constructor(context: Context,
     fun changByState(state: Int) {
         when (state) {
             OPEN -> {
-                classState= OPEN
+                classState = OPEN
                 isShowDiscount(showDiscount)
                 rbDate.setBackgroundResource(R.drawable.bg_schedule_text_fill)
             }
             NORMAL -> {
-                classState= NORMAL
+                classState = NORMAL
                 isShowDiscount(showDiscount)
                 rbDate.setBackgroundResource(R.color.white)
             }
             DISABLE -> {
-                classState= DISABLE
+                classState = DISABLE
                 tvDiscount.visibility = View.GONE
                 rbDate.setBackgroundResource(R.drawable.bg_schedule_text_enable)
             }
@@ -70,32 +73,32 @@ class ScheduleDateTextView @JvmOverloads constructor(context: Context,
                 tvDiscount.visibility = View.GONE
             }
             OPENLEFT -> {
-                classState= OPEN
+                classState = OPEN
                 isShowDiscount(showDiscount)
                 rbDate.setBackgroundResource(R.drawable.bg_schedule_text_fill_left)
             }
             OPENRIGHT -> {
-                classState= OPEN
+                classState = OPEN
                 isShowDiscount(showDiscount)
                 rbDate.setBackgroundResource(R.drawable.bg_schedule_text_fill_right)
             }
             OPENCENTER -> {
-                classState= OPEN
+                classState = OPEN
                 isShowDiscount(showDiscount)
                 rbDate.setBackgroundColor(context.resources.getColor(R.color.yellow_ffcc00_alpha))
             }
             DISABLECENTER -> {
-                classState= DISABLE
+                classState = DISABLE
                 isShowDiscount(showDiscount)
                 rbDate.setBackgroundColor(context.resources.getColor(R.color.grey_f1f1f1))
             }
             DISABLELEFT -> {
-                classState= DISABLE
+                classState = DISABLE
                 isShowDiscount(showDiscount)
                 rbDate.setBackgroundResource(R.drawable.bg_schedule_text_enable_left)
             }
             DISABLERIGHT -> {
-                classState= DISABLE
+                classState = DISABLE
                 isShowDiscount(showDiscount)
                 rbDate.setBackgroundResource(R.drawable.bg_schedule_text_enable_right)
             }
@@ -112,20 +115,22 @@ class ScheduleDateTextView @JvmOverloads constructor(context: Context,
     }
 
     fun setDisCount(string: String) {
-        tvDiscount.text = "$string%"
+        val count= SpannableString("$string%")
+        count.setSpan(RelativeSizeSpan(1.2f),0,string.length, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        tvDiscount.text = count
     }
 
-    fun getState():Int{
+    fun getState(): Int {
         return state
     }
-    fun getClassState():Int{
+
+    fun getClassState(): Int {
         return classState
     }
 
-    fun setButtonCheckState(boolean: Boolean){
+    fun setButtonCheckState(boolean: Boolean) {
         isChecked = boolean
     }
-
 
 
     fun setOnClickListener(onScheduleDateTextViewClickListner: OnScheduleDateTextViewClickListner) {

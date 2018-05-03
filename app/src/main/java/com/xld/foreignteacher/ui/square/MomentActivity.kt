@@ -19,6 +19,7 @@ import com.xld.foreignteacher.ext.toFormattedString
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.locate.LocationActivity
 import com.xld.foreignteacher.ui.square.adapter.MomentAdapter
+import com.xld.foreignteacher.util.OssUtil
 import kotlinx.android.synthetic.main.activity_moment.*
 import java.io.File
 import java.util.*
@@ -36,8 +37,10 @@ class MomentActivity : BaseTranslateStatusActivity(), MomentAdapter.OnItemClickL
     private var tempFile: File? = null//临时文件
 
     private lateinit var adpter: MomentAdapter
+    lateinit var ossUtil: OssUtil
 
     override fun initView() {
+        ossUtil = OssUtil(this)
         title_bar.titlelayout.setBackgroundResource(R.color.color_black_1d1e24)
         title_bar.titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
         title_bar.setLeftButton(R.mipmap.back_yellow, { finish() })
@@ -57,12 +60,24 @@ class MomentActivity : BaseTranslateStatusActivity(), MomentAdapter.OnItemClickL
     }
 
     private fun sendSquare() {
-        val imgList = mutableListOf<SquareDate.ImgUrlBean>()
-        list.map { imgList.add(SquareDate.ImgUrlBean(it)) }
-        appComponent.netWork.addSquare(appComponent.userHandler.getUser()!!.id, Gson().toJson(imgList), tv_location.text.toString(), et_content.text.toString())
-                .doOnSubscribe { mCompositeDisposable.add(it) }
-                .doOnLoading { showProgress(it) }
-                .subscribe { finish() }
+
+        ossUtil.uploadMulti(list,object :OssUtil.OSSUploadCallBack(){
+            override fun onFial(message: String?) {
+                super.onFial(message)
+                showToast(message)
+            }
+
+            override fun onFinish(urls: ArrayList<String>) {
+                super.onFinish(urls)
+                val imgList = mutableListOf<SquareDate.ImgUrlBean>()
+                urls.map { imgList.add(SquareDate.ImgUrlBean(it)) }
+                appComponent.netWork.addSquare(appComponent.userHandler.getUser()!!.id, Gson().toJson(imgList), tv_location.text.toString(), et_content.text.toString())
+                        .doOnSubscribe { mCompositeDisposable.add(it) }
+                        .doOnLoading { showProgress(it) }
+                        .subscribe { finish() }
+            }
+        })
+
     }
 
 

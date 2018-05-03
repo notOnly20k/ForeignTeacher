@@ -1,6 +1,7 @@
 package com.xld.foreignteacher.ui.square.adapter
 
 import android.content.Context
+import android.graphics.Paint
 import android.graphics.Typeface
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.RecyclerView
@@ -23,9 +24,6 @@ import cn.sinata.xldutils.utils.TimeUtils
 import com.facebook.drawee.view.SimpleDraweeView
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.api.dto.SquareDate
-import com.xld.foreignteacher.ext.appComponent
-import com.xld.foreignteacher.ext.doOnLoading
-import com.xld.foreignteacher.ext.e
 import com.xld.foreignteacher.ui.square.SquareDetailActivity
 import com.xld.foreignteacher.ui.userinfo.TeacherDetailActivity
 import com.xld.foreignteacher.views.NestedGridView
@@ -40,6 +38,7 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
     private val data: MutableList<SquareDate> = mutableListOf()
     private val activityUtil: ActivityUtil = ActivityUtil.create(context)
     private val logger = LoggerFactory.getLogger("SquareAdapter")
+    private var openContent = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         if (viewType == TYPE_NORMAL) {
@@ -73,20 +72,42 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
             viewHolder.tvName.text = squareDate.nickName
             viewHolder.tvTime.text = TimeUtils.getTimeHM(squareDate.createTime)
             viewHolder.tvContent.text = squareDate.content
+            viewHolder.tvContent.maxLines = 4
             viewHolder.tvLocation.text = squareDate.address
             viewHolder.ivHead.setImageURI(squareDate.teacherImgUrl)
             viewHolder.btnLike.text = squareDate.giveThumNum.toString()
-            if (squareDate.isGiveThum) {
-                viewHolder.btnLike.setCompoundDrawables(iconLike,null,null,null)
-            }else{
-                viewHolder.btnLike.setCompoundDrawables(iconEmptyLike,null,null,null)
+            if (squareDate.giveThum) {
+                viewHolder.btnLike.setCompoundDrawables(iconLike, null, null, null)
+            } else {
+                viewHolder.btnLike.setCompoundDrawables(iconEmptyLike, null, null, null)
+            }
+
+            if (viewHolder.tvContent.lineCount > 3) {
+                viewHolder.tvContentFull.paint.flags = Paint.UNDERLINE_TEXT_FLAG
+                viewHolder.tvContentFull.paint.isAntiAlias = true
+                viewHolder.tvContentFull.visibility = View.VISIBLE
+                viewHolder.tvContent.maxLines = 3
+                viewHolder.tvContentFull.text = "Full text"
+            } else {
+                viewHolder.tvContentFull.visibility = View.GONE
+            }
+
+            viewHolder.tvContentFull.setOnClickListener {
+                openContent = !openContent
+                if (openContent) {
+                    viewHolder.tvContent.maxLines = Integer.MAX_VALUE
+                    viewHolder.tvContentFull.text = "up"
+                } else {
+                    viewHolder.tvContent.maxLines = 3
+                    viewHolder.tvContentFull.text = "Full text"
+                }
             }
 
             viewHolder.elSquareItem.setOnClickListener {
                 activityUtil.go(SquareDetailActivity::class.java).put("id", squareDate.id).start()
             }
             viewHolder.ivHead.setOnClickListener {
-                activityUtil.go(TeacherDetailActivity::class.java).put("id", "").start()
+                activityUtil.go(TeacherDetailActivity::class.java).put("id", squareDate.teacherId).start()
             }
             viewHolder.tvName.setOnClickListener {
                 activityUtil.go(TeacherDetailActivity::class.java).start()
@@ -97,19 +118,11 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
                 true
             }
             viewHolder.btnLike.setOnClickListener {
-                if (squareDate.isGiveThum.not())
-                context.appComponent.netWork
-                       .addGiveThum(squareDate.id,context.appComponent.userHandler.getUser()!!.id)
-                       .doOnLoading {  }
-                       .subscribe {
-                           viewHolder.btnLike.text = (squareDate.giveThumNum+1).toString()
-                           viewHolder.btnLike.setCompoundDrawables(iconLike,null,null,null)
-                       }
+                clickCallback?.doLike(squareDate.id)
             }
             viewHolder.btnComment.setOnClickListener {
-                //todo 评论
+                clickCallback.onComment(data, position)
             }
-            //todo 如果有图片就加载
             viewHolder.gvImg.visibility = View.GONE
             if (squareDate.imgUrl != null && squareDate.imgUrl!!.isNotEmpty()) {
                 val urls = ArrayList<String>()
@@ -119,16 +132,14 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
                 viewHolder.gvImg.adapter = SquareImgAdapter(urls, context)
                 viewHolder.gvImg.visibility = View.VISIBLE
             }
-            //todo 如果有评论就加载
             viewHolder.llReplay.removeAllViews()
             viewHolder.llReplay.visibility = View.GONE
-            if (squareDate.squareCommentList != null&&squareDate.squareCommentList!!.isNotEmpty()) {
+            if (squareDate.squareCommentList != null && squareDate.squareCommentList!!.isNotEmpty()) {
                 viewHolder.llReplay.visibility = View.VISIBLE
-                for (i in 0..squareDate.squareCommentList!!.size) {
+                for (i in 0 until squareDate.squareCommentList!!.size) {
                     if (i < 3) {
                         val comment = squareDate.squareCommentList!![i]
                         val tv = TextView(context)
-                        logger.e { comment.content!!.length }
                         if (comment.nickName1 != null) {
                             val tag1 = comment.nickName!!
                             val tag2 = comment.nickName1!!
@@ -145,6 +156,12 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
                             reply.setSpan(ForegroundColorSpan(context.resources.getColor(R.color.black_00)), 0, tag1.length + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
                             reply.setSpan(StyleSpan(Typeface.BOLD), 0, tag1.length + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
                             tv.text = reply
+                            tv.setOnClickListener {
+                                clickCallback.onReply(data, position, comment.id)
+                            }
+                        }
+                        tv.setOnClickListener {
+                            clickCallback.onReply(data, position, comment.id)
                         }
 
                         viewHolder.llReplay.addView(tv)
@@ -166,6 +183,18 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
         notifyDataSetChanged()
     }
 
+    private lateinit var clickCallback: SquareAdapter.ItemClickCallback
+
+    fun setClickCallback(clickCallback: ItemClickCallback) {
+        this.clickCallback = clickCallback
+    }
+
+    interface ItemClickCallback {
+        fun onComment(data: List<SquareDate>, position: Int)
+        fun doLike(squareId:Int)
+        fun onReply(data: MutableList<SquareDate>, position: Int, id: Int)
+    }
+
     inner class ViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
         @BindView(R.id.iv_head)
         lateinit var ivHead: SimpleDraweeView
@@ -183,6 +212,8 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
         lateinit var tvLocation: TextView
         @BindView(R.id.btn_like)
         lateinit var btnLike: TextView
+        @BindView(R.id.tv_content_full)
+        lateinit var tvContentFull: TextView
         @BindView(R.id.btn_comment)
         lateinit var btnComment: ImageView
         @BindView(R.id.ll_bottom)
@@ -196,36 +227,5 @@ class SquareAdapter(private val context: Context, private val fragmentManager: F
             ButterKnife.bind(this, view)
         }
     }
-    //评价 弹出输入框
-//       fun evaluateDialog() {
-//             TDialog.Builder(fragmentManager)
-//                    .setLayoutRes(R.layout.dialog_evaluate)
-//                    .setScreenWidthAspect(this, 1.0f)
-//                    .setGravity(Gravity.BOTTOM)
-//                    .addOnClickListener(R.id.btn_evluate)
-//                    .setOnBindViewListener(new OnBindViewListener() {
-//                        @Override
-//                        public void bindView(BindViewHolder viewHolder) {
-//                            final EditText editText = viewHolder.getView(R.id.editText);
-//                            editText.post(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    InputMethodManager imm = (InputMethodManager) DiffentDialogActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
-//                                    imm.showSoftInput(editText, 0);
-//                                }
-//                            });
-//                        }
-//                    })
-//                    .setOnViewClickListener(new OnViewClickListener() {
-//                        @Override
-//                        public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
-//                            EditText editText = viewHolder.getView(R.id.editText);
-//                            String content = editText.getText().toString().trim();
-//                            Toast.makeText(DiffentDialogActivity.this, "评价内容:" + content, Toast.LENGTH_SHORT).show();
-//                            tDialog.dismiss();
-//                        }
-//                    })
-//                    .create()
-//                    .show();
-//        }
+
 }

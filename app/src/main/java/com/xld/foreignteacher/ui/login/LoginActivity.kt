@@ -83,11 +83,11 @@ class LoginActivity : BaseTranslateStatusActivity() {
 
     override fun initData() {
         //activityUtil.go(EditTeacherInfoActivity::class.java).start()
-//        val id = SPUtils.getInt("id")
-//        if (id != -1) {
-//            activityUtil.go(MainActivity::class.java).start()
-//            finish()
-//        }
+        val id = appComponent.userHandler.getUser().id
+        if (id != -1) {
+            activityUtil.go(MainActivity::class.java).start()
+            finish()
+        }
 
     }
 

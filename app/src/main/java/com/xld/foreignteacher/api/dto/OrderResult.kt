@@ -17,8 +17,8 @@ data class PersonalTrainingOrder(var total: Int = 0, var records: Int = 0, var p
         class ListBean(var sortField: Any? = null, var id: Int = 0, var orderNumber: String? = null, var userId: Int = 0, var teacherId: Int = 0,
                        var curriculumId: Int = 0, var bookingAutoWeeks: Int = 0, var bookingAutoIds: String? = null, var bookingInfo: String? = null,
                        var numberOfPeople: Int = 0, var bookingUserIds: String? = null, var totalPrice: Int = 0, var userCouponId: Any? = null,
-                       var offset: Int = 0, var userService: Int = 0, var teacherService: Int = 0, var platformTotalService: Int = 0,
-                       var payMoney: Int = 0, var teacherIncomeMoney: Int = 0, var state: Int = 0, var refuseReason: Any? = null, var teacherCancelReason: Any? = null,
+                       var offset: Int = 0, var userService: Double = 0.00, var teacherService: Double = 0.00, var platformTotalService: Double = 0.00,
+                       var payMoney: Double = 0.00, var teacherIncomeMoney: Double = 0.00, var state: Int = 0, var refuseReason: Any? = null, var teacherCancelReason: Any? = null,
                        var teacherCancelDescribe: Any? = null, var userCancelReason: Any? = null, var userCancelDescribe: Any? = null, var totalRefund: Any? = null, var address: String? = null,
                        var reminderCount: Any? = null, var paytime: Any? = null, var addtime: Long = 0, var stateArray: Any? = null, var userName: String? = null,
                        var phone: String? = null, var user: UserBean? = null, var curriculum: CurriculumBean? = null, var teachers: TeachersBean? = null) {
@@ -47,11 +47,11 @@ data class PersonalTrainingOrder(var total: Int = 0, var records: Int = 0, var p
     }
 
     class RowsBean(var sortField: Any? = null, var id: Int = 0, var orderNumber: String? = null, var userId: Int = 0, var teacherId: Int = 0,
-                   var curriculumId: Int = 0, var bookingAutoWeeks: Int = 0, var bookingAutoIds: String? = null, var bookingInfo: String? = null,
+                   var curriculumId: Int = 0, var bookingAutoWeeks: Int = 1, var bookingAutoIds: String? = null, var bookingInfo: String? = null,
                    var numberOfPeople: Int = 0, var bookingUserIds: String? = null, var totalPrice: Int = 0, var userCouponId: Any? = null,
-                   var offset: Int = 0, var userService: Int = 0, var teacherService: Int = 0, var platformTotalService: Int = 0, var payMoney: Int = 0,
-                   var teacherIncomeMoney: Int = 0, var state: Int = 0, var refuseReason: Any? = null, var teacherCancelReason: Any? = null,
-                   var teacherCancelDescribe: Any? = null, var userCancelReason: Any? = null, var userCancelDescribe: Any? = null, var totalRefund: Any? = null,
+                   var offset: Int = 0, var userService: Double = 0.00, var teacherService: Double = 0.00, var platformTotalService: Double = 0.00, var payMoney: Double = 0.00,
+                   var teacherIncomeMoney: Double = 0.00, var state: Int = 0, var refuseReason: String? = null, var teacherCancelReason: String? = null,
+                   var teacherCancelDescribe: Any? = null, var userCancelReason: String? = null, var userCancelDescribe: Any? = null, var totalRefund: Any? = null,
                    var address: String? = null, var reminderCount: Any? = null, var paytime: Any? = null, var addtime: Long = 0, var stateArray: Any? = null, var userName: String? = null,
                    var phone: String? = null, var user: UserBeanX? = null, var curriculum: CurriculumBeanX? = null, var teachers: TeachersBeanX? = null) {
 

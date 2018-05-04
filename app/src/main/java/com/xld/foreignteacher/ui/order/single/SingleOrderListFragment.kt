@@ -12,6 +12,7 @@ import com.timmy.tdialog.TDialog
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.api.dto.PersonalTrainingOrder
 import com.xld.foreignteacher.ext.appComponent
+import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ui.order.adapter.SingleOrderAdapter
 import kotlinx.android.synthetic.main.fragment_single_order_list.*
 import org.slf4j.LoggerFactory
@@ -74,6 +75,7 @@ class SingleOrderListFragment : BaseFragment(), SingleOrderAdapter.SingleOrderIt
         }
         appComponent.netWork.getMyPersonalTrainingOrder(1, state, page, 10)
                 .doOnSubscribe { addDisposable(it) }
+                .doOnLoading { rec_order?.isRefreshing=it }
                 .subscribe {
                     dataList.addAll(it.rows!!)
                     adpter.setDataList(dataList)

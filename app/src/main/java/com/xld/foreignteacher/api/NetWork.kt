@@ -10,6 +10,7 @@ import com.xld.foreignteacher.ext.toast
 import com.xld.foreignteacher.util.DES
 import io.reactivex.Maybe
 import org.slf4j.LoggerFactory
+import java.util.*
 
 /**
  * Created by cz on 3/28/18.
@@ -479,8 +480,11 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
 
     //添加拼拼订单
     fun addFight(teacherId: Int, languagesId: Int, enrolment: Int, classesNumber: Int, price: Int, title: String, phone: String, address: String,
-                 lat: String, lon: String, backgroundCourse: String, introduce: String, introduceImgs: String, deadlineRegistration: String,
-                 reservationDeadline: String, openingTime: String, endTime: String): Maybe<Any> {
+                 lat: String, lon: String, backgroundCourse: String, introduce: String, introduceImgs: String, deadlineRegistration: Date,
+                 reservationDeadline: Date, openingTime: Date, endTime: Date): Maybe<Any> {
+        logger.e {"server=/app/userFight/addFight?teacherId=$teacherId&languagesId=$languagesId&enrolment=$enrolment&classesNumber=$classesNumber" +
+                "&price=$price&title=$title&phone=$phone&address=$address&lat=$lat&lon=$lon&backgroundCourse=$backgroundCourse&introduce=$introduce&introduceImgs=$introduceImgs" +
+                "&deadlineRegistration=$deadlineRegistration&reservationDeadline=$reservationDeadline&openingTime=$openingTime&endTime=$endTime"  }
         val key = DES.encryptDES("server=/app/userFight/addFight?teacherId=$teacherId&languagesId=$languagesId&enrolment=$enrolment&classesNumber=$classesNumber" +
                 "&price=$price&title=$title&phone=$phone&address=$address&lat=$lat&lon=$lon&backgroundCourse=$backgroundCourse&introduce=$introduce&introduceImgs=$introduceImgs" +
                 "&deadlineRegistration=$deadlineRegistration&reservationDeadline=$reservationDeadline&openingTime=$openingTime&endTime=$endTime")
@@ -694,6 +698,7 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
 
     companion object {
         val BaseUrl = "http://www.whynuttalk.com/"
+        val TestUrl = "http://192.168.3.139:8080/"
 
         val TYPE_CHARGE_RULES = 1
         val TYPE_AGREEMENT = 2

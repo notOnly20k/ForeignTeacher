@@ -1,11 +1,13 @@
 package com.xld.foreignteacher.ui.schedule
 
+import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.provider.MediaStore
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import cn.sinata.xldutils.utils.Toast
 import cn.sinata.xldutils.utils.Utils
 import cn.sinata.xldutils.xldUtils
@@ -13,7 +15,7 @@ import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ext.e
 import com.xld.foreignteacher.ext.toFormattedString
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
-import com.xld.foreignteacher.ui.schedule.adapter.IntroductionAdapter
+import com.xld.foreignteacher.ui.square.adapter.MomentAdapter
 import kotlinx.android.synthetic.main.activity_introduction.*
 import java.io.File
 import java.util.*
@@ -26,7 +28,7 @@ class IntroductionActivity : BaseTranslateStatusActivity() {
         get() = R.layout.activity_introduction
     override val changeTitleBar: Boolean
         get() = false
-    private lateinit var adapter: IntroductionAdapter
+    private lateinit var adapter: MomentAdapter
     private val list = mutableListOf<String>()
     private var tempFile: File? = null//临时文件
 
@@ -35,10 +37,10 @@ class IntroductionActivity : BaseTranslateStatusActivity() {
         title_bar.titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
         title_bar.setLeftButton(R.mipmap.back_yellow, { finish() })
         title_bar.setTitle("Introduction")
-        title_bar.addRightButton("Submit", {submit()})
+        title_bar.addRightButton("Submit", { submit() })
         title_bar.getRightButton(0).setTextColor(resources.getColor(R.color.yellow_ffcc00))
-        adapter = IntroductionAdapter(this, emptyList(), supportFragmentManager)
-        adapter.setOnItemClickListener(object : IntroductionAdapter.OnItemClickListener {
+        adapter = MomentAdapter(this, emptyList(), supportFragmentManager)
+        adapter.setOnItemClickListener(object : MomentAdapter.OnItemClickListener {
             override fun takePhoto() {
                 this@IntroductionActivity.takePhoto()
             }
@@ -54,12 +56,33 @@ class IntroductionActivity : BaseTranslateStatusActivity() {
 
         })
         rec_pic.adapter = adapter
-        rec_pic.layoutManager = LinearLayoutManager(this).apply { orientation = LinearLayoutManager.VERTICAL }
+        rec_pic.layoutManager = GridLayoutManager(this, 3)
 
     }
 
-    fun submit(){
+    fun submit() {
+        if (commitCheck()) {
+            val bundle = Bundle()
+            val picList = arrayListOf<String>()
+            picList.addAll(list)
+            bundle.putString("content", et_content.text.toString())
+            bundle.putStringArrayList("pics", picList)
+            setResult(Activity.RESULT_OK, intent.putExtra("introduction", bundle))
+            finish()
+        }
+    }
 
+    override fun commitCheck(): Boolean {
+        if (list.isEmpty()) {
+            showToast("select at least one picture")
+            return false
+        }
+
+        if (et_content.text.isEmpty()) {
+            showToast("write something")
+            return false
+        }
+        return super.commitCheck()
     }
 
     fun takePhoto() {
@@ -136,5 +159,9 @@ class IntroductionActivity : BaseTranslateStatusActivity() {
 
 
     override fun initData() {
+    }
+
+    companion object {
+        val INTRODUCTION = 111
     }
 }

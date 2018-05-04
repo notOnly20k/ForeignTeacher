@@ -137,6 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_info"
                     android:layout_marginTop="@dimen/dp_10"
+                    android:drawablePadding="4dp"
                     android:drawableLeft="@mipmap/icon_user_count"
                     android:text="@string/attending_client" />
 
@@ -146,19 +147,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_attending_client"
+                    android:drawablePadding="4dp"
                     android:drawableLeft="@mipmap/icon_time"
                     android:text="12-12 15:00-16:00" />
 
                 <TextView
                     android:id="@+id/tv_location"
                     style="@style/style_order_info_item"
-                    android:layout_width="wrap_content"
+                    android:layout_width="300dp"
+                    android:drawablePadding="4dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_class_time"
                     android:drawableLeft="@mipmap/location"
                     android:text="chengdu qingyangqu 106" />
 
                 <ImageView
+                    android:id="@+id/img_locate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -208,7 +212,9 @@
                     android:layout_below="@id/tv_accept"
                     android:layout_marginTop="@dimen/dp_4"
                     android:text="temporary bussiness"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    />
 
 
                 <ImageView

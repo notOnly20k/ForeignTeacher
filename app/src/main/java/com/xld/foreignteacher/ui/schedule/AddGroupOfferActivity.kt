@@ -12,7 +12,8 @@ import cn.sinata.xldutils.xldUtils
 import com.amap.api.services.core.PoiItem
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ext.appComponent
-import com.xld.foreignteacher.ext.e
+import com.xld.foreignteacher.ext.doOnLoading
+import com.xld.foreignteacher.ext.formateToNum
 import com.xld.foreignteacher.ext.toFormattedString
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.dialog.ClassDateDialog
@@ -35,12 +36,14 @@ class AddGroupOfferActivity : BaseTranslateStatusActivity() {
         get() = false
     private var filePath = ""
     private var tempFile: File? = null//临时文件
-    private var typeId: Int? = null
+    private var languageId: Int? = null
     var lat = ""
     var lon = ""
-    lateinit var startTime:Date
-    lateinit var endtTime:Date
-    lateinit var deadLinetTime:Date
+    var introduction = ""
+    var picList = mutableListOf<String>()
+    lateinit var startTime: Date
+    lateinit var endtTime: Date
+    lateinit var deadLinetTime: Date
     val ossUtil: OssUtil by lazy { OssUtil(this) }
 
     override fun initView() {
@@ -58,9 +61,10 @@ class AddGroupOfferActivity : BaseTranslateStatusActivity() {
                         override fun clickCancel() {
                         }
 
-                        override fun clickSure(date: String, hour: String, min: String,time:Date) {
+                        override fun clickSure(date: String, hour: String, min: String, time: Date) {
                             val text = "$date  $hour:$min"
                             et_start_time.setText(text)
+                            startTime = transToDate(date, hour, min, time)
                         }
 
                     })
@@ -73,9 +77,10 @@ class AddGroupOfferActivity : BaseTranslateStatusActivity() {
                         override fun clickCancel() {
                         }
 
-                        override fun clickSure(date: String, hour: String, min: String,time:Date) {
+                        override fun clickSure(date: String, hour: String, min: String, time: Date) {
                             val text = "$date  $hour:$min"
                             et_end_time.setText(text)
+                            endtTime = transToDate(date, hour, min, time)
                         }
 
                     })
@@ -88,11 +93,10 @@ class AddGroupOfferActivity : BaseTranslateStatusActivity() {
                         override fun clickCancel() {
                         }
 
-                        override fun clickSure(date: String, hour: String, min: String,time:Date) {
+                        override fun clickSure(date: String, hour: String, min: String, time: Date) {
                             val text = "$date  $hour:$min"
                             et_deadline.setText(text)
-                            startTime=transToDate(date,hour,min,time)
-                            logger.e { startTime }
+                            deadLinetTime = transToDate(date, hour, min, time)
                         }
 
                     })
@@ -114,7 +118,7 @@ class AddGroupOfferActivity : BaseTranslateStatusActivity() {
                                     override fun clickSure(string: String) {
                                         list.map {
                                             if (it.eName == string)
-                                                typeId = it.id
+                                                languageId = it.id
                                         }
                                         et_language.setText(string)
                                     }
@@ -131,39 +135,67 @@ class AddGroupOfferActivity : BaseTranslateStatusActivity() {
         }
 
         et_offer_detail.setOnClickListener {
-            activityUtil.go(IntroductionActivity::class.java).start()
+            activityUtil.go(IntroductionActivity::class.java).startForResult(IntroductionActivity.INTRODUCTION)
         }
+
+        btn_submit.setOnClickListener { submit() }
+
     }
+
     fun transToDate(date: String, hour: String, min: String, time: Date): Date {
         val f = SimpleDateFormat("yyyy", Locale.CHINA)
-        val year=f.format(time)
-        val date="$year-$date $hour:$min:00"
+        val year = f.format(time)
+        val date = "$year-$date $hour:$min:00"
         return TimeUtils.parseTime(date)
     }
 
     fun submit() {
-        val list = mutableListOf<String>()
-        list.add(filePath)
-        ossUtil.uploadMulti(list, object : OssUtil.OSSUploadCallBack() {
-            override fun onFial(message: String?) {
-                super.onFial(message)
-            }
+        if (commitCheck()) {
+            val list = mutableListOf<String>()
+            list.addAll(picList)
+            list.add(filePath)
+            ossUtil.uploadMulti(list, object : OssUtil.OSSUploadCallBack() {
+                override fun onFial(message: String?) {
+                    super.onFial(message)
+                }
 
-            override fun onFinish(urls: ArrayList<String>?) {
-                super.onFinish(urls)
-               // appComponent.netWork.addFight(appComponent.userHandler.getUser().id)
-            }
-        })
+                override fun onFinish(urls: ArrayList<String>?) {
+                    super.onFinish(urls)
+
+                    appComponent.netWork.addFight(appComponent.userHandler.getUser().id, languageId!!, et_max.text.toString().toInt(), et_min.text.toString().toInt(),
+                            et_rate.text.toString().toInt(), et_name.text.toString(), et_contact.text.toString().formateToNum(), et_location.text.toString(), lat, lon,
+                            urls!!.last(), introduction, urls!!.dropLast(1).toString(), deadLinetTime, deadLinetTime, startTime, endtTime)
+                            .doOnLoading { showProgress(it) }
+                            .doOnSubscribe { mCompositeDisposable.add(it) }
+                            .subscribe {
+                                showToast("submit success")
+                                finish()
+                            }
+                }
+            })
+        }
     }
 
     override fun commitCheck(): Boolean {
-        if (et_deadline.text.isEmpty()||et_contact.text.isEmpty()||et_end_time.text.isEmpty()||et_start_time.text.isEmpty()||et_language.text.isEmpty()
-                ||et_location.text.isEmpty()||et_max.text.isEmpty()||et_rate.text.isEmpty()||et_min.text.isEmpty()||et_name.text.isEmpty()){
+        if (et_deadline.text.isEmpty() || et_contact.text.isEmpty() || et_end_time.text.isEmpty() || et_start_time.text.isEmpty() || et_language.text.isEmpty()
+                || et_location.text.isEmpty() || et_max.text.isEmpty() || et_rate.text.isEmpty() || et_min.text.isEmpty() || et_name.text.isEmpty()) {
             showToast("Perfect the form ")
             return false
         }
-        if (filePath.isEmpty()){
+        if (filePath.isEmpty()) {
             showToast("select background picture")
+            return false
+        }
+        if (startTime < deadLinetTime) {
+            showToast("startTime must be great than the deadline")
+            return false
+        }
+        if (startTime > endtTime) {
+            showToast("endTime must be great than the startTime")
+            return false
+        }
+        if (introduction.isEmpty()){
+            showToast("edit introduction")
             return false
         }
         return super.commitCheck()
@@ -227,6 +259,12 @@ class AddGroupOfferActivity : BaseTranslateStatusActivity() {
                     lat = address.latLonPoint.latitude.toString()
                     lon = address.latLonPoint.longitude.toString()
                     et_location.setText(address.cityName + address.adName + address.snippet)
+                }
+                IntroductionActivity.INTRODUCTION -> {
+                    val bundle = data!!.getBundleExtra("introduction")
+                    introduction = bundle.getString("content")
+                    picList = bundle.getStringArrayList("pics")
+                    et_offer_detail.setText("Edited")
                 }
                 0 -> if (tempFile != null && tempFile!!.exists()) {
                     filePath = tempFile!!.absolutePath

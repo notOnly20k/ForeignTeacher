@@ -28,6 +28,7 @@ import com.xld.foreignteacher.ui.report.DeclinedActivity
 import com.xld.foreignteacher.ui.report.ReportActivity
 import org.slf4j.LoggerFactory
 
+
 /**
  * Created by cz on 4/3/18.
  */
@@ -66,39 +67,41 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
         if (getItemViewType(position) == TYPE_NORMAL) {
             val order = data[position]
             val viewHolder = holder as ViewHolder
+
+            if (order.user != null && order.user!!.imgUrl != null) {
+                viewHolder.ivHead.setImageURI(order.user!!.imgUrl)
+            }
+            viewHolder.tvName.text = order.user!!.nickName
+            val age = TimeUtils.getAge(order.user!!.birthDay) - 1
+            viewHolder.tvAge.text = String.format(context.resources.getString(R.string.ages), age)
+            viewHolder.tvTitle.text = order.curriculum?.title ?: ""
+            viewHolder.tvWeeks.text = order.bookingAutoWeeks.toString() + " Weeks"
+            viewHolder.tvInfo.text = order.curriculum?.className ?: ""
+
+            var backDra = if (order.user!!.sex == 1) {
+                context.resources.getDrawable(R.mipmap.icon_male)
+            } else {
+                context.resources.getDrawable(R.mipmap.icon_woman)
+            }
+            backDra.setBounds(backDra.minimumWidth, 0, 0, backDra.minimumHeight)
+
+            viewHolder.tvName.setCompoundDrawablesWithIntrinsicBounds(null, null, backDra, null)
+            viewHolder.tvName.compoundDrawablePadding = backDra.minimumHeight / 2
+            viewHolder.tvAttendingClient.text = String.format(context.resources.getString(R.string.attending_client), order.numberOfPeople)
+            viewHolder.tvLocation.text = order.address
+            viewHolder.tvPrice.text = "￥" + order.payMoney
+            val week = TimeUtils.getCurrentTimeMMDD(order.curriculum?.startTime ?: 0)
+            val start = TimeUtils.getTimeHM(order.curriculum?.startTime ?: 0)
+            val end = TimeUtils.getTimeHM(order.curriculum?.endTime ?: 0)
+            viewHolder.tvClassTime.text = "$week $start ~ $end"
+            viewHolder.tvAttendingClient.text = String.format(context.resources.getString(R.string.attending_client), order.numberOfPeople)
+            viewHolder.imgLocate.setOnClickListener {
+//                AmapNaviPage.getInstance().showRouteActivity(context, AmapNaviParams(null,null, Poi(order.address,null,null), AmapNaviType.DRIVER)
+//                        , object :INaviInfoCallback{})
+            }
             when (type) {
                 SingleOrderFragment.NEW_ORDERS -> {
                     viewHolder.tvPromotion.visibility = View.VISIBLE
-                    if (order.user != null && order.user!!.imgUrl != null) {
-                        viewHolder.ivHead.setImageURI(order.teachers!!.imgUrl)
-                    }
-                    viewHolder.tvName.text = order.user!!.nickName
-                    val age = TimeUtils.getAge("1995-02-16")-1
-                    viewHolder.tvAge.text = String.format(context.resources.getString(R.string.ages), age)
-                    viewHolder.tvTitle.text = order.curriculum?.title ?: ""
-                    viewHolder.tvWeeks.text = order.bookingAutoWeeks.toString() + "Weeks"
-                    viewHolder.tvInfo.text = order.curriculum?.className ?: ""
-
-                    var backDra = if (order.user!!.sex == 1) {
-                        context.resources.getDrawable(R.mipmap.icon_male)
-                    } else {
-                        context.resources.getDrawable(R.mipmap.icon_woman)
-                    }
-                    backDra.setBounds(backDra.minimumWidth, 0, 0, backDra.minimumHeight)
-
-                    viewHolder.tvName.setCompoundDrawablesWithIntrinsicBounds(null, null, backDra, null)
-                    viewHolder.tvName.compoundDrawablePadding = backDra.minimumHeight / 2
-                    viewHolder.tvAttendingClient.text = String.format(context.resources.getString(R.string.attending_client), order.numberOfPeople)
-                    viewHolder.tvLocation.text = order.address
-                    viewHolder.tvPrice.text = "￥"+ order.payMoney
-
-
-//                    val MD = TimeUtils.getCurrentTimeMMDD(order.curriculum?.startTime ?: 0)
-//                    val start = TimeUtils.getTimeHM(order.curriculum?.startTime ?: 0)
-//                    val end = TimeUtils.getTimeHM(order.curriculum?.endTime ?: 0)
-//                    viewHolder.tvClassTime.text = "$MD $start $end"
-
-
                     viewHolder.cvItem.setOnClickListener {
                         activityUtil.go(OrderDetailActivity::class.java).start()
                     }
@@ -167,9 +170,10 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                     }
                 }
                 SingleOrderFragment.CANCELED -> {
-                    viewHolder.tvAttendingClient.text = "Me-Cancellation Reasons"
+                    viewHolder.tvAccept.text = "Me-Cancellation Reasons"
                     viewHolder.tvAcceptCount.visibility = View.GONE
                     viewHolder.tvCancelReason.visibility = View.VISIBLE
+                    viewHolder.tvCancelReason.text = order.userCancelReason ?: order.teacherCancelReason
                     viewHolder.btnCancel.text = "Delete"
                     viewHolder.btnAccept.visibility = View.GONE
                     viewHolder.btnCancel.setOnClickListener {
@@ -195,6 +199,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                     viewHolder.tvAccept.text = "Refusal cause"
                     viewHolder.tvAcceptCount.visibility = View.GONE
                     viewHolder.tvCancelReason.visibility = View.VISIBLE
+                    viewHolder.tvCancelReason.text = order.refuseReason
                     viewHolder.btnAccept.visibility = View.GONE
                     viewHolder.btnCancel.text = "Delete"
                     viewHolder.btnCancel.setOnClickListener {
@@ -234,6 +239,8 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
     inner class ViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
         @BindView(R.id.iv_head)
         lateinit var ivHead: SimpleDraweeView
+        @BindView(R.id.img_locate)
+        lateinit var imgLocate: ImageView
         @BindView(R.id.tv_name)
         lateinit var tvName: TextView
         @BindView(R.id.tv_age)

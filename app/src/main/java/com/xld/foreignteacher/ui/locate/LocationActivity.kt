@@ -158,7 +158,10 @@ class LocationActivity : BaseTranslateStatusActivity(), LocationSource, PoiSearc
         setUpMap()
         geocoderSearch = GeocodeSearch(this)
         geocoderSearch!!.setOnGeocodeSearchListener(this)
-
+        val myLocationStyle= MyLocationStyle()
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)
+        myLocationStyle.showMyLocation(true)
+        aMap.setMyLocationStyle(myLocationStyle)
         aMap.isMyLocationEnabled = true
         aMap.setOnCameraChangeListener(object : AMap.OnCameraChangeListener {
             override fun onCameraChange(cameraPosition: CameraPosition) {

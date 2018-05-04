@@ -49,11 +49,9 @@ def requery_version = '1.4.1'
 def retrofit_version = '2.2.0'
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-
     compile project(':xldUtils')
     compile project(':dragsquareimage')
     compile project(':WheelPicker')
-
     api "com.android.support:appcompat-v7:$support_library_version"
     implementation "com.android.support:preference-v7:$support_library_version"
     implementation "com.android.support:preference-v14:$support_library_version"
@@ -63,7 +61,6 @@ dependencies {
     api "com.android.support:gridlayout-v7:$support_library_version"
     api 'com.android.support.constraint:constraint-layout:1.0.2'
     api 'com.google.guava:guava:23.0-android'
-
     implementation('com.github.bumptech.glide:okhttp3-integration:1.4.0') {
         exclude group: 'glide-parent'
     }
@@ -81,8 +78,6 @@ dependencies {
     kapt "com.android.databinding:compiler:$android_gradle_version"
     kapt "com.jakewharton:butterknife-compiler:8.8.1"
     implementation "com.android.support:cardview-v7:$support_library_version"
-
-
     compile 'com.timmy.tdialog:tdialog:1.3.1'
     compile 'com.github.chaychan:BottomBarLayout:1.1.1'
     compile 'com.youth.banner:banner:1.4.10'
@@ -95,7 +90,10 @@ dependencies {
     api 'org.slf4j:slf4j-api:1.7.25'
     compile 'com.hyphenate:hyphenate-sdk-lite:3.4.0.1'
     implementation files('libs/umeng-common-1.5.0.jar')
-    implementation files('libs/AMap2DMap_5.2.0_AMapSearch_6.1.0_AMapLocation_3.8.0_20180330.jar')
+    compile 'com.amap.api:map2d:latest.integration'
+    compile 'com.amap.api:navi-3dmap:latest.integration'
+    compile 'com.amap.api:location:latest.integration'
+    compile 'com.amap.api:search:latest.integration'
 }
 
 apply plugin: 'kotlin-android-extensions'

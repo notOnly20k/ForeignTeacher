@@ -9,7 +9,7 @@ import com.xld.foreignteacher.Service.LocationHandler
 import com.xld.foreignteacher.Service.UserHandler
 import com.xld.foreignteacher.api.AppApi
 import com.xld.foreignteacher.api.NetWork
-import com.xld.foreignteacher.api.NetWork.Companion.BaseUrl
+import com.xld.foreignteacher.api.NetWork.Companion.TestUrl
 import com.xld.foreignteacher.views.ScheduleDateTextView
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
@@ -51,7 +51,7 @@ class BaseApp : BaseApplication(), AppComponent {
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(BaseUrl)
+                .baseUrl(TestUrl)
                 .build()
                 .create(AppApi::class.java)
         netWork = NetWork(this, appApi)

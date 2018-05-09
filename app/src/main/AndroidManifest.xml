@@ -84,9 +84,15 @@
         <activity android:name=".ui.order.single.PendingDetailActivity" />
         <activity android:name=".ui.schedule.AddOfferActivity" />
         <activity android:name=".ui.schedule.AddGroupOfferActivity" />
-        <activity android:name=".ui.schedule.adapter.EditScheduleActivity" />
+        <activity android:name=".ui.schedule.EditScheduleActivity" />
         <activity android:name=".ui.square.CommentDetailActivity" />
         <activity android:name=".ui.schedule.IntroductionActivity" />
+        <activity android:name=".ui.msg.SystemMsgActivity" />
+        <activity android:name=".ui.msg.OrderMsgActivity" />
+        <activity android:name=".ui.msg.ChatActivity" />
+        <activity android:name=".ui.schedule.PreviewGroupOrderActivity" />
+        <activity android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity" />
+        <activity android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity" />
         <activity
             android:name=".ui.mine.InfoActivity"
             android:windowSoftInputMode="stateUnchanged" />
@@ -160,6 +166,9 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <service android:name="com.amap.api.location.APSService"></service>
+
+        <!-- 设置环信应用的AppKey -->
+        <meta-data android:name="EASEMOB_APPKEY" android:value="1160180131115282#foreignuser" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

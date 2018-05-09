@@ -1,1 +1,1 @@
-include ':app',':xldUtils',':crop',':dragsquareimage',":WheelPicker"
+include ':app', ':xldUtils', ':crop', ':dragsquareimage', ":WheelPicker", ':easeui'

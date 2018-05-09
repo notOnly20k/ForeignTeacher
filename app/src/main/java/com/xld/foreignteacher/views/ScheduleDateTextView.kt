@@ -7,7 +7,7 @@ import android.text.style.RelativeSizeSpan
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.RelativeLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.xld.foreignteacher.R
 import org.slf4j.LoggerFactory
@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory
  */
 class ScheduleDateTextView @JvmOverloads constructor(context: Context,
                                                      attrs: AttributeSet? = null,
-                                                     defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
+                                                     defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr) {
     private var tvDiscount: TextView
     private var rbDate: TextView
     private val logger = LoggerFactory.getLogger("ScheduleDateTextView")
@@ -49,6 +49,14 @@ class ScheduleDateTextView @JvmOverloads constructor(context: Context,
             isChecked = !isChecked
             onScheduleDateTextViewClickListner?.click(isChecked)
         }
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val width=MeasureSpec.getSize(widthMeasureSpec)/3
+        val height=MeasureSpec.getSize(heightMeasureSpec)
+        val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.AT_MOST)
+        val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.AT_MOST)
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
 
     fun changByState(state: Int) {

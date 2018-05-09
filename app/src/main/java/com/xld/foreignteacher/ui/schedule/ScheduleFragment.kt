@@ -15,9 +15,9 @@ import cn.sinata.xldutils.utils.ActivityUtil
 import cn.sinata.xldutils.utils.TimeUtils
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ext.appComponent
+import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ui.dialog.CustomPopWindow
 import com.xld.foreignteacher.ui.order.adapter.SingleOrderFragmentAdapter
-import com.xld.foreignteacher.ui.schedule.adapter.EditScheduleActivity
 import com.xld.foreignteacher.ui.schedule.adapter.MyGroupOfferAdapter
 import com.xld.foreignteacher.ui.schedule.adapter.MyOfferAdapter
 import kotlinx.android.synthetic.main.fragment_schedule.*
@@ -37,6 +37,7 @@ class ScheduleFragment : BaseFragment() {
     private val logger = LoggerFactory.getLogger("ScheduleFragment")
     private val fragmentList = ArrayList<BaseFragment>()
     private val titles = ArrayList<Date>()
+    var page2=1
 
 
     private lateinit var myOfferAdapter: MyOfferAdapter
@@ -74,11 +75,13 @@ class ScheduleFragment : BaseFragment() {
         tv_set_discount.setOnClickListener {
             activityUtil.go(EditScheduleActivity::class.java).put("type", EditScheduleActivity.DISCOUNT).start()
         }
+        initGroupData()
 
     }
 
     private fun initOfferView() {
         rec_content.layoutManager = LinearLayoutManager(context).apply { orientation = LinearLayout.VERTICAL }
+        rec_content.isNestedScrollingEnabled=false
         myGroupOfferAdapter = MyGroupOfferAdapter(context)
         myOfferAdapter = MyOfferAdapter(context)
         (rb_my_offer as RadioButton).setOnCheckedChangeListener { _, isChecked ->
@@ -162,6 +165,15 @@ class ScheduleFragment : BaseFragment() {
         vp_schedule.currentItem = 0
         tab_date.getTabAt(0)!!.select()
 
+    }
+
+    fun initGroupData(){
+       appComponent.netWork.getTeacherFightFirstList(appComponent.userHandler.getUser().id,10,page2)
+               .doOnSubscribe { addDisposable(it) }
+               .doOnLoading { isShowDialog(it) }
+               .subscribe {
+                   myGroupOfferAdapter.setData(it)
+               }
     }
 
     private fun disableAutoScrollToBottom() {

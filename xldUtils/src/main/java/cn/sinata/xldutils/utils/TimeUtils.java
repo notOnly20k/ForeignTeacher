@@ -480,6 +480,24 @@ public class TimeUtils {
 		return null;
 	}
 
+
+	public static Date parseTaskTimeYMD(String time) {
+
+		SimpleDateFormat formart = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
+
+		try {
+			Date d = formart.parse(time);
+
+			return d;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+
 	public static String getLastUpdateTimeDesc(String time) {
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(

@@ -11,10 +11,8 @@ import cn.sinata.xldutils.utils.Utils
 import cn.sinata.xldutils.xldUtils
 import com.amap.api.services.core.PoiItem
 import com.xld.foreignteacher.R
-import com.xld.foreignteacher.ext.appComponent
-import com.xld.foreignteacher.ext.doOnLoading
-import com.xld.foreignteacher.ext.formateToNum
-import com.xld.foreignteacher.ext.toFormattedString
+import com.xld.foreignteacher.data.PreviewGroupOrder
+import com.xld.foreignteacher.ext.*
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.dialog.ClassDateDialog
 import com.xld.foreignteacher.ui.dialog.CustomDialog
@@ -44,6 +42,7 @@ class AddGroupOfferActivity : BaseTranslateStatusActivity() {
     lateinit var startTime: Date
     lateinit var endtTime: Date
     lateinit var deadLinetTime: Date
+    var upDataPicList = mutableListOf<String>()
     val ossUtil: OssUtil by lazy { OssUtil(this) }
 
     override fun initView() {
@@ -51,7 +50,9 @@ class AddGroupOfferActivity : BaseTranslateStatusActivity() {
         title_bar.titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
         title_bar.setLeftButton(R.mipmap.back_yellow, { finish() })
         title_bar.setTitle("Add Group offer")
-        title_bar.addRightButton("Preview", {})
+        title_bar.addRightButton("Preview", {
+            preview()
+        })
         title_bar.getRightButton(0).setTextColor(resources.getColor(R.color.yellow_ffcc00))
 
         et_start_time.setOnClickListener {
@@ -135,11 +136,41 @@ class AddGroupOfferActivity : BaseTranslateStatusActivity() {
         }
 
         et_offer_detail.setOnClickListener {
-            activityUtil.go(IntroductionActivity::class.java).startForResult(IntroductionActivity.INTRODUCTION)
+            activityUtil.go(IntroductionActivity::class.java).put("ins", introduction).putStringList("pic", picList as ArrayList<String>?).startForResult(IntroductionActivity.INTRODUCTION)
         }
+
+        img_locate.setOnClickListener { initData() }
 
         btn_submit.setOnClickListener { submit() }
 
+    }
+
+    fun preview() {
+        val previewData = PreviewGroupOrder()
+        val f = SimpleDateFormat("MM-dd", Locale.CHINA)
+        val f1 = SimpleDateFormat("HH:mm", Locale.CHINA)
+        val f2 = SimpleDateFormat("yyyy-mm-dd HH:mm", Locale.CHINA)
+        if (et_end_time.text.isNotEmpty() && et_start_time.text.isNotEmpty()) {
+            val week = f.format(startTime)
+            val start = f1.format(startTime)
+            val end = f1.format(endtTime)
+            previewData.time = "$week $start ~ $end"
+        }
+
+        if (et_deadline.text.isNotEmpty()) {
+            val dead = f2.format(deadLinetTime)
+            previewData.deadline = dead
+        }
+
+        previewData.address = et_location.text.toString()
+        previewData.introduction = introduction
+        previewData.pics = picList
+        previewData.backGround = filePath
+        previewData.max = et_max.text.toString()
+        previewData.min = et_min.text.toString()
+        previewData.title = et_name.text.toString()
+        previewData.price = et_rate.text.toString()
+        activityUtil.go(PreviewGroupOrderActivity::class.java).put("data", previewData).start()
     }
 
     fun transToDate(date: String, hour: String, min: String, time: Date): Date {
@@ -151,29 +182,44 @@ class AddGroupOfferActivity : BaseTranslateStatusActivity() {
 
     fun submit() {
         if (commitCheck()) {
+            showProgress(true)
             val list = mutableListOf<String>()
             list.addAll(picList)
             list.add(filePath)
-            ossUtil.uploadMulti(list, object : OssUtil.OSSUploadCallBack() {
-                override fun onFial(message: String?) {
-                    super.onFial(message)
-                }
+            if (upDataPicList.isEmpty()) {
+                ossUtil.uploadMulti(list, object : OssUtil.OSSUploadCallBack() {
+                    override fun onFial(message: String?) {
+                        super.onFial(message)
+                        showProgress(false)
+                    }
 
-                override fun onFinish(urls: ArrayList<String>?) {
-                    super.onFinish(urls)
+                    override fun onFinish(urls: ArrayList<String>?) {
+                        super.onFinish(urls)
+                        upDataPicList.addAll(urls!!)
+                        updata(urls!!)
 
-                    appComponent.netWork.addFight(appComponent.userHandler.getUser().id, languageId!!, et_max.text.toString().toInt(), et_min.text.toString().toInt(),
-                            et_rate.text.toString().toInt(), et_name.text.toString(), et_contact.text.toString().formateToNum(), et_location.text.toString(), lat, lon,
-                            urls!!.last(), introduction, urls!!.dropLast(1).toString(), deadLinetTime, deadLinetTime, startTime, endtTime)
-                            .doOnLoading { showProgress(it) }
-                            .doOnSubscribe { mCompositeDisposable.add(it) }
-                            .subscribe {
-                                showToast("submit success")
-                                finish()
-                            }
-                }
-            })
+                    }
+                })
+            } else {
+                updata(upDataPicList)
+            }
         }
+    }
+
+    fun updata(urls: MutableList<String>) {
+        val formart = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.CHINA)
+        val deadline = formart.format(deadLinetTime)
+        val start = formart.format(startTime)
+        val end = formart.format(endtTime)
+        appComponent.netWork.addFight(appComponent.userHandler.getUser().id, languageId!!, et_max.text.toString().toInt(), et_min.text.toString().toInt(),
+                et_rate.text.toString().toInt(), et_name.text.toString(), et_contact.text.toString().formateToNum(), et_location.text.toString(), lat, lon,
+                urls!!.last(), introduction, urls!!.dropLast(1).toString(), deadline, deadline, start, end)
+                .doOnLoading { isShowDialog(it) }
+                .doOnSubscribe { mCompositeDisposable.add(it) }
+                .subscribe {
+                    showToast("submit success")
+                    finish()
+                }
     }
 
     override fun commitCheck(): Boolean {
@@ -194,7 +240,7 @@ class AddGroupOfferActivity : BaseTranslateStatusActivity() {
             showToast("endTime must be great than the startTime")
             return false
         }
-        if (introduction.isEmpty()){
+        if (introduction.isEmpty()) {
             showToast("edit introduction")
             return false
         }
@@ -258,7 +304,7 @@ class AddGroupOfferActivity : BaseTranslateStatusActivity() {
                     val address = data!!.getParcelableExtra<PoiItem>("address")
                     lat = address.latLonPoint.latitude.toString()
                     lon = address.latLonPoint.longitude.toString()
-                    et_location.setText(address.cityName + address.adName + address.snippet)
+                    et_location.setText(address.title)
                 }
                 IntroductionActivity.INTRODUCTION -> {
                     val bundle = data!!.getBundleExtra("introduction")
@@ -283,8 +329,8 @@ class AddGroupOfferActivity : BaseTranslateStatusActivity() {
                                         || fileType == "png" || fileType == "jpeg"
                                         || fileType == "bmp" || fileType == "wbmp"
                                         || fileType == "ico" || fileType == "jpe") {
-                                    filePath = tempFile!!.absolutePath
-                                    img_up_load.setImageURI(Uri.fromFile(tempFile))
+                                    filePath = path
+                                    img_up_load.setImageURI(Uri.fromFile(File(path)))
                                 } else {
                                     Toast.create(this).show((R.string.error_pic_type).toFormattedString(this))
                                 }
@@ -303,6 +349,27 @@ class AddGroupOfferActivity : BaseTranslateStatusActivity() {
     }
 
     override fun initData() {
+        appComponent.locationHandler.locationSubject
+                .doOnSubscribe { mCompositeDisposable.add(it) }
+                .doOnLoading { isShowDialog(it) }
+                .subscribe { locate ->
+                    appComponent.netWork.getOpenedCity()
+                            .doOnSubscribe { mCompositeDisposable.add(it) }
+                            .doOnLoading { isShowDialog(it) }
+                            .subscribe {
+                                logger.e { locate.city }
+                                if (it.find { it.enName == locate.city } != null) {
+                                    et_location.setText(locate.address)
+                                    lat = locate.latitude.toString()
+                                    lon = locate.longitude.toString()
+                                } else {
+                                    showToast("current city is not open")
+                                }
+
+                            }
+                }
+        appComponent.locationHandler.start()
+
 
     }
 }

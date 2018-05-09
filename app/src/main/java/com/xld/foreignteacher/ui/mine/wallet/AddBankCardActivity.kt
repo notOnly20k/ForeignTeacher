@@ -28,7 +28,7 @@ class AddBankCardActivity: BaseTranslateStatusActivity() {
             if (commitCheck()) {
                 appComponent.netWork.addBankAccount(user.id, et_cardholder.text.toString(), et_card_no.getTextWithoutSpace(), 2)
                         .doOnSubscribe { mCompositeDisposable.add(it) }
-                        .doOnLoading { showProgress(it) }
+                        .doOnLoading { isShowDialog(it) }
                         .subscribe { finish() }
             }
         }

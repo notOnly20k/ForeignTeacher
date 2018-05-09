@@ -93,7 +93,7 @@ class CommentDetailActivity : BaseTranslateStatusActivity() {
 
     private fun doComment() {
         appComponent.netWork.addSquareComment(appComponent.userHandler.getUser().id,squareId,etReply.text.toString(),id)
-                .doOnLoading { showProgress(it) }
+                .doOnLoading { isShowDialog(it) }
                 .doOnSubscribe { mCompositeDisposable.add(it) }
                 .subscribe {
                     etReply.setText("")

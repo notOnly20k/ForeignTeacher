@@ -48,7 +48,7 @@ class SquareFragment : BaseFragment() {
             override fun doLike(squareId: Int) {
                 appComponent.netWork
                         .addGiveThum(squareId, context.appComponent.userHandler.getUser()!!.id)
-                        .doOnLoading {}
+                        .doOnLoading {isShowDialog(it)}
                         .subscribe {
                             page = 1
                             initDate()
@@ -68,6 +68,8 @@ class SquareFragment : BaseFragment() {
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rec_square.setLayoutManager(layoutManager)
+
+        tv_choose_city.text=appComponent.userHandler.getUser().city
 
         tv_choose_city.setOnClickListener {
             activityUtil.go(SquareCityActivity::class.java).put(CURRENT_CITY, "北京市市辖区").startForResult(SELECTCITY)
@@ -96,10 +98,7 @@ class SquareFragment : BaseFragment() {
     private fun initDate() {
         appComponent.netWork
                 .getSquareList(appComponent.userHandler.getUser()!!.id, page, 10)
-                .doOnLoading {
-                    if (rec_square != null)
-                        rec_square.isRefreshing = it
-                }
+                .doOnLoading { rec_square?.isRefreshing = it }
                 .subscribe { list ->
                     if (page == 1) {
                         dataList.clear()

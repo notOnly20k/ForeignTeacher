@@ -16,7 +16,7 @@ class WalletActivity : BaseTranslateStatusActivity() {
         get() = R.layout.activity_wallet
     override val changeTitleBar: Boolean
         get() = false
-
+    var money="0"
     override fun initView() {
         title_bar.titlelayout.setBackgroundResource(R.color.color_black_1d1e24)
         title_bar.titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
@@ -32,16 +32,17 @@ class WalletActivity : BaseTranslateStatusActivity() {
         }
 
         tv_with_draw.setOnClickListener {
-            activityUtil.go(WithDrawActivity::class.java).start()
+            activityUtil.go(WithDrawActivity::class.java).put("money",money).start()
         }
 
     }
 
     override fun initData() {
-        appComponent.netWork.getMyWallet(1)
+        appComponent.netWork.getMyWallet(appComponent.userHandler.getUser().id)
                 .doOnSubscribe { mCompositeDisposable.add(it) }
-                .doOnLoading { showProgress(it) }
+                .doOnLoading { isShowDialog(it) }
                 .subscribe {
+                    money=it.teachers?.balance?.toString() ?: "0"
                     tv_money.text = it.teachers?.balance?.toString() ?: "0"
                     tv_monthly_income_count.text = it.lucreMonth.toString()
                     tv_weekly_average_count.text = it.weeklyAverage.toString()

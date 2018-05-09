@@ -108,9 +108,10 @@ class GroupDetailActivity : BaseTranslateStatusActivity() {
     }
 
     private fun initMyData() {
-        appComponent.netWork.getFightDetail(id, 0.00, 0.00)
+        val user=appComponent.userHandler.getUser()
+        appComponent.netWork.getFightDetail(id, user.lat?:0.00, user.lon?:0.00)
                 .doOnSubscribe { mCompositeDisposable.add(it) }
-                .doOnLoading { showProgress(it) }
+                .doOnLoading { isShowDialog(it) }
                 .subscribe {
                     val price = SpannableString("￥${it.price}/person")
                     price.setSpan(RelativeSizeSpan(1.2f), 1, it.price.toString().length + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)

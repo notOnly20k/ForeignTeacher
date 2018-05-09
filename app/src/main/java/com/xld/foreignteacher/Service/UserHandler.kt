@@ -12,7 +12,7 @@ class UserHandler {
     fun getUser(): User{
         val user= SPUtils.getString("user")
         if (user.isNotEmpty()){
-            return Gson().fromJson(user, User::class.java)
+            return Gson().fromJson(user, User::class.java).copy(id = 5)
         }
         return User(id = -1,sex = 1)
     }

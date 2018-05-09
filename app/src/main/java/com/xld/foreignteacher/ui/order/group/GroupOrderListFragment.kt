@@ -50,7 +50,7 @@ class GroupOrderListFragment : BaseFragment() {
 
                                 appComponent.netWork.delFigh(id)
                                         .doOnSubscribe { addDisposable(it) }
-                                        .doOnLoading { }
+                                        .doOnLoading {isShowDialog(it) }
                                         .subscribe {
                                             customDialog.dismiss()
                                             val list = mutableListOf<GroupOrder>()
@@ -116,7 +116,7 @@ class GroupOrderListFragment : BaseFragment() {
                 state = 4
             }
         }
-        appComponent.netWork.getTeacherFightList(1, state, page, 10)
+        appComponent.netWork.getTeacherFightList(appComponent.userHandler.getUser().id, state, page, 10)
                 .doOnSubscribe { addDisposable(it) }
                 .doOnLoading { if (rec_order != null) rec_order.isRefreshing = it }
                 .subscribe { it ->

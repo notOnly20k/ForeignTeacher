@@ -190,6 +190,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         showDialog(msg,false);
     }
 
+    protected void isShowDialog(Boolean show){
+        if (show){
+            showDialog("");
+        }else {
+            dismissDialog();
+        }
+    }
     /**
      * 显示加载提示窗
      * @param msg 提示文字

@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,14 @@ import com.xld.foreignteacher.ui.order.single.RateActivity
 import com.xld.foreignteacher.ui.order.single.SingleOrderFragment
 import com.xld.foreignteacher.ui.report.DeclinedActivity
 import com.xld.foreignteacher.ui.report.ReportActivity
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import org.slf4j.LoggerFactory
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -36,6 +44,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
     private val data = mutableListOf<PersonalTrainingOrder.RowsBean>()
     private val activityUtil: ActivityUtil = ActivityUtil.create(context)
     private val logger = LoggerFactory.getLogger("SquareAdapter")
+    private val disposableList: MutableList<Disposable> = mutableListOf()
     private lateinit var singleOrderItemClickListener: SingleOrderItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
@@ -72,11 +81,14 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                 viewHolder.ivHead.setImageURI(order.user!!.imgUrl)
             }
             viewHolder.tvName.text = order.user!!.nickName
-            val age = TimeUtils.getAge(order.user!!.birthDay) - 1
-            viewHolder.tvAge.text = String.format(context.resources.getString(R.string.ages), age)
+            viewHolder.tvAge.text = String.format(context.resources.getString(R.string.ages), order.user!!.age)
             viewHolder.tvTitle.text = order.curriculum?.title ?: ""
-            viewHolder.tvWeeks.text = order.bookingAutoWeeks.toString() + " Weeks"
-            viewHolder.tvInfo.text = order.curriculum?.className ?: ""
+            if (order.bookingAutoWeeks != 0) {
+                viewHolder.tvWeeks.text = order.bookingAutoWeeks.toString() + " Weeks"
+            } else {
+                viewHolder.tvWeeks.visibility = View.GONE
+            }
+            viewHolder.tvInfo.text = order.curriculum?.className
 
             var backDra = if (order.user!!.sex == 1) {
                 context.resources.getDrawable(R.mipmap.icon_male)
@@ -89,25 +101,49 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
             viewHolder.tvName.compoundDrawablePadding = backDra.minimumHeight / 2
             viewHolder.tvAttendingClient.text = String.format(context.resources.getString(R.string.attending_client), order.numberOfPeople)
             viewHolder.tvLocation.text = order.address
-            viewHolder.tvPrice.text = "￥" + order.payMoney
+            viewHolder.tvPrice.text = context.getString(R.string.price_class, order.curriculum!!.price.toInt())
             val week = TimeUtils.getCurrentTimeMMDD(order.curriculum?.startTime ?: 0)
             val start = TimeUtils.getTimeHM(order.curriculum?.startTime ?: 0)
             val end = TimeUtils.getTimeHM(order.curriculum?.endTime ?: 0)
             viewHolder.tvClassTime.text = "$week $start ~ $end"
             viewHolder.tvAttendingClient.text = String.format(context.resources.getString(R.string.attending_client), order.numberOfPeople)
-            viewHolder.imgLocate.setOnClickListener {
-//                AmapNaviPage.getInstance().showRouteActivity(context, AmapNaviParams(null,null, Poi(order.address,null,null), AmapNaviType.DRIVER)
-//                        , object :INaviInfoCallback{})
-            }
+            viewHolder.imgLocate.setOnClickListener { singleOrderItemClickListener.loacte(order.address ?: "") }
+
+
             when (type) {
                 SingleOrderFragment.NEW_ORDERS -> {
                     viewHolder.tvPromotion.visibility = View.VISIBLE
+                    viewHolder.tvPromotion.text = "Prompt you to accept the order: ${order.reminderCount} times"
                     viewHolder.cvItem.setOnClickListener {
-                        activityUtil.go(OrderDetailActivity::class.java).start()
+                        activityUtil.go(OrderDetailActivity::class.java).put("id", order.id).put("type", SingleOrderFragment.NEW_ORDERS).start()
                     }
                     viewHolder.btnCancel.setOnClickListener {
-                        activityUtil.go(DeclinedActivity::class.java).start()
+                        activityUtil.go(DeclinedActivity::class.java).put("id", order.id).start()
                     }
+
+                    Observable.interval(0, 1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                            .doOnSubscribe {
+                                holder.disposable.add(it)
+                                disposableList.add(it)
+                            }
+                            .map {
+                                val formart = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA)
+                                val calend = Calendar.getInstance()
+                                calend.time = Date(order.addtime)
+                                calend.set(Calendar.HOUR, calend.get(Calendar.HOUR) + 1)
+                                val time = TimeUtils.parseTimeMillisecond(formart.format(calend.time))
+                                if (time - System.currentTimeMillis() > 0) {
+                                    DateUtils.formatElapsedTime((time - System.currentTimeMillis()) / 1000L)
+                                } else {
+                                    "00:00:00"
+                                }
+                            }
+                            .subscribe {
+                                holder.tvAcceptCount.text = "$it"
+                                if (it == "00:00:00") {
+                                    holder.disposable.dispose()
+                                }
+                            }
 
                     viewHolder.btnAccept.setOnClickListener {
                         CustomDialog.Builder()
@@ -116,7 +152,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                                 .setDialogListene(object : CustomDialog.CustomDialogListener {
                                     override fun clickButton1(customDialog: CustomDialog) {
                                         customDialog.dismiss()
-                                        singleOrderItemClickListener.onDialogClick(type)
+                                        singleOrderItemClickListener.onDialogClick(type, order.id)
                                     }
 
                                     override fun clickButton2(customDialog: CustomDialog) {
@@ -129,7 +165,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                 }
                 SingleOrderFragment.PENDING -> {
                     viewHolder.cvItem.setOnClickListener {
-                        activityUtil.go(PendingDetailActivity::class.java).start()
+                        activityUtil.go(PendingDetailActivity::class.java).put("id", order.id).start()
                     }
                     viewHolder.tvAccept.visibility = View.GONE
                     viewHolder.tvAcceptCount.visibility = View.GONE
@@ -139,7 +175,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                     }
                     viewHolder.btnCancel.text = "Cancel request"
                     viewHolder.btnCancel.setOnClickListener {
-                        activityUtil.go(ReportActivity::class.java).put("id", 0).put("type", ReportActivity.CANCEL_REQUEST).start()
+                        activityUtil.go(ReportActivity::class.java).put("id", order.id).put("type", ReportActivity.CANCEL_MAIN_REQUEST).start()
                     }
 
                 }
@@ -149,7 +185,10 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                     viewHolder.btnCancel.text = "Delete"
                     viewHolder.btnAccept.text = "Rate"
                     viewHolder.btnAccept.setOnClickListener {
-                        activityUtil.go(RateActivity::class.java).start()
+                        activityUtil.go(RateActivity::class.java).put("id",order.id).start()
+                    }
+                    viewHolder.cvItem.setOnClickListener {
+                        activityUtil.go(OrderDetailActivity::class.java).put("id", order.id).put("type", SingleOrderFragment.FINISHED).start()
                     }
                     viewHolder.btnCancel.setOnClickListener {
                         CustomDialog.Builder()
@@ -158,7 +197,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                                 .setDialogListene(object : CustomDialog.CustomDialogListener {
                                     override fun clickButton1(customDialog: CustomDialog) {
                                         customDialog.dismiss()
-                                        singleOrderItemClickListener.onDialogClick(type)
+                                        singleOrderItemClickListener.onDialogClick(type, order.id)
                                     }
 
                                     override fun clickButton2(customDialog: CustomDialog) {
@@ -170,12 +209,21 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                     }
                 }
                 SingleOrderFragment.CANCELED -> {
-                    viewHolder.tvAccept.text = "Me-Cancellation Reasons"
+                    if (order.state == -1) {
+                        viewHolder.tvAccept.text = "Cancellation Reasons"
+                        viewHolder.tvCancelReason.text = order.userCancelReason
+                    } else {
+                        viewHolder.tvAccept.text = "Me-Cancellation Reasons"
+                        viewHolder.tvCancelReason.text = order.teacherCancelReason
+                    }
                     viewHolder.tvAcceptCount.visibility = View.GONE
                     viewHolder.tvCancelReason.visibility = View.VISIBLE
-                    viewHolder.tvCancelReason.text = order.userCancelReason ?: order.teacherCancelReason
+
                     viewHolder.btnCancel.text = "Delete"
                     viewHolder.btnAccept.visibility = View.GONE
+                    viewHolder.cvItem.setOnClickListener {
+                        activityUtil.go(OrderDetailActivity::class.java).put("id", order.id).put("type", SingleOrderFragment.CANCELED).start()
+                    }
                     viewHolder.btnCancel.setOnClickListener {
                         CustomDialog.Builder()
                                 .create()
@@ -183,7 +231,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                                 .setDialogListene(object : CustomDialog.CustomDialogListener {
                                     override fun clickButton1(customDialog: CustomDialog) {
                                         customDialog.dismiss()
-                                        singleOrderItemClickListener.onDialogClick(type)
+                                        singleOrderItemClickListener.onDialogClick(type, order.id)
                                     }
 
                                     override fun clickButton2(customDialog: CustomDialog) {
@@ -202,6 +250,9 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                     viewHolder.tvCancelReason.text = order.refuseReason
                     viewHolder.btnAccept.visibility = View.GONE
                     viewHolder.btnCancel.text = "Delete"
+                    viewHolder.cvItem.setOnClickListener {
+                        activityUtil.go(OrderDetailActivity::class.java).put("id", order.id).put("type", SingleOrderFragment.DECLINED).start()
+                    }
                     viewHolder.btnCancel.setOnClickListener {
                         CustomDialog.Builder()
                                 .create()
@@ -209,7 +260,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
                                 .setDialogListene(object : CustomDialog.CustomDialogListener {
                                     override fun clickButton1(customDialog: CustomDialog) {
                                         customDialog.dismiss()
-                                        singleOrderItemClickListener.onDialogClick(type)
+                                        singleOrderItemClickListener.onDialogClick(type, order.id)
                                     }
 
                                     override fun clickButton2(customDialog: CustomDialog) {
@@ -227,12 +278,25 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
         }
     }
 
+    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder?) {
+        super.onViewDetachedFromWindow(holder)
+        if (holder is SingleOrderAdapter.ViewHolder) {
+            holder.disposable?.dispose()
+        }
+
+    }
+
+    fun clearAllDisposable() {
+        disposableList.map { it.dispose() }
+    }
+
     fun setListener(listener: SingleOrderItemClickListener) {
         singleOrderItemClickListener = listener
     }
 
     interface SingleOrderItemClickListener {
-        fun onDialogClick(type: String)
+        fun onDialogClick(type: String, id: Int)
+        fun loacte(address: String)
     }
 
 
@@ -282,6 +346,7 @@ class SingleOrderAdapter(private val context: Context, private val fragmentManag
         @BindView(R.id.tv_promotion)
         lateinit var tvPromotion: TextView
 
+        var disposable: CompositeDisposable = CompositeDisposable()
 
         init {
             ButterKnife.bind(this, view)

@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.EditText
@@ -15,14 +16,17 @@ import butterknife.BindView
 import butterknife.OnCheckedChanged
 import butterknife.OnClick
 import cn.sinata.xldutils.view.TitleBar
+import com.hyphenate.EMCallBack
+import com.hyphenate.chat.EMClient
+import com.hyphenate.exceptions.HyphenateException
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.xld.foreignteacher.R
-import com.xld.foreignteacher.ext.appComponent
-import com.xld.foreignteacher.ext.formateToNum
-import com.xld.foreignteacher.ext.toMD5
+import com.xld.foreignteacher.api.dto.User
+import com.xld.foreignteacher.ext.*
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.main.MainActivity
 import com.xld.foreignteacher.views.PhoneNumEditText
+import io.reactivex.android.schedulers.AndroidSchedulers
 
 
 /**
@@ -84,7 +88,8 @@ class LoginActivity : BaseTranslateStatusActivity() {
     override fun initData() {
         //activityUtil.go(EditTeacherInfoActivity::class.java).start()
         val id = appComponent.userHandler.getUser().id
-        if (id != -1) {
+
+        if (EMClient.getInstance().isLoggedInBefore&&id!=-1) {
             activityUtil.go(MainActivity::class.java).start()
             finish()
         }
@@ -144,14 +149,17 @@ class LoginActivity : BaseTranslateStatusActivity() {
         when (view.id) {
 
             R.id.btn_login_commit -> {
+                logger.e { etPwd.text.toString().toMD5() }
                 appComponent.netWork.login(etPhone.text.toString().formateToNum(), etPwd.text.toString().toMD5())
                         .doOnSubscribe { mCompositeDisposable.add(it) }
+                        .doOnLoading { isShowDialog(it) }
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(AndroidSchedulers.mainThread())
                         .subscribe { user ->
                            // SPUtils.save("id", user.id)
                             appComponent.userHandler.saveUser(user)
-                            activityUtil.go(MainActivity::class.java).start()
+                            login(user)
 
-                            finish()
                         }
             }
             R.id.tv_login_forget_pwd -> {
@@ -168,5 +176,46 @@ class LoginActivity : BaseTranslateStatusActivity() {
         etPwd.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD or InputType.TYPE_CLASS_TEXT
     } else {
         etPwd.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+    }
+
+    //环信登录的方法
+    fun login(user: User) {
+        showProgress(true)
+        logger.e { "login" }
+        EMClient.getInstance().login("waijiao_teacher_" + user.id, "123456", object : EMCallBack {
+            override fun onSuccess() {
+                showProgress(false)
+                activityUtil.go(MainActivity::class.java).start()
+
+                finish()
+            }
+
+            override fun onError(i: Int, s: String) {
+                showProgress(false)
+               // showToast("环信登录失败:code=" + i + "reason" + s)
+                Log.e("Login", "环信登录失败:code=" + i + "reason" + s)
+                if (i == 204)
+                //如果账号不存在，重新注册
+                    register(user)
+            }
+
+            override fun onProgress(i: Int, s: String) {
+
+            }
+        })
+    }
+
+    //环信注册的方法 异步
+    fun register(user: User) {
+        Thread(Runnable {
+            try {
+                EMClient.getInstance().createAccount("waijiao_teacher_" + user.id, "123456")
+                Log.e("Register", "环信注册成功")
+                login(user)
+            } catch (e: HyphenateException) {
+                e.printStackTrace()
+                Log.e("Register", "环信注册失败")
+            }
+        }).start()
     }
 }

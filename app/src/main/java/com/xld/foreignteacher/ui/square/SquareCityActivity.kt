@@ -106,7 +106,7 @@ class SquareCityActivity : BaseTranslateStatusActivity() {
         appComponent.netWork
                 .getOpenedCity()
                 .doOnSubscribe { mCompositeDisposable.add(it) }
-                .doOnLoading { showProgress(it) }
+                .doOnLoading { isShowDialog(it) }
                 .subscribe { citys ->
                     openList.clear()
                     openList.addAll(citys)
@@ -116,7 +116,7 @@ class SquareCityActivity : BaseTranslateStatusActivity() {
 
         appComponent.netWork.getNotOpenCity()
                 .doOnSubscribe { mCompositeDisposable.add(it) }
-                .doOnLoading { showProgress(it) }
+                .doOnLoading { isShowDialog(it) }
                 .subscribe { citys ->
                     notOpenList.clear()
                     notOpenList.addAll(citys)

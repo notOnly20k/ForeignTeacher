@@ -22,13 +22,33 @@ data class Dto<out T>(val sys: Long, val code: Int, val msg: String, val data: T
 
 
 data class User(var imgUrl: String? = null, var id: Int = -1, var phone: String? = null, var sex: Int = 1,
-                var birthDay: String? = null,
+                var birthDay: String? = null, var city: String? = null,var point:Double=0.0,var openCityId: Int?=null,
                 var identCode: String? = null, var nickName: String = "", var inviteCode: String? = null,
                 var lat: Double? = null, var lon: Double? = null)
 
+class Student {
+    var imgUrl: String? = null
+    var id: Int = 0
+    var phone: String? = null //登录账号
+    var sex: Int = 0
+    var identCode: String? = null
+    var nickName: String? = null
+    var inviteCode: String? = null
+    var albumList: List<AlbumListBean>? = null
+
+    var isPassWord: Boolean = false //是否设置密码
+    var age: Int = 0
+
+    var birthDay: String? = null
+        get() = if (field == null) "" else field
+    var contactInformation: String? = null
+        get() = if (field == null) "" else field //联系方式
+}
+
+
 data class Teacher(var id: Int, var phone: String? = null, var sex: Int, var contactInformation: String? = null, var nickName: String = "",
                    var birthDay: String? = null, var passWord: Boolean = false, var albumList: List<AlbumListBean>? = null, var personalProfile: String?,
-                   var isHot: Boolean?, var hotSort: Int?, var openCityId: Int?, var languagesId: String?, var nationality: String?, var chineseLevel: Int? = 0,
+                   var isHot: Int?, var hotSort: Int?, var openCityId: Int?, var languagesId: String?, var nationality: String?, var chineseLevel: Int? = 0,
                    var age: Int?)
 
 data class AlbumListBean(var imgUrl: String? = null, var sort: Int)
@@ -57,7 +77,7 @@ data class Language(var eName: String?, var cName: String?, var id: Int, var abN
 
 data class City(var code: String, var name: String, var id: Int) : SelectData, Serializable {
     override var enName: String
-        get() = "Beijin"
+        get() = "Chengdu"
         set(value) {
             enName = value
         }
@@ -209,3 +229,19 @@ data class SquareListBean(var teacherImgUrl: String? = null, var address: String
                           var contents: String? = null, var id: Int = 0, var imgUrl: List<ImgUrlBean>? = null, var squareCommentList: List<*>? = null)
 
 class ImgUrlBean(var imgUrl: String? = null, var sort: Int? = null)
+
+class UserHomeData {
+
+
+    var isLearnCard: Boolean = false
+    var pronunciation: Int = 0
+    var isAchievement: Boolean = false
+    var vocabulary: Int = 0
+    var weekLongTime: Double = 0.toDouble()
+    var fluency: Int = 0
+    var listening: Int = 0
+    var teacherNum: Int = 0
+    var totalTime: Double = 0.toDouble()
+    var grammar: Int = 0
+    var longTime: Double = 0.toDouble()
+}

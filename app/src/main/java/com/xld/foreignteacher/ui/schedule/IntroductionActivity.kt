@@ -31,8 +31,13 @@ class IntroductionActivity : BaseTranslateStatusActivity() {
     private lateinit var adapter: MomentAdapter
     private val list = mutableListOf<String>()
     private var tempFile: File? = null//临时文件
+    var introduction = ""
+    var picList = mutableListOf<String>()
 
     override fun initView() {
+        picList=intent.getStringArrayListExtra("pic")
+        introduction=intent.getStringExtra("ins")
+        list.addAll(picList)
         title_bar.titlelayout.setBackgroundResource(R.color.color_black_1d1e24)
         title_bar.titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
         title_bar.setLeftButton(R.mipmap.back_yellow, { finish() })
@@ -56,6 +61,8 @@ class IntroductionActivity : BaseTranslateStatusActivity() {
 
         })
         rec_pic.adapter = adapter
+        adapter.updateList(picList)
+        et_content.setText(introduction)
         rec_pic.layoutManager = GridLayoutManager(this, 3)
 
     }

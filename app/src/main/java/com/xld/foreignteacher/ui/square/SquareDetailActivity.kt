@@ -61,7 +61,7 @@ class SquareDetailActivity : BaseTranslateStatusActivity() {
             override fun doLike(squareId: Int) {
                 appComponent.netWork
                         .addGiveThum(squareId, appComponent.userHandler.getUser()!!.id)
-                        .doOnLoading { showProgress(it) }
+                        .doOnLoading { isShowDialog(it) }
                         .subscribe {
                             page = 1
                             loadData()
@@ -94,7 +94,7 @@ class SquareDetailActivity : BaseTranslateStatusActivity() {
         img_like.setOnClickListener {
             appComponent.netWork
                     .addGiveThum(id, appComponent.userHandler.getUser()!!.id)
-                    .doOnLoading { showProgress(it) }
+                    .doOnLoading { isShowDialog(it) }
                     .subscribe {
                         page = 1
                         loadData()

@@ -31,7 +31,7 @@ class ChangeMobileActivity : BaseTranslateStatusActivity(), EditEmptyWatcher.Che
             if (commitCheck()) {
                 appComponent.netWork.checkPassWord(appComponent.userHandler.getUser().id, et_pwd.text.toString())
                         .doOnSubscribe { mCompositeDisposable.add(it) }
-                        .doOnLoading { showProgress(it) }
+                        .doOnLoading { isShowDialog(it) }
                         .subscribe {
                             activityUtil.go(ResetMobileActivity::class.java).start()
                         }

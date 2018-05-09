@@ -77,6 +77,9 @@ interface AppApi {
     fun getTeacherDetail(@Query("key") key: String): Single<Dto<TeacherDetail>>
 
     @POST("ForeignTeachers/app/server")
+    fun getUserHomePage(@Query("key") key: String): Single<Dto<UserHomeData>>
+
+    @POST("ForeignTeachers/app/server")
     fun getTeacherFightList(@Query("key") key: String): Single<Dto<List<GroupOrder>>>
 
     @POST("ForeignTeachers/app/server")
@@ -98,7 +101,7 @@ interface AppApi {
     fun getMyWallet(@Query("key") key: String): Single<Dto<WalletDetail>>
 
     @POST("ForeignTeachers/app/server")
-    fun getOrderNum(@Query("key") key: String): Single<Dto<OrderNum>>
+    fun getOrderNum(@Query("key") key: String): Single<Dto<Any>>
 
 
     @POST("ForeignTeachers/app/server")
@@ -110,6 +113,20 @@ interface AppApi {
     @POST("ForeignTeachers/app/server")
     fun addSquareComment(@Query("key") key: String): Single<Dto<UserComment>>
 
+    @POST("ForeignTeachers/app/server")
+    fun getUserInfo(@Query("key") key: String): Single<Dto<Student>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getTeacherInfoSurvey(@Query("key") key: String): Single<Dto<TeacherInfo>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getTeacherFightFirstList(@Query("key") key: String): Single<Dto<List<TeacherFight>>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getSingleOrderDetail(@Query("key") key: String): Single<Dto<SingleOrderDetail>>
+
+    @POST("ForeignTeachers/app/server")
+    fun getMyPersonalTrainingChildOrder(@Query("key") key: String): Single<Dto<TrainingChildOrder>>
 
 
 }

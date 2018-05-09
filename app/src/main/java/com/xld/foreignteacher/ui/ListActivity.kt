@@ -167,7 +167,7 @@ class ListActivity : BaseTranslateStatusActivity() {
 
     fun getTransactions(page: Int) {
         appComponent.netWork
-                .getTeacherRecord(appComponent.userHandler.getUser()!!.id, page, 10)
+                .getTeacherRecord(appComponent.userHandler.getUser().id, page, 10)
                 .doOnSubscribe { mCompositeDisposable.add(it) }
                 .doOnLoading { rec_content.isRefreshing = it }
                 .subscribe { list ->

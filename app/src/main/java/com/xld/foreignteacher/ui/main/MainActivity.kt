@@ -19,7 +19,6 @@ import com.umeng.socialize.UMShareAPI
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.api.dto.TeacherSchedule
 import com.xld.foreignteacher.ext.appComponent
-import com.xld.foreignteacher.ext.e
 import com.xld.foreignteacher.ui.base.BaseTranslateStatusActivity
 import com.xld.foreignteacher.ui.mine.MineFragment
 import com.xld.foreignteacher.ui.msg.MessageFragment
@@ -69,13 +68,26 @@ class MainActivity : BaseTranslateStatusActivity(), ScheduleCardFragment.Schedul
     override fun initData() {
         appComponent.locationHandler.locationSubject
                 .doOnSubscribe { mCompositeDisposable.add(it) }
-                .subscribe {
-                    logger.e { it }
-                    appComponent.userHandler.saveUser(
-                            appComponent.userHandler.getUser().copy(
-                                    lat = it.latitude, lon = it.longitude
-                            )
-                    )
+                .subscribe { locate ->
+                    appComponent.netWork.getOpenedCity()
+                            .doOnSubscribe { mCompositeDisposable.add(it) }
+                            .subscribe {
+                                if (it.find { it.enName == locate.city } != null) {
+                                    appComponent.userHandler.saveUser(
+                                            appComponent.userHandler.getUser().copy(
+                                                    lat = locate.latitude,
+                                                    lon = locate.longitude,
+                                                    city = locate.city
+                                            )
+                                    )
+                                } else {
+                                    showToast("current city is not open")
+                                    appComponent.userHandler.getUser().copy(
+                                            city = it.firstOrNull()?.enName ?: ""
+                                    )
+                                }
+
+                            }
                 }
         appComponent.locationHandler.start()
     }

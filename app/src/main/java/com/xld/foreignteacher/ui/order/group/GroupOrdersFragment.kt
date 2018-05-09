@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import cn.sinata.xldutils.fragment.BaseFragment
+import com.google.gson.Gson
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.dto.OrderNum
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ui.order.adapter.SingleOrderFragmentAdapter
 import kotlinx.android.synthetic.main.fragment_single_order.*
@@ -90,14 +92,29 @@ class GroupOrdersFragment : BaseFragment() {
     }
 
     private fun initData() {
-        appComponent.netWork.getOrderNum(appComponent.userHandler.getUser().id, 2)
+        appComponent.netWork.getOrderNum(5, 2)
                 .doOnSubscribe { addDisposable(it) }
                 .subscribe {
-                    orderNumList.add(it.num1)
-                    orderNumList.add(it.num2)
-                    orderNumList.add(it.num3)
-                    orderNumList.add(it.num4)
-                    orderNumList.add(it.num5)
+                    if (it != null) {
+                        val orderNum = Gson().fromJson<OrderNum>(it.toString(), OrderNum::class.java)
+                        orderNumList.add(orderNum.num1)
+                        orderNumList.add(orderNum.num2)
+                        orderNumList.add(orderNum.num3)
+                        orderNumList.add(orderNum.num4)
+                        orderNumList.add(orderNum.num5)
+                        for (i in 0 until titles.size) {
+                            val tab = tab_order.getTabAt(i)
+                            val tvBrage = tab!!.customView!!.findViewById<TextView>(R.id.barge)
+                            when {
+                                orderNumList.isEmpty() -> tvBrage.visibility = View.GONE
+                                orderNumList[tab.position] == 0 -> tvBrage.visibility = View.GONE
+                                else -> {
+                                    tvBrage.visibility = View.VISIBLE
+                                    tvBrage.text = orderNumList[tab.position].toString()
+                                }
+                            }
+                        }
+                    }
                 }
     }
 

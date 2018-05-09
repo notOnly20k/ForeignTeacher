@@ -4,7 +4,6 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.google.gson.Gson
-import com.xld.foreignteacher.util.DraggablePresenterImpl
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.api.dto.Language
 import com.xld.foreignteacher.api.dto.User
@@ -20,6 +19,7 @@ import com.xld.foreignteacher.ui.userinfo.SelectLanguageActivity
 import com.xld.foreignteacher.ui.userinfo.SelectLanguageActivity.Companion.SELECT_LANGUAGE
 import com.xld.foreignteacher.ui.userinfo.adapter.LanguageAdapter
 import com.xld.foreignteacher.ui.userinfo.adapter.StudentPageAdapter
+import com.xld.foreignteacher.util.DraggablePresenterImpl
 import com.xld.foreignteacher.views.StarBarView
 import com.xld.foreignteacher.views.ViewPagerIndicator
 import kotlinx.android.synthetic.main.activity_info.*
@@ -66,7 +66,6 @@ class InfoActivity : BaseTranslateStatusActivity() {
         type = intent.getStringExtra("type")
 
         if (type == SHOW) {
-            initViewPage(urls)
             tv_title_right.text = SHOW
             tv_title_right.setOnClickListener {
                 activityUtil.go(InfoActivity::class.java).put("type", EDIT).start()
@@ -154,8 +153,9 @@ class InfoActivity : BaseTranslateStatusActivity() {
         }
 
     }
-    fun initViewPage(list: List<String>){
-        adapter = StudentPageAdapter(this, urls)
+
+    fun initViewPage(list: MutableList<String>) {
+        adapter = StudentPageAdapter(this, list)
         viewpager.adapter = adapter
         val viewPagerIndicator = ViewPagerIndicator(this, ll_indicator, R.mipmap.indicator_white, R.mipmap.indicator_yellow, urls.size)
         viewPagerIndicator.setupWithViewPager(viewpager)
@@ -176,12 +176,14 @@ class InfoActivity : BaseTranslateStatusActivity() {
                 sort++
             }
         }
+        var languagesIds = mutableListOf<Int>()
+        languageList.map { languagesIds.add(it.id) }
         appComponent.netWork.editTeacher(appComponent.userHandler.getUser()!!.id, et_name.text.toString(),
-                "",
-                sex!!, tv_birth_edit.text.toString(), telNum, star_chinese_level.getSartRating().toInt(),
+                albumList[0].imgUrl,
+                sex!!, tv_birth_edit.text.toString(), telNum, star_chinese_level.getSartRating().toInt(), languagesId = languagesIds.toString(),
                 personalProfile = et_introduction.text.toString(), openCityId = cityId, albumImgUrl = Gson().toJson(albumList))
                 .doOnSubscribe { mCompositeDisposable.add(it) }
-                .doOnLoading { showProgress(it) }
+                .doOnLoading { isShowDialog(it) }
                 .subscribe {
                     appComponent.userHandler.saveUser(appComponent.userHandler.getUser().copy(
                             imgUrl = albumList[0].imgUrl,
@@ -194,8 +196,8 @@ class InfoActivity : BaseTranslateStatusActivity() {
     }
 
     override fun initData() {
-        appComponent.netWork.getTeacherInfo(appComponent.userHandler.getUser()!!.id)
-                .doOnLoading { showProgress(it) }
+        appComponent.netWork.getTeacherInfo(appComponent.userHandler.getUser().id)
+                .doOnLoading { isShowDialog(it) }
                 .doOnSubscribe { mCompositeDisposable.add(it) }
                 .subscribe {
                     val url = mutableListOf<String>()
@@ -208,12 +210,12 @@ class InfoActivity : BaseTranslateStatusActivity() {
 
                         if (type != SHOW) {
                             draggablePresenter.setImages(it.imgUrl)
-                        }else{
+                        } else {
                             url.add(it.imgUrl!!)
                         }
                     }
                     if (type == SHOW) {
-                       initViewPage(url)
+                        initViewPage(url)
                     }
                     appComponent.userHandler.saveUser(appComponent.userHandler.getUser().copy(
                             id = it.id,
@@ -233,7 +235,7 @@ class InfoActivity : BaseTranslateStatusActivity() {
                     }
                     star_chinese_level.setStarRating(it.chineseLevel?.toFloat() ?: 0F)
                     if (it.languagesId != null) {
-                        getlanguage(it.languagesId!!)
+                        it.languagesId!!.split(",").map { getlanguage(it) }
                     }
 
                 }
@@ -242,10 +244,9 @@ class InfoActivity : BaseTranslateStatusActivity() {
 
     private fun getlanguage(languagesId: String) {
         appComponent.netWork.getLanguage()
-                .doOnLoading { showProgress(it) }
+                .doOnLoading { isShowDialog(it) }
                 .doOnSubscribe { mCompositeDisposable.add(it) }
                 .subscribe {
-                    val languageList = mutableListOf<Language>()
                     it.map { language ->
                         languagesId.split(",").map {
                             if (it.toInt() == language.id)
@@ -264,8 +265,10 @@ class InfoActivity : BaseTranslateStatusActivity() {
             SELECT_LANGUAGE -> {
                 tv_language.visibility = View.GONE
                 val language = data!!.getSerializableExtra(SelectLanguageActivity.LANGUAGE) as Language
-                languageList.add(language)
-                languageAdapter.updateList(languageList)
+                if (languageList.contains(language).not()) {
+                    languageList.add(language)
+                    languageAdapter.updateList(languageList)
+                }
             }
         }
     }

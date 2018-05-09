@@ -26,9 +26,9 @@ class FeedBackActivity : BaseTranslateStatusActivity() {
                 showToast("You should write something before submit")
             }else{
                 appComponent.netWork
-                        .addFeedBack(et_feedback.text.toString(),appComponent.userHandler.getUser()!!.id)
+                        .addFeedBack(et_feedback.text.toString(),appComponent.userHandler.getUser().id)
                         .doOnSubscribe { mCompositeDisposable.add(it) }
-                        .doOnLoading { showProgress(it) }
+                        .doOnLoading { isShowDialog(it) }
                         .subscribe{ finish() }
             }
         })

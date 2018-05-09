@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/fake_status_bar"
+        style="@style/navigation_normal_style"
+        android:layout_alignParentBottom="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/img_pic"
+                android:layout_width="match_parent"
+                android:layout_height="273dp"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@color/color_place_holder" />
+
+            <RelativeLayout
+                android:id="@+id/rl_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_pic"
+                android:paddingLeft="@dimen/android_margin">
+
+                <TextView
+                    android:id="@+id/tv_datetime"
+                    style="@style/style_course_list_datetime_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawableLeft="@mipmap/icon_datetime"
+                    android:text="Timer: 12-15 15:00~16:00" />
+
+                <TextView
+                    android:id="@+id/tv_location"
+                    style="@style/style_course_list_datetime_location"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_datetime"
+                    android:layout_marginTop="5dp"
+                    android:drawableLeft="@mipmap/icon_location_grey"
+                   />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="18dp"
+                    android:text="@string/price_at_least"
+                    android:textColor="@color/yellow_ffcc00"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/rl_content"
+                android:paddingBottom="8dp"
+                android:paddingLeft="@dimen/android_margin"
+                android:paddingRight="@dimen/android_margin"
+                android:textColor="@color/white"
+                android:text="What do you think of Christmas?What do you think of Christmas?"
+                android:textSize="18sp" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_below="@id/rl_content"
+                android:background="@color/grey_f1f1f1" />
+
+            <LinearLayout
+                android:id="@+id/rl_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_deadline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:layout_marginTop="8dp"
+                    android:text="Sign-up deadline:"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tv_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_deadline"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:text="Max.participant:"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tv_min"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_max"
+                    android:layout_marginLeft="@dimen/android_margin"
+
+                    android:text="Min.participant:"
+                    android:textSize="10sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/iv_head"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_marginLeft="@dimen/android_margin"
+                        fresco:actualImageScaleType="centerCrop"
+                        fresco:placeholderImage="@mipmap/default_head"
+                        fresco:placeholderImageScaleType="centerCrop"
+                        fresco:roundAsCircle="true" />
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:layout_toRightOf="@id/iv_head"
+                        android:text="Michelle"
+                        android:textColor="@color/black_00"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/tv_socer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/tv_name"
+                        android:layout_below="@id/tv_name"
+                        android:text="4.8 points"
+                        android:textColor="@color/color_red_ff4a26"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="18dp"
+                        android:background="@drawable/bg_yellow_button"
+                        android:gravity="center"
+                        android:text="@string/chat"
+                        android:padding="3dp"
+                        android:textColor="@color/black_00"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_below="@id/rl_user"
+                android:background="@color/grey_f1f1f1" />
+
+            <LinearLayout
+                android:id="@+id/ll_radio_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view1"
+                android:layout_marginTop="@dimen/android_margin"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/rg_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_service_details"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginLeft="@dimen/android_margin"
+                        android:layout_marginRight="@dimen/android_margin"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_radio_group_tab"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Service Details"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/rb_class_rules"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginLeft="@dimen/android_margin"
+                        android:layout_marginRight="@dimen/android_margin"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_radio_group_tab"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Group class rules"
+                        android:textSize="16sp" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_replace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_radio_bar"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="10dp" />
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_status_gradient" />
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/android_margin"
+        android:padding="16dp"
+        android:src="@mipmap/back_circle" />
+
+    <ImageView
+        android:id="@+id/iv_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/android_margin"
+        android:padding="16dp"
+        android:src="@mipmap/icon_share" />
+
+</RelativeLayout>

@@ -111,6 +111,7 @@
                 android:textSize="18sp"
                 android:paddingLeft="@dimen/android_margin"
                 android:paddingRight="@dimen/android_margin"
+                android:textColor="@color/white"
                 android:paddingBottom="8dp"
                 android:text="What do you think of Christmas?What do you think of Christmas?"
                 />

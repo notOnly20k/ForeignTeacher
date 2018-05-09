@@ -80,7 +80,7 @@ class SetPwdActivity : BaseTranslateStatusActivity(), EditEmptyWatcher.Checkable
                 TYPE_REGISTER -> if (commitCheck()) {
                     appComponent.netWork.register(phone!!, etPwd.text.toString().toMD5())
                             .doOnSubscribe { mCompositeDisposable.add(it) }
-                            .doOnLoading { showProgress(it) }
+                            .doOnLoading { isShowDialog(it) }
                             .subscribe { user ->
                                 showToast(getString(R.string.register_ok))
                                 appComponent.userHandler.saveUser(user)
@@ -91,7 +91,7 @@ class SetPwdActivity : BaseTranslateStatusActivity(), EditEmptyWatcher.Checkable
                 TYPE_FORGET -> if (commitCheck()) {
                     appComponent.netWork.resetPwd(phone!!, etPwd.text.toString().toMD5())
                             .doOnSubscribe { mCompositeDisposable.add(it) }
-                            .doOnLoading { showProgress(it) }
+                            .doOnLoading { isShowDialog(it) }
                             .subscribe { _ ->
                                 showToast(getString(R.string.reset_pwd_success))
                                 activityUtil.go(LoginActivity::class.java).start()

@@ -498,6 +498,7 @@ class ScheduleCardFragment : BaseFragment() {
     }
 
 
+
     override fun onInvisibleToUser() {
 
     }

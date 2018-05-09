@@ -112,7 +112,7 @@ class AddOfferActivity : BaseTranslateStatusActivity() {
         val price = et_price.text.toString().toInt()
         appComponent.netWork.addOffer(appComponent.userHandler.getUser()!!.id, et_title.text.toString(), languageId!!, typeId!!, price)
                 .doOnSubscribe { mCompositeDisposable.add(it) }
-                .doOnLoading { showProgress(it) }
+                .doOnLoading { isShowDialog(it) }
                 .subscribe {
                     finish()
                 }

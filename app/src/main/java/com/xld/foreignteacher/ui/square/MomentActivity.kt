@@ -60,23 +60,30 @@ class MomentActivity : BaseTranslateStatusActivity(), MomentAdapter.OnItemClickL
     }
 
     private fun sendSquare() {
+        if (list.size != 0) {
+            ossUtil.uploadMulti(list, object : OssUtil.OSSUploadCallBack() {
+                override fun onFial(message: String?) {
+                    super.onFial(message)
+                    showToast(message)
+                }
 
-        ossUtil.uploadMulti(list,object :OssUtil.OSSUploadCallBack(){
-            override fun onFial(message: String?) {
-                super.onFial(message)
-                showToast(message)
-            }
-
-            override fun onFinish(urls: ArrayList<String>) {
-                super.onFinish(urls)
-                val imgList = mutableListOf<SquareDate.ImgUrlBean>()
-                urls.map { imgList.add(SquareDate.ImgUrlBean(it)) }
-                appComponent.netWork.addSquare(appComponent.userHandler.getUser()!!.id, Gson().toJson(imgList), tv_location.text.toString(), et_content.text.toString())
-                        .doOnSubscribe { mCompositeDisposable.add(it) }
-                        .doOnLoading { showProgress(it) }
-                        .subscribe { finish() }
-            }
-        })
+                override fun onFinish(urls: ArrayList<String>) {
+                    super.onFinish(urls)
+                    val imgList = mutableListOf<SquareDate.ImgUrlBean>()
+                    urls.map { imgList.add(SquareDate.ImgUrlBean(it)) }
+                    appComponent.netWork.addSquare(appComponent.userHandler.getUser()!!.id, Gson().toJson(imgList), tv_location.text.toString(), et_content.text.toString())
+                            .doOnSubscribe { mCompositeDisposable.add(it) }
+                            .doOnLoading { isShowDialog(it) }
+                            .subscribe { finish() }
+                }
+            })
+        } else {
+            val imgList = mutableListOf<SquareDate.ImgUrlBean>()
+            appComponent.netWork.addSquare(appComponent.userHandler.getUser()!!.id, imgList.toString(), tv_location.text.toString(), et_content.text.toString())
+                    .doOnSubscribe { mCompositeDisposable.add(it) }
+                    .doOnLoading { isShowDialog(it) }
+                    .subscribe { finish() }
+        }
 
     }
 
@@ -123,7 +130,7 @@ class MomentActivity : BaseTranslateStatusActivity(), MomentAdapter.OnItemClickL
             when (requestCode) {
                 LocationActivity.ADDRESS -> {
                     val address = data!!.getParcelableExtra<PoiItem>("address")
-                    tv_location.text = address.cityName + address.adName + address.snippet
+                    tv_location.text = address.title
                 }
                 0 -> if (tempFile != null && tempFile!!.exists()) {
                     list.add(tempFile!!.absolutePath)

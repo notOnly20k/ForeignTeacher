@@ -101,9 +101,9 @@ abstract class BaseTranslateStatusActivity : BaseActivity() {
 
     fun showProgress(isOnLoading: Boolean) {
         if (isOnLoading) {
-            progress.show()
+            showDialog("")
         } else {
-            progress.dismiss()
+           dismissDialog()
         }
     }
 

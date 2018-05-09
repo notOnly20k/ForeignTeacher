@@ -41,7 +41,7 @@ class VerificationActivity : BaseTranslateStatusActivity() {
 
                         appComponent.netWork.editTeacher(user.id, user.nickName, sex = user.sex, chineseLevel = level.toInt(),
                                 birthDay = user.birthDay ?: "", contactInformation = user.phone ?: "")
-                                .doOnLoading { showProgress(it) }
+                                .doOnLoading { isShowDialog(it) }
                                 .subscribe { this@VerificationActivity.findViewById<StarBarView>(R.id.sbv_starbar).setStarRating(level) }
                     }
 
@@ -58,9 +58,9 @@ class VerificationActivity : BaseTranslateStatusActivity() {
     }
 
     override fun initData() {
-        appComponent.netWork.myAuthentication(1)
+        appComponent.netWork.myAuthentication(appComponent.userHandler.getUser().id)
                 .doOnSubscribe { mCompositeDisposable.add(it) }
-                .doOnLoading { showProgress(it) }
+                .doOnLoading { isShowDialog(it) }
                 .subscribe {
                     myAuthentication=it
                     tv_passport_state.text=when(it.huzhao?.state){

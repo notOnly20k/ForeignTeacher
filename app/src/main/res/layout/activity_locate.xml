@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/android_margin"
-            android:text="@string/cancel"
+            android:text="Cancel"
             android:textColor="@color/yellow_ffcc00"
             android:textSize="@dimen/textSize" />
 
@@ -72,14 +72,14 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:singleLine="true"
-            android:text="@string/cancel"
+            android:text="Cancel"
             android:textColor="@color/yellow_ffcc00"
             android:textSize="@dimen/textSize" />
     </LinearLayout>
     <com.amap.api.maps2d.MapView
         android:id="@+id/mapview"
         android:layout_width="match_parent"
-        android:layout_height="250dp"/>
+        android:layout_height="300dp"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rec_address"
         android:layout_width="match_parent"

@@ -52,6 +52,7 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
             val user: User = appComponent.userHandler.getUser()!!
             et_contact_number.setText(user.phone!!.formateToTel())
             et_name.setText(user.nickName)
+            tv_birth.text = user.birthDay
             if (user.sex == 1) {
                 tv_gender_edit.text = "Male"
             } else {
@@ -152,11 +153,14 @@ class EditTeacherInfoActivity : BaseTranslateStatusActivity() {
         }
 
         val albumImgUrl = albumList.toString()
+        var languagesIds= mutableListOf<Int>()
+        languageList.map { languagesIds.add(it.id) }
+        languageList.toTypedArray()
         appComponent.netWork.editTeacher(appComponent.userHandler.getUser()!!.id, et_name.text.toString(), albumList[0].imgUrl,
-                sex!!, tv_birth_edit.text.toString(), telNum, star_chinese_level.getSartRating().toInt(),albumImgUrl = albumImgUrl,
-                personalProfile = er_introduction.text.toString(), openCityId = cityId)
+                sex!!, tv_birth_edit.text.toString(), telNum, star_chinese_level.getSartRating().toInt(), albumImgUrl = albumImgUrl,
+                personalProfile = er_introduction.text.toString(), openCityId = cityId,languagesId = languagesIds.toString())
                 .doOnSubscribe { mCompositeDisposable.add(it) }
-                .doOnLoading { showProgress(it) }
+                .doOnLoading { isShowDialog(it) }
                 .subscribe {
                     activityUtil.go(MainActivity::class.java).start()
                 }

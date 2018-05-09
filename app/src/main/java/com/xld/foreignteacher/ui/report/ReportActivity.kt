@@ -22,6 +22,7 @@ class ReportActivity : BaseTranslateStatusActivity() {
     private var lastView: InformItemView? = null
     private var reason = ""
     private var id = -1
+    private var bookingTeacherId = -1
     private var detail = ""
     private lateinit var type: String
 
@@ -40,12 +41,40 @@ class ReportActivity : BaseTranslateStatusActivity() {
                 tv_lewd_or_harassing_content.setOnClickListener { infoViewClicked(it as InformItemView) }
                 tv_violation_user_name.setOnClickListener { infoViewClicked(it as InformItemView) }
                 btn_commit.setOnClickListener {
-                    val reason = et_reason.text.toString()
-                    showTDialog()
+                    val content = et_reason.text.toString()
+                    appComponent.netWork.addComplaint(appComponent.userHandler.getUser().id, id, reason, content)
+                            .doOnSubscribe { mCompositeDisposable.add(it) }
+                            .doOnLoading { isShowDialog(it) }
+                            .subscribe { showTDialog() }
+
                 }
             }
-            CANCEL_REQUEST -> {
+            CANCEL_REQUEST, CANCEL_MAIN_REQUEST -> {
                 id = intent.getIntExtra("id", -1)
+                detail = et_reason.text.toString()
+                title_bar.setTitle(CANCEL_REQUEST)
+                tv_title.text = "Reason for cancellation"
+                tv_other_reason.text = "Details"
+
+                tv_ads_promotion.text = "Time clash"
+                tv_false_info.text = "Sick"
+                tv_harassing.text = "Emergency condition"
+                tv_lewd_or_harassing_content.text = "Wrong time setting"
+                tv_violation_user_name.text = "Other"
+
+                tv_ads_promotion.setOnClickListener { infoViewClicked(it as InformItemView) }
+                tv_false_info.setOnClickListener { infoViewClicked(it as InformItemView) }
+                tv_fraud.setOnClickListener { infoViewClicked(it as InformItemView) }
+                tv_harassing.setOnClickListener { infoViewClicked(it as InformItemView) }
+                tv_lewd_or_harassing_content.setOnClickListener { infoViewClicked(it as InformItemView) }
+                tv_violation_user_name.setOnClickListener { infoViewClicked(it as InformItemView) }
+                btn_commit.setOnClickListener {
+                    showDeclinDialog()
+                }
+            }
+            CANCEL_SINGLE_REQUEST -> {
+                id = intent.getIntExtra("id", -1)
+                bookingTeacherId = intent.getIntExtra("bookingTeacherId", -1)
                 detail = et_reason.text.toString()
                 title_bar.setTitle(CANCEL_REQUEST)
                 tv_title.text = "Reason for cancellation"
@@ -86,11 +115,23 @@ class ReportActivity : BaseTranslateStatusActivity() {
                         }
                         R.id.tv_yes -> {
                             tDialog.dismiss()
+                            when (type) {
+                                CANCEL_MAIN_REQUEST -> appComponent.netWork.userCancelMainOrder(id, reason, detail)
+                                        .doOnSubscribe { mCompositeDisposable.add(it) }
+                                        .doOnLoading { isShowDialog(it) }
+                                        .subscribe { showTDialog() }
+                                CANCEL_SINGLE_REQUEST -> {
+                                    appComponent.netWork.userCancelSingleOrder(id, bookingTeacherId, reason, detail)
+                                            .doOnSubscribe { mCompositeDisposable.add(it) }
+                                            .doOnLoading { isShowDialog(it) }
+                                            .subscribe { showTDialog() }
+                                }
+                                else -> appComponent.netWork.cancelFigh(id, reason, detail)
+                                        .doOnSubscribe { mCompositeDisposable.add(it) }
+                                        .doOnLoading { isShowDialog(it) }
+                                        .subscribe { showTDialog() }
+                            }
 
-                            appComponent.netWork.cancelFigh(id, reason, detail)
-                                    .doOnSubscribe { mCompositeDisposable.add(it) }
-                                    .doOnLoading { showProgress(it) }
-                                    .subscribe { showTDialog() }
 
                         }
                     }
@@ -158,6 +199,8 @@ class ReportActivity : BaseTranslateStatusActivity() {
     companion object {
         const val REPORT = "Report"
         const val CANCEL_REQUEST = "Cancel request"
+        const val CANCEL_MAIN_REQUEST = "Cancel main request"
+        const val CANCEL_SINGLE_REQUEST = "Cancel single request"
     }
 
 }

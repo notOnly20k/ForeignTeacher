@@ -157,7 +157,7 @@ class SelectLanguageActivity : BaseTranslateStatusActivity(), SelectAToZAdapter.
             LANGUAGE->{
                 appComponent.netWork.getLanguage()
                         .doOnSubscribe { mCompositeDisposable.add(it) }
-                        .doOnLoading { showProgress(it) }
+                        .doOnLoading { isShowDialog(it) }
                         .map {
                             Collections.sort(it, PinyinComparator())
                             it
@@ -183,7 +183,7 @@ class SelectLanguageActivity : BaseTranslateStatusActivity(), SelectAToZAdapter.
             CITY->{
                 appComponent.netWork.getOpenedCity()
                         .doOnSubscribe {mCompositeDisposable.add(it)  }
-                        .doOnLoading { showProgress(it) }
+                        .doOnLoading { isShowDialog(it) }
                         .subscribe {list->
                             sourceDateList.addAll(list)
                             adapter.updateList(list)

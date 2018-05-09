@@ -45,6 +45,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@id/tv_name"
                     android:background="@color/white"
+                    android:maxLength="40"
                     android:hint="Enter course title"
                     android:textSize="15sp" />
 
@@ -308,7 +309,7 @@
                 style="@style/style_tv_mine_item"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:drawableRight="@mipmap/icon_locate"
+                android:paddingRight="40dp"
                 android:layout_below="@id/tv_end_time"
                 android:layout_toRightOf="@id/tv_contact"
                 android:editable="false"
@@ -316,6 +317,15 @@
                 android:singleLine="true"
                 android:focusableInTouchMode="false"
                 android:hint="Set address" />
+            <ImageView
+                android:id="@+id/img_locate"
+                android:src="@mipmap/icon_locate"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/tv_end_time"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:id="@+id/ll_uo_load"

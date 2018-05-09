@@ -77,7 +77,7 @@
                     android:layout_marginRight="@dimen/android_margin"
                     android:layout_marginLeft="@dimen/android_margin"
                     android:layout_marginTop="30dp"
-                    app:placeholderImage="@drawable/up_load_pic"
+                    android:background="@drawable/up_load_pic"
                     fresco:actualImageScaleType="fitXY"
                     fresco:placeholderImageScaleType="fitXY" />
 

@@ -14,66 +14,138 @@
         android:text="Message"
         android:textColor="@color/yellow_ffcc00"
         android:textSize="@dimen/textSize_20" />
-
-    <RelativeLayout
+    <ScrollView
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
-
-        <ImageView
-            android:id="@+id/img_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/official_notice" />
-
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/android_margin"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/img_icon"
-            android:text="Official Notice"
-            android:textColor="@color/text_333333"
-            android:textSize="@dimen/text_16" />
-
-        <TextView
-            android:id="@+id/tv_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_name"
-            android:layout_marginLeft="@dimen/android_margin"
-            android:layout_toRightOf="@id/img_icon"
-            android:text="Our app went live"
-            android:textColor="@color/color_grey_999999"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/android_margin"
-            android:background="@mipmap/brage_red"
-            android:gravity="center_horizontal"
-            android:text="2"
-            android:textColor="@color/white"
-            android:textSize="12dp" />
-
-        <View
+        android:layout_height="match_parent">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/android_margin"
-            android:layout_marginRight="@dimen/android_margin"
-            android:background="@color/grey_f1f1f1" />
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/rl_system_msg"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
 
-    </RelativeLayout>
+                <ImageView
+                    android:id="@+id/img_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/official_notice" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rec_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"></android.support.v7.widget.RecyclerView>
+                <TextView
+                    android:id="@+id/tv_title_system"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/img_icon"
+                    android:text="Official Notice"
+                    android:textColor="@color/text_333333"
+                    android:textSize="@dimen/text_16" />
+
+                <TextView
+                    android:id="@+id/tv_content_system"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_title_system"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:layout_toRightOf="@id/img_icon"
+
+                    android:textColor="@color/color_grey_999999"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_new_system_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/android_margin"
+                    android:background="@mipmap/brage_red"
+                    android:gravity="center_horizontal"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:textSize="12dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:layout_marginRight="@dimen/android_margin"
+                    android:background="@color/grey_f1f1f1" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_order_msg_all"
+                android:layout_below="@id/rl_system_msg"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <ImageView
+                    android:id="@+id/img_icon_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/order_notice" />
+
+                <TextView
+                    android:id="@+id/tv_title_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/img_icon_order"
+                    android:text="Order Notice"
+                    android:textColor="@color/text_333333"
+                    android:textSize="@dimen/text_16" />
+
+                <TextView
+                    android:id="@+id/tv_content_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_title_order"
+                    android:layout_marginLeft="@dimen/android_margin"
+                    android:layout_toRightOf="@id/img_icon_order"
+
+                    android:textColor="@color/color_grey_999999"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_new_order_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/android_margin"
+                    android:background="@mipmap/brage_red"
+                    android:gravity="center_horizontal"
+                   android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:textSize="12dp" />
+
+            </RelativeLayout>
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_below="@id/rl_order_msg_all"
+                android:background="@color/grey_f1f1f1"
+                />
+            <com.hyphenate.easeui.widget.EaseConversationList
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/lv_msg"
+                android:background="@color/white"
+                android:layout_below="@id/view"
+                android:divider="@null"
+                android:cacheColorHint="#00000000"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+
 
 </LinearLayout>

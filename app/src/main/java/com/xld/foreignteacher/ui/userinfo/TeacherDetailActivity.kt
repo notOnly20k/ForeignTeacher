@@ -5,12 +5,13 @@ import android.view.View
 import butterknife.ButterKnife
 import cn.sinata.xldutils.activitys.BaseActivity
 import cn.sinata.xldutils.utils.ActivityUtil
+import com.hyphenate.easeui.EaseConstant
 import com.xld.foreignteacher.R
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
-import com.xld.foreignteacher.ext.e
 import com.xld.foreignteacher.ui.ListActivity
-import com.xld.foreignteacher.ui.schedule.adapter.EditScheduleActivity
+import com.xld.foreignteacher.ui.msg.ChatActivity
+import com.xld.foreignteacher.ui.schedule.EditScheduleActivity
 import com.xld.foreignteacher.ui.userinfo.adapter.StudentPageAdapter
 import com.xld.foreignteacher.ui.userinfo.adapter.TeacherEvaluateAdapter
 import com.xld.foreignteacher.ui.userinfo.adapter.TeacherGoodsAdapter
@@ -41,7 +42,7 @@ class TeacherDetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_teacher_detail)
-        id = intent.getIntExtra("id",-1)
+        id = intent.getIntExtra("id", -1)
         mCompositeDisposable = CompositeDisposable()
         progress = MyDialogProgress(this)
         ButterKnife.bind(this)
@@ -52,11 +53,15 @@ class TeacherDetailActivity : BaseActivity() {
     }
 
     private fun initView() {
+        if (intent.getIntExtra("type", -1) == 1) {
+            tv_chat.visibility = View.GONE
+        }
         tv_self_introduce.setOnLongClickListener({
             //翻译后显示
             tv_translation.visibility = View.VISIBLE
             true
         })
+
         iv_back.setOnClickListener { finish() }
         activityUtil = ActivityUtil.create(this)
         teacherGoodsAdapter = TeacherGoodsAdapter(this)
@@ -65,6 +70,11 @@ class TeacherDetailActivity : BaseActivity() {
         lv_goods.adapter = teacherGoodsAdapter
         lv_moment.adapter = teacherMomentAdapter
         lv_evaluate.adapter = teacherEvaluateAdapter
+
+
+        tv_chat.setOnClickListener {
+            activityUtil.go(ChatActivity::class.java).put(EaseConstant.EXTRA_USER_ID, "waijiao_teacher_" + id).start()
+        }
     }
 
     private fun initData() {
@@ -72,10 +82,9 @@ class TeacherDetailActivity : BaseActivity() {
         if (user.lat != null && user.lon != null) {
             appComponent.netWork.getTeacherDetail(id, user.lat!!, user.lon!!)
                     .doOnSubscribe { mCompositeDisposable.add(it) }
-                    .doOnLoading { showProgress(it) }
+                    .doOnLoading { isShowDialog(it) }
                     .subscribe {
                         val urls = ArrayList<String>()
-                        logger.e { "aaaaaa${ it.albumList}" }
                         if (it.albumList != null && it.albumList!!.isNotEmpty()) {
                             it.albumList!!.sortedBy { it.sort }.map { urls.add(it.imgUrl!!) }
                             adapter = StudentPageAdapter(this, urls)

@@ -159,6 +159,14 @@ public abstract class BaseFragment extends Fragment{
         showDialog("");
     }
 
+    protected void isShowDialog(Boolean show){
+        if (show){
+            showDialog("");
+        }else {
+            dismissDialog();
+        }
+    }
+
     /**
      * 显示加载提示窗
      * @param msg 提示文字

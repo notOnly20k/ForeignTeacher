@@ -60,7 +60,7 @@ class ResetMobileActivity : BaseTranslateStatusActivity(), EditEmptyWatcher.Chec
             if (commitCheck())
             appComponent.netWork.checkMsg(et_phone.text.toString(), et_verification_code.text.toString(), "4")
                     .doOnSubscribe { mCompositeDisposable.add(it) }
-                    .doOnLoading { showProgress(it) }
+                    .doOnLoading { isShowDialog(it) }
                     .subscribe {
                         activityUtil.go(SettingActivity::class.java).start()
                         finish()

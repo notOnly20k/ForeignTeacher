@@ -11,7 +11,7 @@ class H5Activity : WebViewActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitleBackground(R.color.black_00)
-        titleView.setBackgroundResource(R.color.black_00)
+        titleView.setBackgroundResource(R.color.color_black_1d1e24)
         titleView.setTextColor(resources.getColor(R.color.yellow_ffcc00))
         val backDra=resources.getDrawable(R.mipmap.back_yellow)
         backDra.setBounds( 0, 0, backDra.minimumWidth,backDra.minimumHeight)

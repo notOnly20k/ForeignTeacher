@@ -16,6 +16,7 @@ android {
         multiDexEnabled true
         manifestPlaceholders = [qqappid: "1106795530"]
 
+
         buildConfigField("String", "APP_SERVER_ENDPOINT", "\"${app_server_endpoint}\"")
     }
 
@@ -33,6 +34,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
 
     sourceSets {//支持so文件
         main {
@@ -52,6 +55,8 @@ dependencies {
     compile project(':xldUtils')
     compile project(':dragsquareimage')
     compile project(':WheelPicker')
+    compile project(':easeui')
+
     api "com.android.support:appcompat-v7:$support_library_version"
     implementation "com.android.support:preference-v7:$support_library_version"
     implementation "com.android.support:preference-v14:$support_library_version"
@@ -88,12 +93,12 @@ dependencies {
     compile 'com.squareup.okio:okio:1.9.0'
     implementation 'sk.baka.slf4j:slf4j-handroid:1.7.26'
     api 'org.slf4j:slf4j-api:1.7.25'
-    compile 'com.hyphenate:hyphenate-sdk-lite:3.4.0.1'
+    //compile 'com.hyphenate:hyphenate-sdk-lite:3.4.0.1'
     implementation files('libs/umeng-common-1.5.0.jar')
-    compile 'com.amap.api:map2d:latest.integration'
-    compile 'com.amap.api:navi-3dmap:latest.integration'
-    compile 'com.amap.api:location:latest.integration'
-    compile 'com.amap.api:search:latest.integration'
+    compile 'com.amap.api:map2d:5.2.0'
+    compile 'com.amap.api:navi-3dmap:6.1.0_3dmap6.2.0'
+    compile 'com.amap.api:location:4.0.1'
+    compile 'com.amap.api:search:6.1.0'
 }
 
 apply plugin: 'kotlin-android-extensions'

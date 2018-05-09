@@ -58,7 +58,7 @@
     <string name="total_learning_hour">Total learning hour</string>
     <string name="teachers">Teachers</string>
     <string name="average_time">Average learning hour in a week</string>
-    <string name="hour_length">%1$f hours</string>
+    <string name="hour_length">%1$d hours</string>
     <string name="longest_session">Longest_session</string>
     <string name="chat">Chat</string>
     <string name="offers">Offers</string>

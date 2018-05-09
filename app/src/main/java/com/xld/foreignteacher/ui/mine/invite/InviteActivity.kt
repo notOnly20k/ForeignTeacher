@@ -27,7 +27,7 @@ class InviteActivity : BaseTranslateStatusActivity() {
         btn_ok.setOnClickListener {
             if (et_invite_code.text.isNotEmpty()) {
                 appComponent.netWork.addInviteCode(appComponent.userHandler.getUser()!!.id, et_invite_code.text.toString())
-                        .doOnLoading { showProgress(it) }
+                        .doOnLoading { isShowDialog(it) }
                         .subscribe {
                             ll_add_code.visibility = View.GONE
                             showToast("Add invite code success")
@@ -37,13 +37,17 @@ class InviteActivity : BaseTranslateStatusActivity() {
     }
 
     override fun initData() {
+
         appComponent.netWork.getUserInviteCode(appComponent.userHandler.getUser().id)
-                .doOnLoading { showProgress(it) }
+                .doOnLoading { isShowDialog(it) }
                 .subscribe { it ->
                     if (it.isAddInviteCode) {
-                        ll_add_code.visibility = View.GONE
+                        btn_ok.isEnabled = false
+                        et_invite_code.setText(appComponent.userHandler.getUser().inviteCode)
+                        et_invite_code.isEnabled = false
+                        tv_invited.visibility=View.VISIBLE
                     } else {
-                        ll_add_code.visibility = View.VISIBLE
+                        btn_ok.isEnabled = true
                     }
                     tv_my_code.text = it.identCode
                     val inviteNum = SpannableString("App-Invited ${it.inviteNum} friends")

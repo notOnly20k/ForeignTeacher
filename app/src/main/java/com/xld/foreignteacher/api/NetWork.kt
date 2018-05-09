@@ -10,7 +10,6 @@ import com.xld.foreignteacher.ext.toast
 import com.xld.foreignteacher.util.DES
 import io.reactivex.Maybe
 import org.slf4j.LoggerFactory
-import java.util.*
 
 /**
  * Created by cz on 3/28/18.
@@ -118,7 +117,7 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
 
     //编辑教师信息
     fun editTeacher(id: Int, nickName: String, imgUrl: String? = null, sex: Int, birthDay: String,
-                    contactInformation: String, chineseLevel: Int? = null, nationality: String? = null, languagesId: Int? = null,
+                    contactInformation: String, chineseLevel: Int? = null, nationality: String? = null, languagesId: String? = null,
                     openCityId: Int? = null, personalProfile: String? = null, albumImgUrl: String? = null): Maybe<Any> {
         val imgUrl = if (imgUrl != null) {
             "&imgUrl=$imgUrl"
@@ -413,7 +412,7 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
     }
 
     //接单
-    fun takeOrder(orderId: String): Maybe<Any> {
+    fun takeOrder(orderId: Int): Maybe<Any> {
         val key = DES.encryptDES("server=/app/teacher/takeOrder?&orderId=$orderId")
         return appComponent.appApi
                 .response(key)
@@ -424,8 +423,8 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
     }
 
     //拒单
-    fun refuseOrder(orderId: String): Maybe<Any> {
-        val key = DES.encryptDES("server=/app/teacher/refuseOrder?&orderId=$orderId")
+    fun refuseOrder(orderId: Int,refuseReason:String): Maybe<Any> {
+        val key = DES.encryptDES("server=/app/teacher/refuseOrder?&orderId=$orderId&refuseReason=$refuseReason")
         return appComponent.appApi
                 .response(key)
                 .toMaybe()
@@ -434,9 +433,11 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .logErrorAndForget(Throwable::toast)
     }
 
-    //取消主要订单
-    fun cancelMainOrder(orderId: String, calcelReason: String, reasonDescribe: String): Maybe<Any> {
-        val key = DES.encryptDES("server=/app/teacher/cancelMainOrder?&orderId=$orderId&reasonDescribe=$reasonDescribe&calcelReason=$calcelReason")
+
+    //评价订单
+    fun evlauateUser(orderId: Int,userId: Int, teacherId: Int, listening: Double,grammar: Double,vocabulary: Double,pronunciation: Double,fluency: Double): Maybe<Any> {
+        val key = DES.encryptDES("server=/app/teacher/evlauateUser?&orderId=$orderId&userId=$userId&teacherId=$teacherId" +
+                "&listening=$listening&grammar=$grammar&vocabulary=$vocabulary&pronunciation=$pronunciation&fluency=$fluency")
         return appComponent.appApi
                 .response(key)
                 .toMaybe()
@@ -445,11 +446,11 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .logErrorAndForget(Throwable::toast)
     }
 
-    //取消私教订单
-    fun cancelSingleOrder(orderId: String, bookingTeacherId: Int, calcelReason: String, reasonDescribe: String): Maybe<Any> {
-        val key = DES.encryptDES("server=/app/teacher/cancelMainOrder?&orderId=$orderId&bookingTeacherId=$bookingTeacherId&reasonDescribe=$reasonDescribe&calcelReason=$calcelReason")
+    //获取私教子订单
+    fun getMyPersonalTrainingChildOrder(orderId: Int): Maybe<TrainingChildOrder> {
+        val key = DES.encryptDES("server=/app/teacher/getMyPersonalTrainingChildOrder?orderId=$orderId")
         return appComponent.appApi
-                .response(key)
+                .getMyPersonalTrainingChildOrder(key)
                 .toMaybe()
                 .toNetWork()
                 .map { it.check() }
@@ -461,6 +462,71 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
         val key = DES.encryptDES("server=/app/teacher/getMyPersonalTrainingOrder?teacherId=$teacherId&state=$state&page=$page&rows=$rows")
         return appComponent.appApi
                 .getMyPersonalTrainingOrder(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+    //获取个人订单详情
+    fun getPersonalTrainingOrderDetail(orderId: Int): Maybe<SingleOrderDetail> {
+        val key = DES.encryptDES("server=/app/teacher/getPersonalTrainingOrderDetail?orderId=$orderId")
+        return appComponent.appApi
+                .getSingleOrderDetail(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+    //取消主要订单
+    fun cancelMainOrder(orderId: Int, calcelReason: String, reasonDescribe: String): Maybe<Any> {
+        val key = DES.encryptDES("server=/app/teacher/cancelMainOrder?&orderId=$orderId&reasonDescribe=$reasonDescribe&calcelReason=$calcelReason")
+        return appComponent.appApi
+                .response(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //取消私教订单
+    fun cancelSingleOrder(orderId: Int, bookingTeacherId: Int, calcelReason: String, reasonDescribe: String): Maybe<Any> {
+        val key = DES.encryptDES("server=/app/teacher/cancelMainOrder?&orderId=$orderId&bookingTeacherId=$bookingTeacherId&reasonDescribe=$reasonDescribe&calcelReason=$calcelReason")
+        return appComponent.appApi
+                .response(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+
+    //删除个人订单
+    fun deletePersonalTrainingOrder(orderId: Int): Maybe<Any> {
+        val key = DES.encryptDES("server=/app/user/deletePersonalTrainingOrder?orderId=$orderId")
+        return appComponent.appApi
+                .response(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //删除主订单
+    fun userCancelMainOrder(orderId: Int,calcelReason:String,reasonDescribe:String): Maybe<Any> {
+        val key = DES.encryptDES("server=/app/user/userCancelMainOrder?orderId=$orderId&calcelReason=$calcelReason&reasonDescribe=$reasonDescribe")
+        return appComponent.appApi
+                .response(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //删除单个订单
+    fun userCancelSingleOrder(orderId: Int,bookingTeacherId:Int,calcelReason:String,reasonDescribe:String): Maybe<Any> {
+        val key = DES.encryptDES("server=/app/user/userCancelSingleOrder?orderId=$orderId&bookingTeacherId=$bookingTeacherId&calcelReason=$calcelReason&reasonDescribe=$reasonDescribe")
+        return appComponent.appApi
+                .response(key)
                 .toMaybe()
                 .toNetWork()
                 .map { it.check() }
@@ -480,11 +546,13 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
 
     //添加拼拼订单
     fun addFight(teacherId: Int, languagesId: Int, enrolment: Int, classesNumber: Int, price: Int, title: String, phone: String, address: String,
-                 lat: String, lon: String, backgroundCourse: String, introduce: String, introduceImgs: String, deadlineRegistration: Date,
-                 reservationDeadline: Date, openingTime: Date, endTime: Date): Maybe<Any> {
-        logger.e {"server=/app/userFight/addFight?teacherId=$teacherId&languagesId=$languagesId&enrolment=$enrolment&classesNumber=$classesNumber" +
-                "&price=$price&title=$title&phone=$phone&address=$address&lat=$lat&lon=$lon&backgroundCourse=$backgroundCourse&introduce=$introduce&introduceImgs=$introduceImgs" +
-                "&deadlineRegistration=$deadlineRegistration&reservationDeadline=$reservationDeadline&openingTime=$openingTime&endTime=$endTime"  }
+                 lat: String, lon: String, backgroundCourse: String, introduce: String, introduceImgs: String, deadlineRegistration: String,
+                 reservationDeadline: String, openingTime: String, endTime: String): Maybe<Any> {
+        logger.e {
+            "server=/app/userFight/addFight?teacherId=$teacherId&languagesId=$languagesId&enrolment=$enrolment&classesNumber=$classesNumber" +
+                    "&price=$price&title=$title&phone=$phone&address=$address&lat=$lat&lon=$lon&backgroundCourse=$backgroundCourse&introduce=$introduce&introduceImgs=$introduceImgs" +
+                    "&deadlineRegistration=$deadlineRegistration&reservationDeadline=$reservationDeadline&openingTime=$openingTime&endTime=$endTime"
+        }
         val key = DES.encryptDES("server=/app/userFight/addFight?teacherId=$teacherId&languagesId=$languagesId&enrolment=$enrolment&classesNumber=$classesNumber" +
                 "&price=$price&title=$title&phone=$phone&address=$address&lat=$lat&lon=$lon&backgroundCourse=$backgroundCourse&introduce=$introduce&introduceImgs=$introduceImgs" +
                 "&deadlineRegistration=$deadlineRegistration&reservationDeadline=$reservationDeadline&openingTime=$openingTime&endTime=$endTime")
@@ -520,7 +588,7 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
     }
 
     //订单数
-    fun getOrderNum(id: Int, type: Int): Maybe<OrderNum> {
+    fun getOrderNum(id: Int, type: Int): Maybe<Any> {
         val key = DES.encryptDES("server=/app/userFight/getOrderNum?id=$id&type=$type")
         return appComponent.appApi
                 .getOrderNum(key)
@@ -546,6 +614,28 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
         val key = DES.encryptDES("server=/app/userTeacher/getTeacherDetail?id=$id&lat=$lat&lon=$lon")
         return appComponent.appApi
                 .getTeacherDetail(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //获取学生详情
+    fun getUserHomePage(id: Int): Maybe<UserHomeData> {
+        val key = DES.encryptDES("server=/app/public/getUserHomePage?id=$id")
+        return appComponent.appApi
+                .getUserHomePage(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    //获取学生详情
+    fun getUserInfo(id: Int): Maybe<Student> {
+        val key = DES.encryptDES("server=/app/user/getUserInfo?id=" + id)
+        return appComponent.appApi
+                .getUserInfo(key)
                 .toMaybe()
                 .toNetWork()
                 .map { it.check() }
@@ -679,16 +769,39 @@ class NetWork(val appComponent: AppComponent, val api: AppApi) {
                 .logErrorAndForget(Throwable::toast)
     }
 
+    //举报用户
+    fun addComplaint(teacherId: Int, userId: Int, reason: String, content: String): Maybe<Any> {
+        val key = DES.encryptDES("server=/app/public/addComplaint?teacherId=$teacherId&userId=$userId&reason=$reason&content=$content")
+        return appComponent.appApi
+                .response(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
 
-//    fun addComplaint(teacherId:Int,imgUrl: String,address:String,content:String):Maybe<Any>{
-//        val key = DES.encryptDES("server=/app/public/addComplaint?teacherId=$teacherId&imgUrl=$imgUrl&address=$address&content=$content")
-//        return appComponent.appApi
-//                .addSquare(key)
-//                .toMaybe()
-//                .toNetWork()
-//                .map { it.check() }
-//                .logErrorAndForget(Throwable::toast)
-//    }
+
+    fun getTeacherFightFirstList(id: Int, rows: Int, page: Int): Maybe<List<TeacherFight>> {
+        val key = DES.encryptDES("server=/app/userFight/getTeacherFightFirstList?id=$id&rows=$rows&page=$page")
+        return appComponent.appApi
+                .getTeacherFightFirstList(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+    fun getTeacherInfoSurvey(teacherId:Int):Maybe<TeacherInfo>{
+        val key = DES.encryptDES("server=/app/teacher/teacherInfoSurvey?teacherId=$teacherId")
+        return appComponent.appApi
+                .getTeacherInfoSurvey(key)
+                .toMaybe()
+                .toNetWork()
+                .map { it.check() }
+                .logErrorAndForget(Throwable::toast)
+    }
+
+
 
 
     fun getH5Url(type: Int): String {

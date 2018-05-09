@@ -117,7 +117,7 @@ class VerificationCodeActivity : BaseTranslateStatusActivity(), EditEmptyWatcher
             }
             R.id.btn_login_next -> {
                 appComponent.netWork.checkMsg(etPhone.text.toString().formateToNum(), etVerificationCode.text.toString(), type!!)
-                        .doOnLoading { showProgress(it) }
+                        .doOnLoading { isShowDialog(it) }
                         .doOnSubscribe { mCompositeDisposable.add(it) }
                         .subscribe { _ -> checkSuccess() }
             }

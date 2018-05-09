@@ -154,7 +154,7 @@
                 <TextView
                     android:id="@+id/tv_location"
                     style="@style/style_order_info_item"
-                    android:layout_width="300dp"
+                    android:layout_width="250dp"
                     android:drawablePadding="4dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_class_time"
@@ -242,6 +242,7 @@
                         android:paddingLeft="@dimen/dp_4"
                         android:paddingRight="@dimen/dp_4"
                         android:text="Decline"
+                        android:layout_marginBottom="1dp"
                         android:textColor="@color/black_00" />
 
                     <TextView
@@ -253,6 +254,7 @@
                         android:gravity="center"
                         android:paddingLeft="@dimen/dp_4"
                         android:paddingRight="@dimen/dp_4"
+                        android:layout_marginBottom="1dp"
                         android:text="Accept"
                         android:textColor="@color/black_00" />
                 </LinearLayout>

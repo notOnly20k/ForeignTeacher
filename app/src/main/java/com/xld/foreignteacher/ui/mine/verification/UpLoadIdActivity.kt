@@ -86,9 +86,9 @@ class UpLoadIdActivity : BaseTranslateStatusActivity() {
 
     fun upLoad() {
         if (commitCheck()) {
-            appComponent.netWork.applyAuthentication(1, null, et_number.text.toString(), filePath, upLoadType)
+            appComponent.netWork.applyAuthentication(appComponent.userHandler.getUser().id, null, et_number.text.toString(), filePath, upLoadType)
                     .doOnSubscribe { mCompositeDisposable.add(it) }
-                    .doOnLoading { showProgress(it) }
+                    .doOnLoading { isShowDialog(it) }
                     .subscribe { finish() }
         }
     }
@@ -164,8 +164,8 @@ class UpLoadIdActivity : BaseTranslateStatusActivity() {
                                         || fileType == "png" || fileType == "jpeg"
                                         || fileType == "bmp" || fileType == "wbmp"
                                         || fileType == "ico" || fileType == "jpe") {
-                                    filePath = tempFile!!.absolutePath
-                                    img_pic.setImageURI(Uri.fromFile(tempFile))
+                                    filePath = path
+                                    img_pic.setImageURI(Uri.fromFile(File(path)))
                                 } else {
                                     Toast.create(this).show((R.string.error_pic_type).toFormattedString(this))
                                 }

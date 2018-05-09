@@ -55,7 +55,7 @@ class ResetPwdActivity : BaseTranslateStatusActivity(), EditEmptyWatcher.Checkab
             R.id.btn_login_commit -> if (commitCheck()) {
                 appComponent.netWork.resetPwd(phone!!, etPwd.text.toString().toMD5())
                         .doOnSubscribe { mCompositeDisposable.add(it) }
-                        .doOnLoading { showProgress(it) }
+                        .doOnLoading { isShowDialog(it) }
                         .subscribe { _ ->
                             showToast(getString(R.string.reset_pwd_success))
                             activityUtil.go(SettingActivity::class.java).start()

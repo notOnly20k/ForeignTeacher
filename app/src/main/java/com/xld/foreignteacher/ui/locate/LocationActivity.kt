@@ -16,6 +16,7 @@ import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationListener
+import com.amap.api.maps.model.MyLocationStyle.LOCATION_TYPE_LOCATE
 import com.amap.api.maps2d.AMap
 import com.amap.api.maps2d.CameraUpdateFactory
 import com.amap.api.maps2d.LocationSource
@@ -33,6 +34,7 @@ import com.amap.api.services.help.Tip
 import com.amap.api.services.poisearch.PoiResult
 import com.amap.api.services.poisearch.PoiSearch
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.api.dto.User
 import com.xld.foreignteacher.ext.appComponent
 import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ext.e
@@ -75,9 +77,11 @@ class LocationActivity : BaseTranslateStatusActivity(), LocationSource, PoiSearc
     private var mListener: LocationSource.OnLocationChangedListener? = null
     private var mlocationClient: AMapLocationClient? = null
     private var mLocationOption: AMapLocationClientOption? = null
+    private lateinit var user: User
 
 
     override fun initView() {
+        user = appComponent.userHandler.getUser()
         tv_back.setOnClickListener { finish() }
         tv_search.setOnClickListener {
             ll_search_bar.visibility = View.VISIBLE
@@ -149,20 +153,12 @@ class LocationActivity : BaseTranslateStatusActivity(), LocationSource, PoiSearc
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mapview.onCreate(savedInstanceState)
-        mapview.map.apply {
-            setMapLanguage(AMap.ENGLISH)
-            uiSettings.isZoomControlsEnabled = false
-            uiSettings.isMyLocationButtonEnabled = false
-        }
+
         aMap = mapview.map
         setUpMap()
         geocoderSearch = GeocodeSearch(this)
         geocoderSearch!!.setOnGeocodeSearchListener(this)
-        val myLocationStyle= MyLocationStyle()
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)
-        myLocationStyle.showMyLocation(true)
-        aMap.setMyLocationStyle(myLocationStyle)
-        aMap.isMyLocationEnabled = true
+
         aMap.setOnCameraChangeListener(object : AMap.OnCameraChangeListener {
             override fun onCameraChange(cameraPosition: CameraPosition) {
 
@@ -215,10 +211,19 @@ class LocationActivity : BaseTranslateStatusActivity(), LocationSource, PoiSearc
      * 设置一些amap的属性
      */
     private fun setUpMap() {
-        aMap.uiSettings.isZoomControlsEnabled = false
+        val myLocationStyle = MyLocationStyle()
+        //myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)
+        myLocationStyle.myLocationType(LOCATION_TYPE_LOCATE)
+        myLocationStyle.showMyLocation(true)
+        mapview.map.apply {
+            setMapLanguage(AMap.ENGLISH)
+            uiSettings.isZoomControlsEnabled = false
+            uiSettings.isMyLocationButtonEnabled = false
+        }
         aMap.setLocationSource(this)// 设置定位监听
         aMap.uiSettings.isMyLocationButtonEnabled = true// 设置默认定位按钮是否显示
         aMap.isMyLocationEnabled = true// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
+        aMap.setMyLocationStyle(myLocationStyle)
     }
 
 
@@ -253,7 +258,8 @@ class LocationActivity : BaseTranslateStatusActivity(), LocationSource, PoiSearc
      */
     private fun doSearchQuery() {
         currentPage = 0
-        query = PoiSearch.Query(searchKey, null, "")// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
+
+        query = PoiSearch.Query(searchKey, null, user.city)// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
         query?.cityLimit = true
         query?.pageSize = 20
         query?.pageNum = currentPage
@@ -261,7 +267,7 @@ class LocationActivity : BaseTranslateStatusActivity(), LocationSource, PoiSearc
         if (searchLatlonPoint != null) {
             poiSearch = PoiSearch(this, query)
             poiSearch?.setOnPoiSearchListener(this)
-            poiSearch?.bound = PoiSearch.SearchBound(searchLatlonPoint, 1000, true)//
+            poiSearch?.bound = PoiSearch.SearchBound(searchLatlonPoint, 600, true)//
             poiSearch?.searchPOIAsyn()
         }
     }
@@ -271,7 +277,7 @@ class LocationActivity : BaseTranslateStatusActivity(), LocationSource, PoiSearc
         appComponent.locationHandler.start()
         appComponent.locationHandler.locationSubject
                 .doOnSubscribe { mCompositeDisposable.add(it) }
-                .doOnLoading { showProgress(it) }
+                .doOnLoading { isShowDialog(it) }
                 .subscribe {
                     searchLatlonPoint = LatLonPoint(it.latitude, it.longitude)
                     aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(searchLatlonPoint!!.latitude, searchLatlonPoint!!.longitude), 16f))
@@ -279,7 +285,7 @@ class LocationActivity : BaseTranslateStatusActivity(), LocationSource, PoiSearc
 //        val myLocationStyle: MyLocationStyle = MyLocationStyle()
 //        //初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
 //        myLocationStyle.interval(2000) //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
-//        // myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW)//连续定位、蓝点不会移动到地图中心点，定位点依照设备方向旋转，并且蓝点会跟随设备移动。
+//         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW)//连续定位、蓝点不会移动到地图中心点，定位点依照设备方向旋转，并且蓝点会跟随设备移动。
 //        mapview.map.setMyLocationStyle(myLocationStyle)//设置定位蓝点的Style
 //        mapview.map.uiSettings.isMyLocationButtonEnabled = true//设置默认定位按钮是否显示，非必需设置。
 //        mapview.map.isMyLocationEnabled = true// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
@@ -335,6 +341,7 @@ class LocationActivity : BaseTranslateStatusActivity(), LocationSource, PoiSearc
     }
 
     override fun onLocationChanged(p0: AMapLocation?) {
+        mListener?.onLocationChanged(p0)
     }
 
     override fun onRegeocodeSearched(result: RegeocodeResult?, rCode: Int) {

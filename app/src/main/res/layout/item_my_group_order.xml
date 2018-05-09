@@ -6,6 +6,7 @@
     android:paddingLeft="@dimen/android_margin"
     android:paddingRight="@dimen/android_margin"
     android:paddingTop="10dp"
+    android:id="@+id/rl_item"
     android:background="@color/white"
     android:paddingBottom="10dp"
     android:layout_height="wrap_content">
@@ -25,7 +26,6 @@
         android:layout_height="26dp"
         android:layout_alignTop="@id/iv_pinpin_img"
         android:background="@mipmap/bg_yellow"
-        android:backgroundTint="@color/color_red_ff8a00"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:drawableLeft="@mipmap/icon_pending"
@@ -95,6 +95,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/blue"
         android:layout_marginTop="8dp"
+        android:id="@+id/tv_sub_time"
         android:text="Submit time:12:06 15:30"
         android:textSize="10sp"
         />

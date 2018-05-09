@@ -11,6 +11,8 @@ import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
 import com.umeng.socialize.media.UMWeb
 import com.xld.foreignteacher.R
+import com.xld.foreignteacher.ext.appComponent
+import com.xld.foreignteacher.ext.doOnLoading
 import com.xld.foreignteacher.ui.ListActivity
 import com.xld.foreignteacher.ui.dialog.ShareDialog
 import com.xld.foreignteacher.ui.mine.about.AboutActivity
@@ -18,6 +20,7 @@ import com.xld.foreignteacher.ui.mine.invite.InviteActivity
 import com.xld.foreignteacher.ui.mine.setting.SettingActivity
 import com.xld.foreignteacher.ui.mine.verification.VerificationActivity
 import com.xld.foreignteacher.ui.mine.wallet.WalletActivity
+import com.xld.foreignteacher.ui.userinfo.TeacherDetailActivity
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 
@@ -49,7 +52,7 @@ class MineFragment : BaseFragment(), ShareDialog.OnShareItemClickListener, UMSha
 
     override fun onFirstVisibleToUser() {
         iv_head.setOnClickListener {
-            activityUtil.go(InfoActivity::class.java).put("type",InfoActivity.SHOW).start()
+            activityUtil.go(InfoActivity::class.java).put("type", InfoActivity.SHOW).start()
         }
         tv_verification.setOnClickListener {
             activityUtil.go(VerificationActivity::class.java).start()
@@ -79,7 +82,37 @@ class MineFragment : BaseFragment(), ShareDialog.OnShareItemClickListener, UMSha
         tv_setting.setOnClickListener {
             activityUtil.go(SettingActivity::class.java).start()
         }
+        tv_preview.setOnClickListener {
+            activityUtil.go(TeacherDetailActivity::class.java).put("id",appComponent.userHandler.getUser().id).put("type",1).start()
+        }
+        initDate()
+    }
 
+    private fun initDate() {
+        val user = appComponent.userHandler.getUser()
+        appComponent.netWork.getTeacherInfoSurvey(user.id)
+                .doOnSubscribe { addDisposable(it) }
+                .doOnLoading { isShowDialog(it) }
+                .subscribe {
+                    val teacher=it.teachers!!
+                    appComponent.userHandler.saveUser(user.copy(
+                            imgUrl =teacher.imgUrl,
+                            point = it.score?.score?:user.point ,
+                            nickName = teacher.nickName ?: user.nickName,
+                            inviteCode = teacher.inviteCode,
+                            identCode = teacher.identCode,
+                            openCityId = teacher.openCityId,
+                            sex = teacher.sex,
+                            phone = teacher.phone,
+                            birthDay = teacher.birthDay
+                    ))
+                    tv_name.text = it.teachers!!.nickName
+                    iv_head.setImageURI(it.teachers!!.imgUrl)
+                    tv_income_count.text = it.teachers!!.lucreTotal.toString()
+                    tv_order_count.text = it.ingOrderNum.toString() + "/" + it.totalOrderNum.toString()
+                    tv_rating_count.text = it.score?.score?.toString()?:"0.0"
+                    tv_cancel_count.text = it.cancelOrderNum.toString()
+                }
     }
 
     override fun share(type: SHARE_MEDIA) {

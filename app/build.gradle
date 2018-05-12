@@ -7,7 +7,7 @@ android {
     buildToolsVersion build_tools_version
 
     defaultConfig {
-        applicationId "com.xld.foreignteacher"
+        applicationId "com.whynuttalk.foreignteacher"
         minSdkVersion min_sdk_version
         targetSdkVersion compile_sdk_version
         versionCode 1
@@ -15,7 +15,9 @@ android {
         vectorDrawables.useSupportLibrary = false
         multiDexEnabled true
         manifestPlaceholders = [qqappid: "1106795530"]
-
+        ndk {
+            abiFilters  "armeabi-v7a" ,"x86" // 指定要ndk需要兼容的架构(这样其他依赖包里mips,x86,armeabi,arm-v8之类的so会被过滤掉)
+        }
 
         buildConfigField("String", "APP_SERVER_ENDPOINT", "\"${app_server_endpoint}\"")
     }
@@ -94,6 +96,7 @@ dependencies {
     implementation 'sk.baka.slf4j:slf4j-handroid:1.7.26'
     api 'org.slf4j:slf4j-api:1.7.25'
     //compile 'com.hyphenate:hyphenate-sdk-lite:3.4.0.1'
+    compile 'com.github.SilenceDut:jpinyin:v1.0'
     implementation files('libs/umeng-common-1.5.0.jar')
     compile 'com.amap.api:map2d:5.2.0'
     compile 'com.amap.api:navi-3dmap:6.1.0_3dmap6.2.0'

@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import cn.sinata.xldutils.R;
-
 import java.text.NumberFormat;
+
+import cn.sinata.xldutils.R;
 
 /**
  * 自定义ProgressDialog
@@ -21,7 +21,7 @@ public class ProgressDialog extends android.app.Dialog {
     private ProgressBar mProgress;
     private TextView mMessageView;
     private Context context;
-    private CharSequence mMessage="加载中...";
+    private CharSequence mMessage="Loading...";
     public ProgressDialog(Context context) {
         super(context);
         this.context=context;

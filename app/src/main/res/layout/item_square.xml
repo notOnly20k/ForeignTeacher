@@ -76,7 +76,7 @@
         android:textSize="@dimen/text_12"
         android:visibility="gone" />
 
-    <com.xld.foreignteacher.views.NestedGridView
+    <com.whynuttalk.foreignteacher.views.NestedGridView
         android:id="@+id/gv_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

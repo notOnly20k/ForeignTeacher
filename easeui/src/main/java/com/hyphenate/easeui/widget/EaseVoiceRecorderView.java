@@ -98,7 +98,7 @@ public class EaseVoiceRecorderView extends RelativeLayout {
         TextView tv = (TextView) viewGroup.getChildAt(0);
         switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN:
-            tv.setText("说话中");
+            tv.setText("talking");
             try {
                 EaseChatRowVoicePlayer voicePlayer = EaseChatRowVoicePlayer.getInstance(context);
                 if (voicePlayer.isPlaying())
@@ -118,7 +118,7 @@ public class EaseVoiceRecorderView extends RelativeLayout {
             return true;
         case MotionEvent.ACTION_UP:
             v.setPressed(false);
-            tv.setText("按住说话");
+            tv.setText("push to talk");
             if (event.getY() < 0) {
                 // discard the recorded audio.
                 discardRecording();

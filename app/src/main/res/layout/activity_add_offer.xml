@@ -26,7 +26,6 @@
         android:textColor="@color/black_000000"
         android:layout_below="@id/title_bar"
         android:layout_toRightOf="@id/tv_title"
-        android:drawableRight="@mipmap/icon_more"
         android:hint="Pick a suitable title" />
 
     <TextView

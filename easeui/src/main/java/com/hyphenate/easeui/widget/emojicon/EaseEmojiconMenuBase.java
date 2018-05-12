@@ -1,19 +1,20 @@
 package com.hyphenate.easeui.widget.emojicon;
 
-import com.hyphenate.easeui.domain.EaseEmojicon;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
+import com.hyphenate.easeui.domain.EaseEmojicon;
+import com.hyphenate.easeui.model.ShortMessage;
+
 public class EaseEmojiconMenuBase extends LinearLayout{
     protected EaseEmojiconMenuListener listener;
-    
+
     public EaseEmojiconMenuBase(Context context) {
         super(context);
     }
-    
+
     @SuppressLint("NewApi")
     public EaseEmojiconMenuBase(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -22,7 +23,7 @@ public class EaseEmojiconMenuBase extends LinearLayout{
         super(context, attrs);
     }
 
-    
+
     /**
      * set emojicon menu listener
      * @param listener
@@ -30,7 +31,7 @@ public class EaseEmojiconMenuBase extends LinearLayout{
     public void setEmojiconMenuListener(EaseEmojiconMenuListener listener){
         this.listener = listener;
     }
-    
+
     public interface EaseEmojiconMenuListener{
         /**
          * on emojicon clicked
@@ -41,5 +42,6 @@ public class EaseEmojiconMenuBase extends LinearLayout{
          * on delete image clicked
          */
         void onDeleteImageClicked();
+        void onShortClicked(ShortMessage shortMessage);
     }
 }

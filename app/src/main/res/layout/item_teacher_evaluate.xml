@@ -32,7 +32,7 @@
         android:textSize="12sp"
         android:layout_below="@id/tv_name"
         android:layout_alignLeft="@id/tv_name"/>
-    <com.xld.foreignteacher.views.StarBarView
+    <com.whynuttalk.foreignteacher.views.StarBarView
         android:id="@+id/sbv_starbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
         android:maxLines="2"
         android:ellipsize="end"
         />
-    <com.xld.foreignteacher.views.NestedGridView
+    <com.whynuttalk.foreignteacher.views.NestedGridView
         android:id="@+id/gv_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

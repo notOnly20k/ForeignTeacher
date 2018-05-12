@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mSwipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_black_1d1e24">
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_size"
@@ -41,8 +44,6 @@
         android:layout_below="@id/iv_head"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-
-        android:text="@string/app_name"
         android:textColor="@color/black_00"
         android:textSize="15sp" />
 
@@ -66,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="666"
+                android:text="0"
                 android:textColor="@color/black_00"
                 android:textSize="16sp" />
 
@@ -90,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="4.8"
+                android:text="0"
                 android:textColor="@color/black_00"
                 android:textSize="16sp" />
 
@@ -114,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="22/44"
+                android:text="0"
                 android:textColor="@color/black_00"
                 android:textSize="16sp" />
 
@@ -138,7 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="3"
+                android:text="0"
                 android:textColor="@color/black_00"
                 android:textSize="16sp" />
 
@@ -278,6 +279,6 @@
 
         </LinearLayout>
     <!--</ScrollView>-->
-
-
 </RelativeLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>

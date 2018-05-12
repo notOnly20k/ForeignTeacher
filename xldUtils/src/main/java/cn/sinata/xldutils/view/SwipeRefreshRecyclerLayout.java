@@ -117,6 +117,12 @@ public class SwipeRefreshRecyclerLayout extends SwipeRefreshLayout implements Sw
         }
     }
 
+    public void loadMoreTrans(){
+        if (loadMoreView != null) {
+            loadMoreView.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+
     private void initLoadMore() {
         if (mAdapter instanceof LoadMoreAdapter) {
             if (loadMoreView != null) {
@@ -187,9 +193,9 @@ public class SwipeRefreshRecyclerLayout extends SwipeRefreshLayout implements Sw
     public void setRefreshing(boolean refreshing) {
         super.setRefreshing(refreshing);
         this.isLoadMore = refreshing;
-//        if (loadMoreView != null) {
-//            loadMoreView.setVisibility(View.GONE);
-//        }
+        if (loadMoreView != null) {
+            loadMoreView.setVisibility(View.GONE);
+        }
     }
 
     public enum Mode {

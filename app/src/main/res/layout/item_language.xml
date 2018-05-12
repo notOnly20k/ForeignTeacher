@@ -7,7 +7,6 @@
         style="@style/style_user_info_item"
         android:layout_width="106dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_gender"
         android:text="Language-A" />
 
     <TextView
@@ -16,11 +15,20 @@
         android:layout_marginLeft="22dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_gender"
         android:layout_toRightOf="@id/tv_language"
         android:singleLine="true"
         android:maxLines="1"
         android:text="English"
+        />
+
+    <ImageView
+        android:id="@+id/img_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/icon_close"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="3dp"
         />
 
 

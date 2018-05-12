@@ -136,7 +136,7 @@
             tools:text="C"
             tools:visibility="visible" />
 
-        <com.xld.foreignteacher.views.SideNavigationView
+        <com.whynuttalk.foreignteacher.views.SideNavigationView
             android:id="@+id/sn_sideBar"
             android:layout_width="10dp"
             android:layout_height="432dp"

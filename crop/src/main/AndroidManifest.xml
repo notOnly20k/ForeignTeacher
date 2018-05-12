@@ -3,7 +3,7 @@
     <application>
         <provider
             android:name="com.soundcloud.android.crop.provider.SwiftyFileProvider"
-            android:authorities="com.xld.foreignteacher.data.provider.SwiftyFileProvider"
+            android:authorities="com.whynuttalk.foreignteacher.data.provider.SwiftyFileProvider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data

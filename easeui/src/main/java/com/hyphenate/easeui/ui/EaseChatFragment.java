@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hyphenate.EMMessageListener;
@@ -38,6 +39,7 @@ import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.R;
+import com.hyphenate.easeui.adapter.EaseMessageAdapter;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
 import com.hyphenate.easeui.model.EaseDingMessageHelper;
@@ -315,15 +317,13 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                     chatFragmentHelper.onAvatarLongClick(username);
                 }
             }
-            
+
             @Override
-            public void onBubbleLongClick(EMMessage message) {
-                contextMenuMessage = message;
+            public void onBubbleLongClick(String key, EaseMessageAdapter adapter, int position, TextView textView) {
                 if(chatFragmentHelper != null){
-                    chatFragmentHelper.onMessageBubbleLongClick(message);
+                    chatFragmentHelper.onMessageBubbleLongClick(key,adapter,position,textView);
                 }
             }
-            
             @Override
             public boolean onBubbleClick(EMMessage message) {
                 if(chatFragmentHelper == null){
@@ -1096,7 +1096,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         /**
          * on message bubble long pressed
          */
-        void onMessageBubbleLongClick(EMMessage message);
+        void onMessageBubbleLongClick(String key, EaseMessageAdapter adapter,int position,TextView textView);
         
         /**
          * on extend menu item clicked, return true if you want to override

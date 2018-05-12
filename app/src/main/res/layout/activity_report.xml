@@ -36,21 +36,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp">
 
-                <com.xld.foreignteacher.views.InformItemView
+                <com.whynuttalk.foreignteacher.views.InformItemView
                     android:id="@+id/tv_violation_user_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:text="@string/violation_user_name" />
 
-                <com.xld.foreignteacher.views.InformItemView
+                <com.whynuttalk.foreignteacher.views.InformItemView
                     android:id="@+id/tv_lewd_or_harassing_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:text="@string/lewd_or_harassing_content" />
 
-                <com.xld.foreignteacher.views.InformItemView
+                <com.whynuttalk.foreignteacher.views.InformItemView
                     android:id="@+id/tv_fraud"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -63,21 +63,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
 
-                <com.xld.foreignteacher.views.InformItemView
+                <com.whynuttalk.foreignteacher.views.InformItemView
                     android:id="@+id/tv_false_info"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:text="@string/false_info" />
 
-                <com.xld.foreignteacher.views.InformItemView
+                <com.whynuttalk.foreignteacher.views.InformItemView
                     android:id="@+id/tv_ads_promotion"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:text="@string/ads_promotion" />
 
-                <com.xld.foreignteacher.views.InformItemView
+                <com.whynuttalk.foreignteacher.views.InformItemView
                     android:id="@+id/tv_harassing"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

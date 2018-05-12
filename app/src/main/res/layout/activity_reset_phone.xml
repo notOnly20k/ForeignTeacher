@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.xld.foreignteacher.views.PhoneNumEditText
+    <com.whynuttalk.foreignteacher.views.PhoneNumEditText
         android:id="@+id/et_phone"
         android:layout_marginTop="@dimen/android_margin"
         android:layout_marginLeft="@dimen/android_margin"

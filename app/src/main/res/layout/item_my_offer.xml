@@ -33,6 +33,7 @@
             />
 
         <TextView
+            android:id="@+id/tv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -42,12 +43,41 @@
             />
 
         <View
+            android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/tv_info"
             android:background="@color/grey_cccccc"
             android:layout_marginTop="@dimen/android_margin"
-            android:layout_marginBottom="@dimen/android_margin"
+            android:layout_marginBottom="8dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_people"
+            android:layout_below="@id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="people:3"
+            android:layout_marginBottom="8dp"
+            />
+        <TextView
+            android:id="@+id/tv_sold"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="people:3"
+            android:paddingRight="20dp"
+            android:layout_marginBottom="8dp"
+            />
+        <TextView
+            android:id="@+id/tv_total_income"
+            android:layout_below="@id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Total income:$3"
+            android:layout_marginBottom="8dp"
             />
     </RelativeLayout>
 

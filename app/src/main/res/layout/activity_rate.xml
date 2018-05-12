@@ -125,7 +125,7 @@
                     android:text="Listening"
                     android:textColor="@color/black_00" />
 
-                <com.xld.foreignteacher.views.StarBarView
+                <com.whynuttalk.foreignteacher.views.StarBarView
                     android:id="@+id/sbv_starbar_listen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                     android:text="Grammar"
                     android:textColor="@color/black_00" />
 
-                <com.xld.foreignteacher.views.StarBarView
+                <com.whynuttalk.foreignteacher.views.StarBarView
                     android:id="@+id/sbv_starbar_grammar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -179,7 +179,7 @@
                     android:text="Vocabulary"
                     android:textColor="@color/black_00" />
 
-                <com.xld.foreignteacher.views.StarBarView
+                <com.whynuttalk.foreignteacher.views.StarBarView
                     android:id="@+id/sbv_starbar_vocabulary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -206,7 +206,7 @@
                     android:text="Pronunciation"
                     android:textColor="@color/black_00" />
 
-                <com.xld.foreignteacher.views.StarBarView
+                <com.whynuttalk.foreignteacher.views.StarBarView
                     android:id="@+id/sbv_starbar_pronunciation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -233,7 +233,7 @@
                     android:text="Fluency"
                     android:textColor="@color/black_00" />
 
-                <com.xld.foreignteacher.views.StarBarView
+                <com.whynuttalk.foreignteacher.views.StarBarView
                     android:id="@+id/sbv_starbar_fluency"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

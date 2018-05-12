@@ -3,7 +3,6 @@ package com.hyphenate.easeui.widget;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -66,15 +65,16 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         buttonMore = (Button) findViewById(R.id.btn_more);
         buttonShort = (Button) findViewById(R.id.btn_short_msg);
 //        edittext_layout.setBackgroundResource(R.drawable.ease_input_bar_bg_normal);
-        
+
         buttonSend.setOnClickListener(this);
+        buttonShort.setOnClickListener(this);
         buttonSetModeKeyboard.setOnClickListener(this);
         buttonSetModeVoice.setOnClickListener(this);
         buttonMore.setOnClickListener(this);
         faceLayout.setOnClickListener(this);
         editText.setOnClickListener(this);
         editText.requestFocus();
-        
+
 //        editText.setOnFocusChangeListener(new OnFocusChangeListener() {
 //
 //            @Override
@@ -134,8 +134,8 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 //                EMLog.d("key", "keyCode:" + event.getKeyCode() + " action" + event.getAction() + " ctrl:" + ctrlPress);
                 if (actionId == EditorInfo.IME_ACTION_SEND ||
                         (event.getKeyCode() == KeyEvent.KEYCODE_ENTER &&
-                         event.getAction() == KeyEvent.ACTION_DOWN &&
-                         ctrlPress == true)) {
+                                event.getAction() == KeyEvent.ACTION_DOWN &&
+                                ctrlPress == true)) {
                     String s = editText.getText().toString();
                     editText.setText("");
                     listener.onSendBtnClicked(s);
@@ -147,10 +147,10 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
             }
         });
 
-        
+
         buttonPressToSpeak.setOnTouchListener(new OnTouchListener() {
-            
-            @Override 
+
+            @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(listener != null){
                     return listener.onPressToSpeakBtnTouch(v, event);
@@ -159,7 +159,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
             }
         });
     }
-    
+
     /**
      * set recorder view when speak icon is touched
      * @param voiceRecorderView
@@ -175,7 +175,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
     public void onEmojiconInputEvent(CharSequence emojiContent){
         editText.append(emojiContent);
     }
-    
+
     /**
      * delete emojicon
      */
@@ -185,7 +185,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
             editText.dispatchKeyEvent(event);
         }
     }
-    
+
     /**
      * on clicked event
      * @param view
@@ -229,18 +229,21 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
                 listener.onToggleEmojiconClicked();
             }
         }else if (id == R.id.btn_short_msg) {
-            toggleFaceImage();
+            if (edittext_layout.getVisibility() == GONE){
+                edittext_layout.setVisibility(VISIBLE);
+                buttonPressToSpeak.setVisibility(GONE);
+            }
             if(listener != null){
                 listener.onToggleEmojiconClicked();
             }
         } else {
         }
     }
-    
-    
+
+
     /**
      * show voice icon when speak bar is touched
-     * 
+     *
      */
     protected void setModeVoice() {
         hideKeyboard();
@@ -275,8 +278,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 //        }
 
     }
-    
-    
+
     protected void toggleFaceImage(){
         if(faceNormal.getVisibility() == View.VISIBLE){
             showSelectedFaceImage();
@@ -284,17 +286,17 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
             showNormalFaceImage();
         }
     }
-    
+
     private void showNormalFaceImage(){
 //        faceNormal.setVisibility(View.VISIBLE);
 //        faceChecked.setVisibility(View.INVISIBLE);
     }
-    
+
     private void showSelectedFaceImage(){
 //        faceNormal.setVisibility(View.INVISIBLE);
 //        faceChecked.setVisibility(View.VISIBLE);
     }
-    
+
 
     @Override
     public void onExtendMenuContainerHide() {
@@ -303,10 +305,10 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 
     @Override
     public void onTextInsert(CharSequence text) {
-       int start = editText.getSelectionStart();
-       Editable editable = editText.getEditableText();
-       editable.insert(start, text);
-       setModeKeyboard();
+        int start = editText.getSelectionStart();
+        Editable editable = editText.getEditableText();
+        editable.insert(start, text);
+        setModeKeyboard();
     }
 
     @Override

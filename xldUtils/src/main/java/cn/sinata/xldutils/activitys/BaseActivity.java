@@ -192,7 +192,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void isShowDialog(Boolean show){
         if (show){
-            showDialog("");
+            showDialog("Loading...");
         }else {
             dismissDialog();
         }
@@ -208,6 +208,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         if(dialog==null){
             dialog=new ProgressDialog(this,R.style.Theme_ProgressDialog);
+
         }
         dialog.setCanceledOnTouchOutside(canCancel);
         dialog.setMessage(msg);

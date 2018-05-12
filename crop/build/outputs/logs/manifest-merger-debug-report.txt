@@ -16,7 +16,7 @@ ADDED from /home/cz/StudioProjects/ForeignTeacher/crop/src/main/AndroidManifest.
 	android:grantUriPermissions
 		ADDED from /home/cz/StudioProjects/ForeignTeacher/crop/src/main/AndroidManifest.xml:8:13-47
 	android:authorities
-		ADDED from /home/cz/StudioProjects/ForeignTeacher/crop/src/main/AndroidManifest.xml:6:13-90
+		ADDED from /home/cz/StudioProjects/ForeignTeacher/crop/src/main/AndroidManifest.xml:6:13-97
 	android:exported
 		ADDED from /home/cz/StudioProjects/ForeignTeacher/crop/src/main/AndroidManifest.xml:7:13-37
 	android:name

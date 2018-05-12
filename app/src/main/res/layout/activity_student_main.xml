@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_title_card">
 
-                <com.xld.foreignteacher.views.RadarView
+                <com.whynuttalk.foreignteacher.views.RadarView
                     android:id="@+id/score_card"
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
@@ -273,7 +273,7 @@
             android:textColor="@color/color_grey_999999"
             android:textSize="@dimen/text_13"/>
 
-            <com.xld.foreignteacher.views.LinePointView
+            <com.whynuttalk.foreignteacher.views.LinePointView
             android:layout_width="36dp"
             android:layout_height="12px"
             android:layout_marginLeft="6dp"
@@ -281,7 +281,7 @@
             android:layout_toRightOf="@id/tv_achievement_invisible"
             app:pointLeft="true"/>
 
-            <com.xld.foreignteacher.views.LinePointView
+            <com.whynuttalk.foreignteacher.views.LinePointView
             android:layout_width="36dp"
             android:layout_height="12px"
             android:layout_marginRight="6dp"
@@ -306,13 +306,13 @@
         android:padding="16dp"
         android:src="@mipmap/back_circle" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/android_margin"
-        android:padding="16dp"
-        android:src="@mipmap/icon_share" />
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_marginTop="@dimen/android_margin"-->
+        <!--android:padding="16dp"-->
+        <!--android:src="@mipmap/icon_share" />-->
 
 
 </RelativeLayout>

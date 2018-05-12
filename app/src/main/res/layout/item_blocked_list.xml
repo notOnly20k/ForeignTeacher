@@ -1,46 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.whynuttalk.foreignteacher.views.SwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    app:ios="false"
+    app:leftSwipe="true"
+    app:swipeEnable="true"
+    android:layout_height="55dp"
     android:background="@color/white"
     android:orientation="horizontal">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/img_head"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/android_margin"
-        fresco:actualImageScaleType="centerCrop"
-        fresco:placeholderImage="@mipmap/default_head"
-        fresco:placeholderImageScaleType="centerCrop"
-        fresco:roundAsCircle="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_name"
-        style="@style/style_tv_mine_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center_vertical"
-        android:layout_toRightOf="@id/img_head"
-        android:text="Mike" />
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/img_head"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/android_margin"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@mipmap/default_head"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:roundAsCircle="true" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/tv_name"
-        android:src="@mipmap/icon_woman" />
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/style_tv_mine_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_toRightOf="@id/img_head"
+            android:text="Mike" />
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/android_margin"
-        android:layout_marginRight="@dimen/android_margin"
-        android:background="@color/grey_f1f1f1"
-        android:layout_alignParentBottom="true"
-        />
+        <ImageView
+            android:id="@+id/img_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_name"
+            android:src="@mipmap/icon_woman" />
 
-</RelativeLayout>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/android_margin"
+            android:layout_marginRight="@dimen/android_margin"
+            android:background="@color/grey_f1f1f1" />
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:background="@color/yellow_ffcc00"
+        android:text="Delete"
+        android:textColor="@android:color/white"/>
+</com.whynuttalk.foreignteacher.views.SwipeMenuLayout>

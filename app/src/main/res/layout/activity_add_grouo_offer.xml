@@ -194,7 +194,7 @@
                 android:layout_below="@id/tv_min"
                 android:text="Contact" />
 
-            <com.xld.foreignteacher.views.PhoneNumEditText
+            <com.whynuttalk.foreignteacher.views.PhoneNumEditText
                 android:id="@+id/et_contact"
                 style="@style/style_tv_mine_item"
                 android:layout_width="match_parent"

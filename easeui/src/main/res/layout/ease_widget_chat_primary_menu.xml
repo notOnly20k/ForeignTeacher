@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:minHeight="40dp"
-                android:text="按住说话"
+                android:text="push to talk"
                 android:gravity="center"
                 android:textColor="#333333"
                 android:textSize="15sp" />

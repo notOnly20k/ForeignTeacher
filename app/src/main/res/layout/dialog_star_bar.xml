@@ -31,7 +31,7 @@
             android:text="@string/ok" />
     </RelativeLayout>
 
-    <com.xld.foreignteacher.views.StarBarView
+    <com.whynuttalk.foreignteacher.views.StarBarView
         android:id="@+id/sbv_starbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

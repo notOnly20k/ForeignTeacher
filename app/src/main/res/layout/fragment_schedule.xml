@@ -1,224 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mSwipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_black_1d1e24">
 
+
     <RelativeLayout
-        android:id="@+id/rl_title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_bar_size">
-
-
-        <TextView
-            style="@style/style_title_tv_yellow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/schedule" />
-
-        <TextView
-            android:id="@+id/tv_title_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/android_margin"
-            android:background="@mipmap/icon_add" />
-    </RelativeLayout>
-
-    <FrameLayout
-        android:id="@+id/ll_tab"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@id/rl_title"
-        android:background="@color/color_black_22242d"
-        android:orientation="horizontal"></FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/ll_shape"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll_tab"
-        android:layout_marginTop="-10dp"
-        android:background="@drawable/bg_layout_mine"
-        android:orientation="vertical" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/ll_shape"
-        android:layout_marginTop="-10dp"
-        android:background="@color/white"
-        android:orientation="vertical"></FrameLayout>
-
-
-
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/scroll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/rl_title"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/rl_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/title_bar_size">
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tab_date"
-                android:layout_width="match_parent"
+
+            <TextView
+                style="@style/style_title_tv_yellow"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/color_black_22242d"
-                app:tabIndicatorHeight="0dp"
-                app:tabMinWidth="55dp"
-                app:tabMode="scrollable" />
+                android:layout_centerInParent="true"
+                android:text="@string/schedule" />
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/vp_schedule"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/tab_date">
-            </android.support.v4.view.ViewPager>
-
-
-            <LinearLayout
-                android:id="@+id/ll_set"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_title_right"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/vp_schedule"
-                android:background="@color/white"
-                android:orientation="vertical">
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/android_margin"
+                android:background="@mipmap/icon_add" />
+        </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/tv_set_unavailable_time"
-                    style="@style/style_tv_mine_item"
+        <FrameLayout
+            android:id="@+id/ll_tab"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/rl_title"
+            android:background="@color/color_black_22242d"
+            android:orientation="horizontal"></FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/ll_shape"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_tab"
+            android:layout_marginTop="-10dp"
+            android:background="@drawable/bg_layout_mine"
+            android:orientation="vertical" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/ll_shape"
+            android:layout_marginTop="-10dp"
+            android:background="@color/white"
+            android:orientation="vertical"></FrameLayout>
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rl_title"
+            android:fillViewport="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tab_date"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:drawableRight="@mipmap/right_arrow"
-                    android:text="Set unavailable time " />
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_black_22242d"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabMinWidth="55dp"
+                    app:tabMode="scrollable" />
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_schedule"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_below="@id/tab_date"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="10dp"></android.support.v4.view.ViewPager>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_set"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/vp_schedule"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_set_unavailable_time"
+                        style="@style/style_tv_mine_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:drawableRight="@mipmap/right_arrow"
+                        android:text="Set unavailable time " />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/android_margin"
+                        android:layout_marginRight="@dimen/android_margin"
+                        android:background="@color/grey_f1f1f1" />
+
+                    <TextView
+                        android:id="@+id/tv_set_discount"
+                        style="@style/style_tv_mine_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:drawableRight="@mipmap/right_arrow"
+                        android:text="Set discount " />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="@dimen/android_margin"
-                    android:layout_marginRight="@dimen/android_margin"
+                    android:layout_height="16dp"
+                    android:layout_below="@id/ll_set"
                     android:background="@color/grey_f1f1f1" />
 
-                <TextView
-                    android:id="@+id/tv_set_discount"
-                    style="@style/style_tv_mine_item"
+                <LinearLayout
+                    android:id="@+id/ll_content"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:drawableRight="@mipmap/right_arrow"
-                    android:text="Set discount " />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ll_set"
+                    android:layout_marginTop="@dimen/android_margin"
+                    android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                android:layout_below="@id/ll_set"
-                android:background="@color/grey_f1f1f1" />
+                    <RadioGroup
+                        android:id="@+id/rg_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/ll_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/ll_set"
-                android:layout_marginTop="@dimen/android_margin"
-                android:orientation="vertical">
+                        <RadioButton
+                            android:id="@+id/rb_my_offer"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="6dp"
+                            android:layout_marginLeft="@dimen/android_margin"
+                            android:layout_marginRight="@dimen/android_margin"
+                            android:layout_marginTop="6dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_radio_group_tab"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:text="My Offers"
+                            android:textSize="16sp" />
 
-                <RadioGroup
-                    android:id="@+id/rg_title"
+                        <RadioButton
+                            android:id="@+id/rb_my_group_offer"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="6dp"
+                            android:layout_marginLeft="@dimen/android_margin"
+                            android:layout_marginRight="@dimen/android_margin"
+                            android:layout_marginTop="6dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_radio_group_tab"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:text="My Group Offers"
+                            android:textSize="16sp" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/img_line_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_below="@id/ll_content"
+                    android:layout_marginLeft="76dp"
+                    android:layout_marginTop="-10dp"
+                    android:scaleType="matrix"
+                    android:src="@mipmap/icon_line" />
+
+                <ImageView
+                    android:id="@+id/img_line_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/ll_content"
+                    android:layout_marginRight="76dp"
+                    android:layout_marginTop="-10dp"
+                    android:scaleType="matrix"
+                    android:src="@mipmap/icon_line" />
+
+                <com.whynuttalk.foreignteacher.views.ScollerRecyclerView
+                    android:id="@+id/rec_content"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_gravity="center"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_content"
+                    android:background="@color/grey_f1f1f1"
+                    android:paddingBottom="@dimen/android_margin"
+                    tools:listitem="@layout/item_my_offer"></com.whynuttalk.foreignteacher.views.ScollerRecyclerView>
+                <!--<FrameLayout-->
+                <!--android:id="@+id/fl_replace"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_below="@+id/ll_content"-->
+                <!--android:layout_marginBottom="20dp"-->
+                <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
+                <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
+                <!--android:layout_marginTop="10dp"/>-->
+            </RelativeLayout>
 
-                    <RadioButton
-                        android:id="@+id/rb_my_offer"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginBottom="6dp"
-                        android:layout_marginLeft="@dimen/android_margin"
-                        android:layout_marginRight="@dimen/android_margin"
-                        android:layout_marginTop="6dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_radio_group_tab"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:text="My Offers"
-                        android:textSize="16sp" />
+        </android.support.v4.widget.NestedScrollView>
 
-                    <RadioButton
-                        android:id="@+id/rb_my_group_offer"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginBottom="6dp"
-                        android:layout_marginLeft="@dimen/android_margin"
-                        android:layout_marginRight="@dimen/android_margin"
-                        android:layout_marginTop="6dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_radio_group_tab"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:text="My Group Offers"
-                        android:textSize="16sp" />
-                </RadioGroup>
-            </LinearLayout>
+        <View
+            android:id="@+id/fake_status_bar"
+            style="@style/navigation_normal_style"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/img_line_left"
-                android:layout_width="wrap_content"
-                android:layout_height="16dp"
-                android:layout_below="@id/ll_content"
-                android:layout_marginLeft="76dp"
-                android:layout_marginTop="-10dp"
-                android:scaleType="matrix"
-                android:src="@mipmap/icon_line" />
-
-            <ImageView
-                android:id="@+id/img_line_right"
-                android:layout_width="wrap_content"
-                android:layout_height="16dp"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/ll_content"
-                android:layout_marginRight="76dp"
-                android:layout_marginTop="-10dp"
-                android:scaleType="matrix"
-                android:src="@mipmap/icon_line" />
-
-            <com.xld.foreignteacher.views.ScollerRecyclerView
-                android:id="@+id/rec_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_content"
-                android:background="@color/grey_f1f1f1"
-                android:paddingBottom="@dimen/android_margin"
-                tools:listitem="@layout/item_my_offer"></com.xld.foreignteacher.views.ScollerRecyclerView>
-            <!--<FrameLayout-->
-            <!--android:id="@+id/fl_replace"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_below="@+id/ll_content"-->
-            <!--android:layout_marginBottom="20dp"-->
-            <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
-            <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
-            <!--android:layout_marginTop="10dp"/>-->
-        </RelativeLayout>
-
-    </android.support.v4.widget.NestedScrollView>
-
-    <View
-        android:id="@+id/fake_status_bar"
-        style="@style/navigation_normal_style"
-        android:layout_alignParentBottom="true" />
-
-
-</RelativeLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

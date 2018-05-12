@@ -115,7 +115,7 @@
                     android:layout_below="@id/et_name"
                     android:text="Contact Number" />
 
-                <com.xld.foreignteacher.views.PhoneNumEditText
+                <com.whynuttalk.foreignteacher.views.PhoneNumEditText
                     android:id="@+id/et_contact_number"
                     style="@style/style_user_info_item"
                     android:layout_width="match_parent"
@@ -210,10 +210,9 @@
                 <TextView
                     android:id="@+id/tv_nationality"
                     style="@style/style_user_info_item"
-                    android:layout_width="match_parent"
+                    android:layout_width="111dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/view3"
-                    android:drawableRight="@mipmap/right_arrow"
                     android:text="Nationality" />
 
                 <TextView
@@ -227,7 +226,7 @@
                     android:drawableRight="@mipmap/right_arrow"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="111" />
+                   />
 
                 <TextView
                     android:id="@+id/tv_language"
@@ -245,7 +244,7 @@
                     android:layout_below="@id/tv_language"
                     tools:listitem="@layout/item_add_languages"></android.support.v7.widget.RecyclerView>
 
-                <com.xld.foreignteacher.views.StarBarView
+                <com.whynuttalk.foreignteacher.views.StarBarView
                     android:id="@+id/star_chinese_level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

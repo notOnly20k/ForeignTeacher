@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.xld.foreignteacher.ui.main.MainActivity"
+    tools:context="com.whynuttalk.foreignteacher.ui.main.MainActivity"
     android:fitsSystemWindows="true"
     android:background="@color/yellow_ffcc00"
     >

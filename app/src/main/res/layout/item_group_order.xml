@@ -99,7 +99,7 @@
         android:background="@color/grey_f1f1f1"
         android:layout_below="@+id/tv_pinpin_tile"
         android:gravity="center"
-        android:text="@string/delete"
+        android:text="Delete"
         android:textColor="@color/black_00" />
 
 </RelativeLayout>
